@@ -11,3 +11,23 @@ START! 即Study Together And Review Together!
 ## 时间表
 
 5月23日截止！！！！
+
+## How to run?
+
+1. In `frontend` directory, type
+
+```bash
+npm start
+```
+
+2. In `backend` directory, type
+
+```bash
+python3 manage.py runserver
+```
+
+3. In your browser, visit
+
+```
+http://localhost:3000
+```
