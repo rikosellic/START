@@ -31,3 +31,10 @@ python3 manage.py runserver
 ```
 http://localhost:3000
 ```
+
+##MySQL搭建方法
+
+1. 若没有安装MySQL，请前往此网址下载(已安装请跳过此步)
+```
+https://dev.mysql.com/downloads/file/?id=495322
+```
