@@ -25,7 +25,7 @@ SECRET_KEY = '4v04ed5&k-qn=arkfpd!dkgrb&qa2fv^-4-fqnf=jg$vm*^x&q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
