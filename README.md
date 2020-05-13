@@ -58,4 +58,10 @@ https://dev.mysql.com/downloads/file/?id=495322
      python manage.py migrate
      ```
 
-     
+8. 重新创建Django管理员，运行
+
+   ```
+   python manage.py createsuperuser
+   ```
+
+   设置用户名为start,密码为start（无需注意警告,yes即可）
