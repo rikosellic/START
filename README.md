@@ -69,8 +69,10 @@ https://dev.mysql.com/downloads/file/?id=495322
     ```
     python manage.py runserver
     ```
+    
     开启后端服务，打开MySQL
     访问
+    
     ```
     http://localhost:8000/admin
     ```
