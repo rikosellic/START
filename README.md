@@ -59,17 +59,19 @@ https://dev.mysql.com/downloads/file/?id=495322
      python manage.py migrate
      ```
   8. 重新创建超级管理员，运行
+   
     ```
     python manage.py createsuperuser
     ```
      设置管理员用户名为start，密码为start
   9. 运行
+    
     ```
     python manage.py runserver
     ```
     开启后端服务，打开MySQL
     访问
-  ```
-  http://localhost:8000/admin
-  ```
+    ```
+    http://localhost:8000/admin
+    ```
   即可进入Django后端管理页面，可以在此页面添加或删除，在workbench中可以看到数据相应变化
