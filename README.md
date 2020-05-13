@@ -34,10 +34,11 @@ http://localhost:3000
 
 ## MySQL搭建方法
 
-1. 若没有安装MySQL，请前往此网址下载。安装时最好在设置root密码界面（root密码可自己任取），点击右下方add User添加一个用户，用户名为start, 密码为start，权限db admin。也可在安装完成后使用命令行之后新建一个start用户并给予权限。(已安装请跳过此步)
+1. 若没有安装MySQL，请前往此网址下载。
 ```
 https://dev.mysql.com/downloads/file/?id=495322
 ```
+安装时最好在设置root密码界面（root密码可自己任取），点击右下方add User添加一个用户，用户名为start, 密码为start，权限db admin。也可在安装完成后使用命令行新建一个start用户并给予权限。(已安装请跳过此步)
 
 2. 打开MySQL Workbench，点击MySQL Connections右侧加号创建新项目
 
@@ -58,10 +59,4 @@ https://dev.mysql.com/downloads/file/?id=495322
      python manage.py migrate
      ```
 
-8. 重新创建Django管理员，运行
-
-   ```
-   python manage.py createsuperuser
-   ```
-
-   设置用户名为start,密码为start（无需注意警告,yes即可）
+     
