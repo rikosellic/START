@@ -54,24 +54,26 @@ https://dev.mysql.com/downloads/file/?id=495322
 
   7. 运行（使用Pycharm,修改相应Parameters也可）
 
-     ```
+     ```bash
      python manage.py makemigrations
      python manage.py migrate
      ```
   8. 重新创建超级管理员，运行
-   
-    ```
+    
+    ``` bash
+    
     python manage.py createsuperuser
     ```
-     设置管理员用户名为start，密码为start
+     
+   设置管理员用户名为start，密码为start
   9. 运行
     
     ```
     python manage.py runserver
     ```
     
-    开启后端服务，打开MySQL
-    访问
+   开启后端服务，打开MySQL
+   访问
     
     ```
     http://localhost:8000/admin
