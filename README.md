@@ -64,8 +64,9 @@ https://dev.mysql.com/downloads/file/?id=495322
 
      
    设置管理员用户名为start，密码为start
+  
   9. 运行
-
+  
     python manage.py runserver
     
    开启后端服务，打开MySQL
