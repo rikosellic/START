@@ -34,7 +34,7 @@ http://localhost:3000
 
 ## MySQL搭建方法
 
-1. 若没有安装MySQL，请前往此网址下载(已安装请跳过此步)
+1. 若没有安装MySQL，请前往此网址下载。安装时最好把管理员设置成start,密码为start。否则需要之后新建一个start用户并给予权限。(已安装请跳过此步)
 ```
 https://dev.mysql.com/downloads/file/?id=495322
 ```
