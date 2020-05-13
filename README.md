@@ -31,12 +31,14 @@ python3 manage.py runserver
 ```
 http://localhost:3000
 ```
-##前端运行
+## 前端运行
 in frontend，type:
-1.npm isntall -g create-react-app
-2.npm install
-3.npm start
-4在url后面加regist/login
+```
+npm isntall -g create-react-app
+npm install
+npm start
+```
+在url后面加regist/login
 
 ## MySQL搭建方法
 
