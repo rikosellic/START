@@ -34,7 +34,7 @@ http://localhost:3000
 ## 前端运行
 in frontend，type:
 ```
-npm isntall -g create-react-app
+npm install -g create-react-app
 npm install
 npm start
 ```
