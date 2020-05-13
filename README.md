@@ -19,7 +19,7 @@ START! 即Study Together And Review Together!
 ```bash
 npm start
 ```
-安装时最好在设置root密码界面（root密码可自己任取），点击右下方add User添加一个用户，用户名为start, 密码为start，权限db admin。也可在安装完成后使用命令行新建一个start用户并给予权限。(已安装请跳过此步)
+
 2. In `backend` directory, type
 
 ```bash
@@ -38,7 +38,7 @@ http://localhost:3000
 ```
 https://dev.mysql.com/downloads/file/?id=495322
 ```
-
+安装时最好在设置root密码界面（root密码可自己任取），点击右下方add User添加一个用户，用户名为start, 密码为start，权限db admin。也可在安装完成后使用命令行新建一个start用户并给予权限。(已安装请跳过此步)
 2. 打开MySQL Workbench，点击MySQL Connections右侧加号创建新项目
 
 ![](https://raw.githubusercontent.com/rikosellic/IMAGE/master/mysql_workbench.png)
