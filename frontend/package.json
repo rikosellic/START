@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -13,21 +12,8 @@
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.2.0",
-<<<<<<< HEAD
-    "react-scripts": "3.4.1",
-    "reactstrap": "latest"
-=======
     "antd": "^3.19.1",
-    "axios": "^0.19.0",
-    "bootstrap": "^4.5.0",
-    "react": "^16.8.6",
-    "react-bootstrap": "^1.0.1",
-    "react-dom": "^16.8.6",
     "react-scripts": "latest"
->>>>>>> 78ef56f5d75b4036a6d175a2b45df3ed21cc482d
-=======
-    "react-scripts": "3.4.1"
->>>>>>> frontend
   },
   "scripts": {
     "start": "react-scripts start",
