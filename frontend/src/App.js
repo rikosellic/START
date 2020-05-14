@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Router>
         <div className='start'>
-          <Route path='/' component={Init}/>
+          <Route path='/init' component={Init}/>
           <Route path='/login' component={Login}/>
           <Route path='/register' component={Register}/>
           <Route path='/main' component={Main}/>
