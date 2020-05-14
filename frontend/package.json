@@ -10,8 +10,10 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.2.0",
+<<<<<<< HEAD
     "react-scripts": "3.4.1",
     "reactstrap": "latest"
 =======
@@ -23,6 +25,9 @@
     "react-dom": "^16.8.6",
     "react-scripts": "latest"
 >>>>>>> 78ef56f5d75b4036a6d175a2b45df3ed21cc482d
+=======
+    "react-scripts": "3.4.1"
+>>>>>>> frontend
   },
   "scripts": {
     "start": "react-scripts start",
