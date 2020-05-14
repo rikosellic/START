@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 
 # add this
+'''
 class Todo(models.Model):
     title = models.CharField('title',max_length=120)
     description = models.TextField('description')
@@ -14,8 +15,8 @@ class Todo(models.Model):
 
     def _str_(self):
         return self.title
-
-class UserInfo(models.Model):
+'''
+class User(models.Model):
     """
     创建如下几个表的字段
     """
@@ -28,11 +29,11 @@ class UserInfo(models.Model):
     # 邮箱 最大长度30 唯一 不能为空
     email = models.CharField('email', max_length=30, unique=True, null=False)
     # 学习目标 最大长度100
-    goal = models.CharField('goal',  max_length=100)
+    goal = models.CharField('goal',  max_length=100,null=True)
 
 
     class Meta:
-        db_table = 'UserInfo'
+        db_table = 'User'
 
     def _str_(self):
         return self.userID
