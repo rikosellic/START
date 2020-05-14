@@ -25,7 +25,7 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
          input=request.data
          input['userID']=current_user_num+1
          if 'goal' not in input.keys():
-             input['goal']=''
+             input['goal']="No goal yet."
          serializer = UserSerializer(data=input)
          if serializer.is_valid():
             serializer.save()
