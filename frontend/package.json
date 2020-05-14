@@ -7,13 +7,18 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "antd": "latest",
     "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "clean": "^4.0.2",
+    "dayjs": "^1.8.27",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "react-bootstrap": "latest",
     "react-router-dom": "latest",
-    "antd": "latest"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

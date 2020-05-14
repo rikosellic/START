@@ -1,11 +1,10 @@
 import React from 'react';
-import WrappedNormalLoginForm from '../components/loginComp'
 
 class Login extends React.Component {
   render() {
     return (
       <div>
-        <WrappedNormalLoginForm history={this.props.history}/>
+        <h1>This is Init!</h1>
       </div>
     );
   }
