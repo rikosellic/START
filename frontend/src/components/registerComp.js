@@ -8,17 +8,19 @@ import {
     // Row,
     // Col,
     Checkbox,
-    Button,
-    AutoComplete,
-  } from 'antd';
-  import 'antd/dist/antd.css';
-  import React from 'react'
-  import './registerComp.css'
-  import axios from 'axios'
-  
-  // const { Option } = Select;
-  const AutoCompleteOption = AutoComplete.Option;
-  
+  Button,
+  AutoComplete,
+} from 'antd';
+import 'antd/dist/antd.css';
+import React from 'react'
+import './registerComp.css'
+import axios from 'axios'
+
+// const { Option } = Select;
+const AutoCompleteOption = AutoComplete.Option;
+
+const logo = require("../logo/logo.png");
+
 {/*const residences = [
     {
       value: 'zhejiang',
@@ -174,8 +176,8 @@ import {
       return (
         // <div className='loginRegister'>注册</div>
         <div className='registerDiv'>
-            <img className ='register-logo' src={require('D:/personaldownload/START/frontend/src/components/logo/Logo.png')}/>
-            <div className='registerTitle'>注册</div>
+          <img className='register-logo' src={require(logo)}/>
+          <div className='registerTitle'>注册</div>
         <Form {...formItemLayout} onSubmit={this.handleSubmit} className='register-form'>
           <Form.Item label="E-mail">
             {getFieldDecorator('email', {

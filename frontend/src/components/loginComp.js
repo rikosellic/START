@@ -1,9 +1,11 @@
 import React from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import {Form, Icon, Input, Button, Checkbox} from 'antd';
 import 'antd/dist/antd.css';
 import './loginComp.css'
 import axios from 'axios'
 // import qs from 'qs'
+
+const logo = require("../logo/logo.png");
 
 class NormalLoginForm extends React.Component {
 
@@ -13,7 +15,7 @@ class NormalLoginForm extends React.Component {
     }
 
     submitHandle = () => {
-        if(!this.state.username || !this.state.password){
+        if (!this.state.username || !this.state.password) {
             return
         }
         let data = {username: this.state.username, password: this.state.password}
@@ -67,7 +69,7 @@ class NormalLoginForm extends React.Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className='login-div'>
-                <img className ='login-logo' src={require('D:/personaldownload/START/frontend/src/components/logo/Logo.png')}/>
+                <img className='login-logo' src={require(logo)}/>
                 <div className='loginTitle'>登录</div>
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <Form.Item>
