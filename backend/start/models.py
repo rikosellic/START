@@ -37,3 +37,31 @@ class User(models.Model):
 
     def _str_(self):
         return self.userID
+class Word(models.Model):
+	"""
+    创建如下几个表的字段
+    """
+	# 单词ID ： 该字段为主键
+	ID = models.IntegerField('ID',primary_key=True)
+	# 单词 唯一 不能为空
+	Word = models.TextField('Word',unique=True,null=False)
+	# 过去式 可以为空
+	GQS = models.TextField('GQS',null=True)
+	# 过去分词 可以为空
+	GQFC = models.TextField('GQFC',null=True)
+	# 现在分词 可以为空
+	XZFC = models.TextField('XZFC',null=True)
+	# 复数 可以为空
+	FS = models.TextField('FS',null=True)
+	# 单词释义 不能为空
+	meaning = models.TextField('meaning',null=False）
+	# 例句 可以为空
+	lx = models.TextField('lx',null=True)
+	
+	
+	class Meta:
+		db_table = 'words'
+		
+	def _str_(self):
+		return self.ID
+	
