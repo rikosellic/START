@@ -1,11 +1,41 @@
 import React from 'react';
+import Logo from "../components/Logo";
+import "./login.css"
+import {
+  Jumbotron,
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+} from 'react-bootstrap';
 
 class Login extends React.Component {
   render() {
     return (
-      <div>
-        <h1>This is Init!</h1>
-      </div>
+        <div className='login-div'>
+          <div className='login-logo'><Logo/></div>
+          <div className='login-title'>登录</div>
+          <Form>
+            <Form.Group>
+              <Form.Label>username</Form.Label>
+              <Form.Control placeholder="Username" />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+            <Form.Group>
+              <Form.Check type="checkbox" label="rememberme" />
+            </Form.Group>
+            <div className="login-button">
+            <Button variant="primary" size="sm" type="submit">
+              login
+            </Button>
+            <a href="/register" style={{marginLeft: '10%'}}>go to register</a>
+            </div>
+          </Form>
+        </div>
     );
   }
 }
