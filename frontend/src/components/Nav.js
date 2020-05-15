@@ -4,6 +4,7 @@ import {
   Nav,
   Container
 } from "react-bootstrap";
+import * as bs from "bootstrap"
 
 
 const NavBar = (props) => {
