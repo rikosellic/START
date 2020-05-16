@@ -15,7 +15,7 @@ class Login extends React.Component {
     return (
         <div className='login-div'>
           <div className='login-logo'><Logo/></div>
-          <div className='login-title'>登录</div>
+          <div className='login-title'>Login</div>
           <Form>
             <Form.Group>
               <Form.Label>username</Form.Label>
@@ -32,7 +32,8 @@ class Login extends React.Component {
             <Button variant="primary" size="sm" type="submit">
               login
             </Button>
-            <a href="/register" style={{marginLeft: '10%'}}>go to register</a>
+            <a href="//www.baidu.com" style={{marginLeft: '5%'}}>forget password?</a>
+            <a href="/register" style={{marginLeft: '5%'}}>go to register</a>
             </div>
           </Form>
         </div>
