@@ -54,7 +54,7 @@ class Word(models.Model):
 	# 复数 可以为空
 	FS = models.TextField('FS',null=True)
 	# 单词释义 不能为空
-	meaning = models.TextField('meaning',null=False）
+	meaning = models.TextField('meaning',null=False)
 	# 例句 可以为空
 	lx = models.TextField('lx',null=True)
 	
