@@ -37,6 +37,8 @@ class ReviewRoom: #复习房间类
         self.usernamelist = [hostname]
         self.hostname = hostname
         self.score =[0]
+        self.wordlist = []
+        self.answerlist = []
 
     def enterRoom(self,username):
         if self.usernum>=6: #满员，返回0
@@ -46,6 +48,12 @@ class ReviewRoom: #复习房间类
             self.usernamelist.append(username)
             self.score.append(0)
             return 1
+
+    def getWordList(self, wordlist):
+        if not self.wordlist:
+
+    def questions(self):
+        self.wordlist
 
     def quitRoom(self,username):
         if self.usernum==1: #没人了，返回2
