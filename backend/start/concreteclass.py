@@ -49,12 +49,6 @@ class ReviewRoom: #复习房间类
             self.score.append(0)
             return 1
 
-    def getWordList(self, wordlist):
-        if not self.wordlist:
-
-    def questions(self):
-        self.wordlist
-
     def quitRoom(self,username):
         if self.usernum==1: #没人了，返回2
             return 2
