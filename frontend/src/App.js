@@ -8,6 +8,7 @@ import Main from "./containers/main";
 import Personal from "./containers/personal";
 import ReviewRoom from "./containers/reviewRoom";
 import JoinRoom from "./containers/joinRoom";
+import ReviewSummary from "./containers/reviewSummary"
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
           <Route path='/personal' component={Personal}/>
           <Route path='/reviewRoom' component={ReviewRoom}/>
           <Route path='/joinRoom' component={JoinRoom}/>
+          <Route path='/reviewSummary' component={ReviewSummary}/>
         </div>
       </Router>
     )

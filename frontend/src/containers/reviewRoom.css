@@ -3,7 +3,7 @@
 }
 
 .review-word{
-    margin-left:30%;
+    margin-left:38%;
     height: 100px;
     font-size: 40px;
 }
@@ -16,9 +16,11 @@
 }
 
 .review-anwser{
-    margin-left:30%;
+    margin-left:38%;
+    width: 30%;
     height: 50px;
     font-size: 20px;
+
 }
 
 .review-speed{
@@ -26,4 +28,13 @@
     text-align: center;
     height: 50px;
     font-size: 20px;
+}
+
+.review-button{
+    width: 100%;
+    border-color: bluesky;
+}
+
+.review-choice{
+    text-align:left;
 }

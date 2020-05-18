@@ -26,32 +26,36 @@ class ReviewRoom extends React.Component {
             <div class="review-anwser">
               <Form.Group as={Row}>
                 <Col sm={10}>
-                <Button variant="outline-info">
+                <Button className="review-button" variant="outline-info">
                   <Form.Check
+                    className="review-choice"
                     type="radio"
                     label="nmsl"
                     name="Radios"
                     id="radios1"
                   />
                 </Button><br/><br/>
-                <Button variant="outline-info">
+                <Button className="review-button" variant="outline-info">
                   <Form.Check
+                    className="review-choice"
                     type="radio"
                     label="wdnmd"
                     name="Radios"
                     id="radios2"
                   />
                 </Button><br/><br/>
-                <Button variant="outline-info">
+                <Button className="review-button" variant="outline-info">
                   <Form.Check
+                    className="review-choice"
                     type="radio"
                     label="nnb"
                     name="Radios"
                     id="radios3"
                   />
                 </Button><br/><br/>
-                  <Button variant="outline-info">
+                  <Button className="review-button" variant="outline-info">
                   <Form.Check
+                    className="review-choice"
                     type="radio"
                     label="handsome"
                     name="Radios"
@@ -62,7 +66,7 @@ class ReviewRoom extends React.Component {
               </Form.Group>
             </div>
             <div class="review-speed">
-              score:20/50  speed:21/50
+              score:20/50 speed:21/50
             </div>
           </div>
     );
