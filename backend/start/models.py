@@ -37,6 +37,7 @@ class User(models.Model):
 
     def _str_(self):
         return self.userID
+
 class Word(models.Model):
 	"""
     创建如下几个表的字段
@@ -54,7 +55,7 @@ class Word(models.Model):
 	# 复数 可以为空
 	FS = models.TextField('FS',null=True)
 	# 单词释义 不能为空
-	meaning = models.TextField('meaning',null=False）
+	meaning = models.TextField('meaning',null=False)
 	# 例句 可以为空
 	lx = models.TextField('lx',null=True)
 	
