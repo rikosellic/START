@@ -28,10 +28,11 @@ class TodoView(viewsets.ModelViewSet):
 '''
 
 class UserInfoManagement(APIView): #用于处理用户信息的API接口
-    def get(self, request):  #以GET方法调用，返回全部用户信息
-        usersinfo = User.objects.all()
-        serializer = UserSerializer(usersinfo, many=True)
-        return Response(serializer.data)
+	def get(self, request):  #以GET方法调用，返回全部用户信息
+		usersinfo = User.objects.all()
+		serializer = UserSerializer(usersinfo, many=True)
+		print(list(User.objects.all().values_list('userID','username'))[0][0])
+		return Response(serializer.data)
 
     def post(self, request):     #以POST方法调用， 创建一个新用户， userID为现有用户数加1
          current_user_num=len(User.objects.all())

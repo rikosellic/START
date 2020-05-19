@@ -68,4 +68,18 @@ class Word(models.Model):
 		
 	def _str_(self):
 		return self.ID
-	
+
+class StudyData(models.Model):
+	"""
+    创建如下几个表的字段
+    """
+	# 用户ID ： 该字段为主键
+	userID = models.IntegerField('userID',primary_key=True)
+	# 单词ID 唯一 可以为空
+	ID = models.TextField('ID',unique=True,null=True)
+
+	class Meta:
+		db_table = 'studydata'
+		
+	def _str_(self):
+		return self.userID
