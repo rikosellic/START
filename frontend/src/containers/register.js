@@ -10,7 +10,6 @@ import {
   Alert,
   Button,
 } from 'react-bootstrap';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 
 class Register extends React.Component {

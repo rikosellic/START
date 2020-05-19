@@ -1,0 +1,50 @@
+.white a:link{
+    color:white;
+    text-decoration:none;
+}
+.white a:visited{
+    color:white;
+    text-decoration:none;
+}
+.white a:hover{
+    color:grey;
+    text-decoration:none;
+}
+.white a:active{
+    color:white;
+    text-decoration:none;
+}
+
+.blue a:link{
+    color:blue;
+    text-decoration:none;
+}
+.blue a:visited{
+    color:blue;
+    text-decoration:none;
+}
+.blue a:hover{
+    color:skyblue;
+    text-decoration:none;
+}
+.blue a:active{
+    color:blue;
+    text-decoration:none;
+}
+
+.black a:link{
+    color:black;
+    text-decoration:none;
+}
+.black a:visited{
+    color:black;
+    text-decoration:none;
+}
+.black a:hover{
+    color:white;
+    text-decoration:none;
+}
+.black a:active{
+    color:black;
+    text-decoration:none;
+}
