@@ -1,0 +1,40 @@
+.review-score{
+    width: 16%;
+}
+
+.review-word{
+    margin-left:38%;
+    height: 100px;
+    font-size: 40px;
+}
+
+.review-time{
+    margin-top: 2%;
+    text-align: center;
+    height: 50px;
+    font-size: 20px;
+}
+
+.review-anwser{
+    margin-left:38%;
+    width: 30%;
+    height: 50px;
+    font-size: 20px;
+
+}
+
+.review-speed{
+    padding-top: 250px;
+    text-align: center;
+    height: 50px;
+    font-size: 20px;
+}
+
+.review-button{
+    width: 100%;
+    border-color: bluesky;
+}
+
+.review-choice{
+    text-align:left;
+}

@@ -7,7 +7,7 @@ import {
 import * as bs from "bootstrap"
 
 
-const NavBar = (props) => {
+const NavBar2 = (props) => {
   return (
     <header>
       <Navbar bg="light" expand="lg">
@@ -17,8 +17,6 @@ const NavBar = (props) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <Nav.Link>sdtyb</Nav.Link>
-              <Nav.Link href="/personal">Personal Information</Nav.Link>
-              <Nav.Link href="/personal">Sign Out</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -27,4 +25,4 @@ const NavBar = (props) => {
   );
 }
 
-export default NavBar;
+export default NavBar2;

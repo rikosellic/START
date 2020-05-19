@@ -1,3 +1,6 @@
+from .wordControl import *
+import random
+
 class StudyRoom: #学习房间类
     def __init__(self, roomID, hostname):
         self.roomID = roomID
@@ -5,6 +8,13 @@ class StudyRoom: #学习房间类
         self.usernamelist = [hostname]
         self.hostname = hostname
         self.learning_process =[0]
+        self.wordlist = []
+
+    def studyWordList(self,idlist):
+        list = studylist()
+        self.wordlist = []
+        for i in idlist:
+            self.wordlist.append(list[i-1])
 
     def enterRoom(self,username):
         if self.usernum>=6: #满员，返回0
@@ -30,6 +40,8 @@ class StudyRoom: #学习房间类
     def return_process(self):
         return self.learning_process
 
+	
+
 class ReviewRoom: #复习房间类
     def __init__(self, roomID,hostname):
         self.roomID = roomID
@@ -38,7 +50,11 @@ class ReviewRoom: #复习房间类
         self.hostname = hostname
         self.score =[0]
         self.wordlist = []
-        self.answerlist = []
+        self.reviewlist = []
+
+    def reviewWordList(self,userID):
+        self.wordlist = reviewlist(userID)
+        self.reviewlist = random.sample(self.wordlist,30)
 
     def enterRoom(self,username):
         if self.usernum>=6: #满员，返回0
