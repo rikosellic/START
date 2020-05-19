@@ -6,6 +6,19 @@ from	django.http	import	Http404
 from	rest_framework.views	import	APIView
 from	rest_framework.response	import	Response
 from	rest_framework	import	status
+from .roomControl import  RoomControl
+from .UserLoginControl import UserLoginControl
+from  concurrent.futures import ProcessPoolExecutor
+
+roomcontroller=RoomControl()
+print('RoomController created')
+userlogincontroller=UserLoginControl()
+print('Userlogincontroller created')
+
+pool = ProcessPoolExecutor(2)
+pool.submit(userlogincontroller.update)
+
+
 # Create your views here.
 
 '''
@@ -26,8 +39,29 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
          input['userID']=current_user_num+1
          if 'goal' not in input.keys():
              input['goal']="No goal yet."
+             input['logined']=False
          serializer = UserSerializer(data=input)
          if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
          return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class EnterStudyRoom(APIView): #用于加入房间
+    def post(self,request):
+        input=request.data
+        roomid=input['roomID']
+        username=input['username']
+        roomcontroller.enterStudyRoom(username,roomid)
+        return
+
+
+class Login(APIView):#用于用户登录
+    def post(self,request):
+        input=request.data
+        username=input['username']
+        password=input['password']
+        result=userlogincontroller.login(username,password)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
