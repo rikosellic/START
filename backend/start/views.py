@@ -28,24 +28,24 @@ class TodoView(viewsets.ModelViewSet):
 '''
 
 class UserInfoManagement(APIView): #用于处理用户信息的API接口
-	def get(self, request):  #以GET方法调用，返回全部用户信息
-		usersinfo = User.objects.all()
-		serializer = UserSerializer(usersinfo, many=True)
-		print(list(User.objects.all().values_list('userID','username'))[0][0])
-		return Response(serializer.data)
+    def get(self, request):  #以GET方法调用，返回全部用户信息
+	    usersinfo = User.objects.all()
+	    serializer = UserSerializer(usersinfo, many=True)
+	    print(list(User.objects.all().values_list('userID','username'))[0][0])
+	    return Response(serializer.data)
 
     def post(self, request):     #以POST方法调用， 创建一个新用户， userID为现有用户数加1
-         current_user_num=len(User.objects.all())
-         input=request.data
-         input['userID']=current_user_num+1
-         if 'goal' not in input.keys():
-             input['goal']="No goal yet."
-             input['logined']=False
-         serializer = UserSerializer(data=input)
-         if serializer.is_valid():
+        current_user_num=len(User.objects.all())
+        input=request.data
+        input['userID']=current_user_num+1
+        if 'goal' not in input.keys():
+            input['goal']="No goal yet."
+            input['logined']=False
+        serializer = UserSerializer(data=input)
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class EnterStudyRoom(APIView): #用于加入房间
     def post(self,request):
