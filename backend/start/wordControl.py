@@ -1,5 +1,5 @@
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "start.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
 import django
 django.setup()
 from django.shortcuts import render
@@ -13,22 +13,54 @@ from	rest_framework	import	status
 from django.forms.models import model_to_dict
 import random
 
-def studylist():
+
+def randomIdList():
+	list=[]
+	for i in range(1,15001):
+		list.append(i)
+	random.shuffle(list)
+	return list[0:50]
+
+def convert_id_to_name(userid):
+	try:
+		target=User.objects.get(userID=userid)
+		return target.username
+	except Exception as e:
+		print(e)
+		return 'RockWAN'
+
+def convert_name_to_id(username):
+	try:
+		target=User.objects.get(username=username)
+		return target.userID
+	except Exception as e:
+		print(e)
+		return  1
+
+def allWordList():
 	wordlist = []
 	t = Word.objects.all()
 	for x in t:
 		x = model_to_dict(x)
+		x.pop('GQS')
+		x.pop('GQFC')
+		x.pop('XZFC')
+		x.pop('FS')
 		wordlist.append(x)
 	wordlist = sorted(wordlist,key = lambda e:e['ID'],reverse = False)
 	return wordlist
 
-def reviewlist(userID):
+def pastWordList(userID):
 	user = userID
 	wordlist = []
 	reviewlist = []
 	t = Word.objects.all()
 	for x in t:
 		x = model_to_dict(x)
+		x.pop('GQS')
+		x.pop('GQFC')
+		x.pop('XZFC')
+		x.pop('FS')
 		wordlist.append(x)
 	wordlist = sorted(wordlist,key = lambda e:e['ID'],reverse = False)
 	l = model_to_dict(StudyData.objects.get(userID=user))
