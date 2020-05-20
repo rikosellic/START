@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import Logo from "../components/Logo";
 import "./login.css"
 import "./href.css"
@@ -10,8 +10,32 @@ import {
   Form,
   Button,
 } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
+  static propTypes = {
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }
+  constructor(props) {
+    super(props);
+    this.onusernameChange = this.onusernameChange.bind(this);
+    this.onpasswordChange = this.onpasswordChange.bind(this);
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+  onusernameChange(event) {
+    this.setState({
+      username: event.target.value,
+    });
+  }
+  onpasswordChange(event) {
+    this.setState({
+      password: event.target.value,
+    });
+  }
   render() {
     return (
         <div className='login-div'>
@@ -20,11 +44,11 @@ class Login extends React.Component {
           <Form>
             <Form.Group>
               <Form.Label>username</Form.Label>
-              <Form.Control placeholder="Username" required/>
+              <Form.Control placeholder="Username" required onChange={this.onusernameChange}/>
             </Form.Group>
             <Form.Group>
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" required/>
+              <Form.Control type="password" placeholder="Password" onChange={this.onpasswordChange} required/>
             </Form.Group>
             <Form.Group>
               <Form.Check type="checkbox" label="rememberme" />
