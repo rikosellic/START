@@ -1,6 +1,12 @@
 from .concreteclass import StudyRoom, ReviewRoom
 import random
 
+EN=1
+def printe(str,EN):
+    if(EN==1):
+        print(str)
+    return
+
 class RoomControl:
     def __init__(self):
         self.StudyRoomDict={}
@@ -8,9 +14,9 @@ class RoomControl:
 
     def checkRoom(self,id): #检查房间是否存在
         if id in self.StudyRoomDict.keys() or id in self.ReviewRoomDict.keys():
-            return False
-        else:
             return True
+        else:
+            return False
 
     def createStudyRoom(self,username): #创建学习房间
         try:
@@ -20,8 +26,9 @@ class RoomControl:
                     break
             room=StudyRoom(roomID,username)
             self.StudyRoomDict[roomID]=room
-            return 1
-        except Exception:
+            return roomID
+        except Exception as e:
+            print(e)
             return 0
 
     def createReviewRoom(self, username):  # 创建复习房间
@@ -32,8 +39,9 @@ class RoomControl:
                     break
             room = ReviewRoom(roomID, username)
             self.ReviewRoomDict[roomID] = room
-            return 1
-        except Exception:
+            return roomID
+        except Exception as e:
+            print(e)
             return 0
 
     def enterStudyRoom(self,username,roomid):
@@ -43,7 +51,8 @@ class RoomControl:
                 return 1
             else:
                 return 0
-        except Exception:
+        except Exception as e:
+            print(e)
             return 0
 
     def enterReviewRoom(self, username, roomid):
@@ -53,7 +62,8 @@ class RoomControl:
                 return 1
             else:
                 return 0
-        except Exception:
+        except Exception as e:
+            print(e)
             return 0
 
     def quitStudyRoom(self, username, roomid):
@@ -61,7 +71,8 @@ class RoomControl:
             if(self.StudyRoomDict[roomid].quitRoom(username)==2):
                 self.StudyRoomDict.pop(roomid)
             return 1
-        except Exception:
+        except Exception as e:
+            print(e)
             return 0
 
     def quitReviewRoom(self, username, roomid):

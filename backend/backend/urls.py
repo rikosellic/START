@@ -23,5 +23,9 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/userinfomanagement',views.UserInfoManagement.as_view())
+    path('api/userinfomanagement',views.UserInfoManagement.as_view()),
+    path('api/login', views.Login.as_view()),
+    path('api/enterstudyroom', views.EnterStudyRoom.as_view()),
+    path('api/createstudyroom',views.CreateStudyRoom.as_view()),
+    path('api/quitstudyroom',views.QuitStudyRoom.as_view())
 ]
