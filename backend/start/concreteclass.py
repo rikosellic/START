@@ -19,6 +19,7 @@ class StudyRoom: #学习房间类
         self.hostname = hostname
         self.learning_process =[0]
         self.wordlist = []
+        self.start=False
         printe(self.usernamelist,EN)
 
     def setWordList(self,idlist):
@@ -26,6 +27,7 @@ class StudyRoom: #学习房间类
         list = allWordList()
         for i in idlist:
             self.wordlist.append(list[i-1])
+        printe(self.wordlist,EN)
 
     #def returnWord(self,username):
        # index=self.usernamelist.index(username)
@@ -38,7 +40,7 @@ class StudyRoom: #学习房间类
             self.usernamelist.append(username)
             self.learning_process.append(0)
             printe(self.usernamelist,EN)
-            return 1
+            return self.usernamelist
 
     def quitRoom(self,username):
         printe('test',EN)
@@ -56,7 +58,28 @@ class StudyRoom: #学习房间类
     def returnProcess(self):
         return self.learning_process
 
-	
+    def nextWord(self,username):
+        index=self.usernamelist.index(username)
+        self.learning_process[index]+=1
+        return self.wordlist[self.learning_process[index]]
+
+    def lastWord(self,username):
+        index = self.usernamelist.index(username)
+        self.learning_process[index] -= 1
+        return self.wordlist[self.learning_process[index]]
+
+    def startStudy(self): #房间等待界面, 房主开始
+        self.start=True
+        return self.wordlist[0]
+
+    def checkStart(self): #用于房间等待界面, 非房主检测是否开始
+        if self.start==False:
+            return False
+        else:
+            return self.wordlist[0]
+
+    def checkUser(self): #房间等待界面, 获取房间内用户
+        return self.usernamelist
 
 class ReviewRoom: #复习房间类
     def __init__(self, roomID,hostname):
@@ -66,10 +89,11 @@ class ReviewRoom: #复习房间类
         self.hostname = hostname
         self.score =[0]
         self.wordlist = []
-        self.answersituation=[False]
+        self.alreadyright=0
         self.correctanswer=[]
         self.currentquestion=0
         self.problemlist=[]
+        self.start=False
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -119,7 +143,7 @@ class ReviewRoom: #复习房间类
             self.usernum+=1
             self.usernamelist.append(username)
             self.score.append(0)
-            return 1
+            return self.usernamelist
 
     def quitRoom(self,username):
         if self.usernum==1: #没人了，返回2
@@ -136,3 +160,32 @@ class ReviewRoom: #复习房间类
 
     def return_score(self):
         return self.score
+
+    def startReview(self): #房间等待界面, 房主开始
+        self.start=True
+        return self.problemlist[0]
+
+    def checkStart(self): #用于房间等待界面, 非房主检测是否开始
+        if self.start==False:
+            return False
+        else:
+            return self.problemlist[0]
+
+    def checkUser(self): #房间等待界面, 获取房间内用户
+        return self.usernamelist
+
+    def calculateScore(self,username,choice):
+        index=self.usernamelist.index(username)
+        if choice.strip()!=self.correctanswer[self.currentquestion].strip():
+            return 0
+        else:
+            yourscore=10-2*self.alreadyright
+            self.score[index]+=yourscore
+            self.alreadyright+=1
+            printe(self.score,EN)
+            return yourscore
+
+    def nextProblem(self):
+        self.currentquestion+=1
+        self.alreadyright=0
+        return self.problemlist[self.currentquestion]
