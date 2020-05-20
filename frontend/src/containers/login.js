@@ -36,7 +36,57 @@ class Login extends React.Component {
       password: event.target.value,
     });
   }
+    login(username,password) {
+        const loginValue = {"username": username,
+            "password": password}
+        const url = " http://localhost:8000/api/login";
+        try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(loginValue),
+            }).then(res=>{
+                if(res.status === 200){
+                    alert('Successful')
+                    this.props.history.push('/main')
+                }
+                else{
+                    alert(res)
+                }
+
+            })
+        } catch (error) {
+        }
+    }
+    register(username,password,email) {
+        const registerValue = {"username": username,
+            "password": password,
+            "email":email}
+        const url = " http://localhost:8000/api/userinfomanagement";
+        try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(registerValue),
+            }).then(res=>{
+                if(res.status === 200){
+                    alert('Successful')
+                    this.props.history.push('/login')
+                }
+                else{
+                    alert(res)
+                }
+
+            })
+        } catch (error) {
+        }
+    }
   render() {
+    const{username,password}=this.state
     return (
         <div className='login-div'>
           <div className='login-logo'><Logo/></div>
@@ -54,7 +104,7 @@ class Login extends React.Component {
               <Form.Check type="checkbox" label="rememberme" />
             </Form.Group>
             <div className="login-button">
-            <Button variant="primary" size="sm" type="submit">
+            <Button variant="primary" size="sm" block onClick={this.login.bind(this, username, password)}>
               login
             </Button>
             <span class="blue">
