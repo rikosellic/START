@@ -18,6 +18,11 @@ print('Userlogincontroller created')
 pool = ProcessPoolExecutor(1)
 pool.submit(userlogincontroller.update)
 
+EN=1
+def printe(str,EN):
+    if(EN==1):
+        print(str)
+    return
 
 # Create your views here.
 
@@ -44,6 +49,7 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
          serializer = UserSerializer(data=input)
          if serializer.is_valid():
             serializer.save()
+            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
          return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -67,7 +73,7 @@ class EnterStudyRoom(APIView): #用于加入房间
         username=input['username']
         result=roomcontroller.enterStudyRoom(username,roomid)
         if result==True:
-            return Response(status=status.HTTP_200_OK)
+            return Response(result,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -94,4 +100,146 @@ class QuitStudyRoom(APIView):#用于退出房间
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class CreateReviewRoom(APIView):#用于创建复习房间
+        def post(self,request):
+            input=request.data
+            username=input['username']
+            print(username)
+            roomid=roomcontroller.createReviewRoom(username)
+            if(roomid!=0):
+                return Response(roomid,status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class EnterReviewRoom(APIView): #用于加入复习房间
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        username=input['username']
+        result=roomcontroller.enterReviewRoom(username,roomid)
+        if result==True:
+            return Response(result,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class QuitReviewRoom(APIView):#用于退出房间
+    def post(self,request):
+        input=request.data
+        roomid = input['roomid']
+        username = input['username']
+        result=roomcontroller.quitReviewRoom(username,roomid)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class SetReviewProblem(APIView): #生成复习房间题目
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        result=roomcontroller.setReviewProblem(roomid)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class StartStudy(APIView): #房主开始学习
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        result=roomcontroller.startStudy(roomid)
+        if result!=0:
+            printe(result,EN)
+            return Response(result,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class StudyCheckStart(APIView): #学习房间非房主检查是否开始
+    def post(self, request):
+        input = request.data
+        roomid = input['roomid']
+        result=roomcontroller.studyCheckStart(roomid)
+        if result==False: #未开始
+            return Response(False,status=status.HTTP_200_OK)
+        elif result==2: #开始了, 给第一题内容
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else: #出错
+            return Response(result,status=status.HTTP_200_OK)
+
+class StudySetWordList(APIView): #学习房间房主选择单词
+    def post(self,request):
+        input = request.data
+        roomid = input['roomid']
+        result=roomcontroller.studySetWordList(roomid)
+        if result==True:
+            return Response( status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class NextWord(APIView): #学习界面, 下一题
+    def post(self, request):
+        input = request.data
+        roomid = input['roomid']
+        username = input['username']
+        result=roomcontroller.nextWord(roomid,username)
+        if result==False:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(result, status=status.HTTP_200_OK)
+
+class LastWord(APIView): #学习界面, 上一题
+    def post(self, request):
+        input = request.data
+        roomid = input['roomid']
+        username = input['username']
+        result=roomcontroller.lastWord(roomid,username)
+        if result==False:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(result, status=status.HTTP_200_OK)
+
+class StartReview(APIView): #房主开始学习
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        result=roomcontroller.startReview(roomid)
+        if result!=0:
+            printe(result,EN)
+            return Response(result,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ReviewCheckStart(APIView): #学习房间非房主检查是否开始
+    def post(self, request):
+        input = request.data
+        roomid = input['roomid']
+        result=roomcontroller.reviewCheckStart(roomid)
+        if result==False: #未开始
+            return Response(False,status=status.HTTP_200_OK)
+        elif result==2: #出错
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else: #开始了, 给第一题内容
+            return Response(result,status=status.HTTP_200_OK)
+
+class CalculateScore(APIView): #提交答案
+    def post(self,request):
+        input = request.data
+        roomid = input['roomid']
+        username = input['username']
+        choice = input['choice']
+        result=roomcontroller.calculateScore(username,roomid,choice)
+        if result!=-1:
+            return Response(result, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class NextProblem(APIView): #下一题
+    def post(self,request):
+        input = request.data
+        roomid = input['roomid']
+        result=roomcontroller.nextProblem(roomid)
+        if result!=False:
+            return  Response(result,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
