@@ -44,6 +44,7 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
          serializer = UserSerializer(data=input)
          if serializer.is_valid():
             serializer.save()
+            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
          return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -94,4 +95,45 @@ class QuitStudyRoom(APIView):#用于退出房间
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class CreateReviewRoom(APIView):#用于创建复习房间
+        def post(self,request):
+            input=request.data
+            username=input['username']
+            print(username)
+            roomid=roomcontroller.createReviewRoom(username)
+            if(roomid!=0):
+                return Response(roomid,status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class EnterReviewRoom(APIView): #用于加入复习房间
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        username=input['username']
+        result=roomcontroller.enterReviewRoom(username,roomid)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class QuitReviewRoom(APIView):#用于退出房间
+    def post(self,request):
+        input=request.data
+        roomid = input['roomid']
+        username = input['username']
+        result=roomcontroller.quitReviewRoom(username,roomid)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class SetReviewProblem(APIView): #生成复习房间题目
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        result=roomcontroller.setReviewProblem(roomid)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

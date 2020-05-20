@@ -27,5 +27,9 @@ urlpatterns = [
     path('api/login', views.Login.as_view()),
     path('api/enterstudyroom', views.EnterStudyRoom.as_view()),
     path('api/createstudyroom',views.CreateStudyRoom.as_view()),
-    path('api/quitstudyroom',views.QuitStudyRoom.as_view())
+    path('api/quitstudyroom',views.QuitStudyRoom.as_view()),
+    path('api/enterreviewroom', views.EnterReviewRoom.as_view()),
+    path('api/createreviewroom',views.CreateReviewRoom.as_view()),
+    path('api/quitreviewroom',views.QuitReviewRoom.as_view()),
+    path('api/setreviewproblem',views.SetReviewProblem.as_view())
 ]

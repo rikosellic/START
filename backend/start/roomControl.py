@@ -82,3 +82,12 @@ class RoomControl:
             return 1
         except Exception:
             return 0
+
+    def setReviewProblem(self,roomid):
+        try:
+            self.ReviewRoomDict[roomid].setWordList()
+            self.ReviewRoomDict[roomid].setProblemList()
+            return 1
+        except Exception as e:
+            print (e)
+            return 0
