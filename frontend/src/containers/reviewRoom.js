@@ -14,9 +14,11 @@ class ReviewRoom extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-       second: 10
-        }
+       second: 10,
+       services:[],
+       view:"type_a"
     }
+  }
     componentDidMount () {
       let remaining = 10000;
       this.timer = setInterval(() => {
@@ -32,6 +34,11 @@ class ReviewRoom extends React.Component {
       }, 1000);
      }
     render() {
+        const serviceShows = this.state.services.map((service,index)=>{
+            if(service.type === this.state.view){
+                return <div className="one-service" key={index}>{service}</div>
+            }
+        })
         if (this.state.second <= 0) {
             window.location.href='/reviewRoom';
         }
@@ -39,6 +46,7 @@ class ReviewRoom extends React.Component {
           <div>
             <NavBar2/>
             <div class="row">
+              {serviceShows}
               <div class="review-score" style={{marginLeft: '24%'}}>tyb:0</div>
               <div class="review-score">zs:0</div>
               <div class="review-score">handsome:0</div>
@@ -57,7 +65,7 @@ class ReviewRoom extends React.Component {
                     type="radio"
                     label="nmsl"
                     name="Radios"
-                    id="radios1"
+                    id="anwser1"
                   />
                 </Button><br/><br/>
                 <Button className="review-button" variant="outline-info">
@@ -66,7 +74,7 @@ class ReviewRoom extends React.Component {
                     type="radio"
                     label="wdnmd"
                     name="Radios"
-                    id="radios2"
+                    id="anwser2"
                   />
                 </Button><br/><br/>
                 <Button className="review-button" variant="outline-info">
@@ -75,7 +83,7 @@ class ReviewRoom extends React.Component {
                     type="radio"
                     label="nnb"
                     name="Radios"
-                    id="radios3"
+                    id="anwser3"
                   />
                 </Button><br/><br/>
                   <Button className="review-button" variant="outline-info">
@@ -84,7 +92,7 @@ class ReviewRoom extends React.Component {
                     type="radio"
                     label="handsome"
                     name="Radios"
-                    id="radios4"
+                    id="anwser4"
                   />
                 </Button>
                 </Col>

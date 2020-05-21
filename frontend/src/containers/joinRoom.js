@@ -29,7 +29,31 @@ class JoinRoom extends React.Component {
             roomnumber: event.target.value,
         });
     }
+    joinroom(username,roomnumber) {
+        const registerValue = {"username": username,
+            "roomnumber": roomnumber}
+        const url = " http://localhost:8000/api/enterstudyroom";
+        try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(registerValue),
+            }).then(res=>{
+                if(res.status === 200){
+                    alert('Successful')
+                    this.props.history.push('/studyRoom')
+                }
+                else{
+                    alert(res)
+                }
+            })
+        } catch (error) {
+        }
+    }
     render() {
+        const{username,roomnumber}=this.state
         return (
             <div>
                 <NavBar/>
@@ -40,13 +64,13 @@ class JoinRoom extends React.Component {
                             Enter the room number
                         </Form.Label>
                         <Col sm="5">
-                            <Form.Control type="text"/>
+                            <Form.Control type="text" onChange={this.onroomnumberChange}/>
                         </Col>
                     </Form.Group>
                     <br/><br/><br/>
                     <Row  style={{marginLeft: '15%'}}>
                         <div className="join-button">
-                            <Button variant="outline-dark">join the room</Button>
+                            <Button variant="outline-dark" block onClick={this.joinroom.bind(this, username, roomnumber)}>join the room</Button>
                         </div>
                         <div className="join-button">
                             <Button variant="outline-dark"><span class="black"><a href="/main">back to home</a></span></Button>
