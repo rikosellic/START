@@ -25,13 +25,14 @@ class Main extends React.Component {
         username: ''
       }
     }
-    componentDidMount() {
-        this.setState({
-            username:this.props.navigation.state.params.username
-        })
+    onusernameChange(event) {
+      this.setState({
+        username: event.target.value,
+      });
     }
-    createstudyroom(username) {
-        const createstudyroomValue = {"username": username}
+    createstudyroom(username,password) {
+        const createstudyroomValue = {"username": username,
+            "password": password}
         const url = " http://localhost:8000/api/createstudyroom";
         try {
             fetch(url, {
