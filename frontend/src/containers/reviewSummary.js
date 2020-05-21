@@ -30,6 +30,9 @@ class ReviewSummary extends React.Component {
                         <h5>sdtyb 29分</h5>
                         <br/>
                     </div>
+                    <div className="reviewsummary-button">
+                        <Button variant="primary" size="lg"><span class="white"><a href="/main">End review</a></span></Button>
+                    </div>
                 </div>
             </div>
     );
