@@ -48,7 +48,6 @@ class JoinRoom extends React.Component {
                 else{
                     alert(res)
                 }
-
             })
         } catch (error) {
         }
