@@ -60,11 +60,15 @@ class StudyRoom: #学习房间类
 
     def nextWord(self,username):
         index=self.usernamelist.index(username)
+        if self.learning_process[index]==49:
+            return False
         self.learning_process[index]+=1
         return self.wordlist[self.learning_process[index]]
 
     def lastWord(self,username):
         index = self.usernamelist.index(username)
+        if self.learning_process[index]==0:
+           return False
         self.learning_process[index] -= 1
         return self.wordlist[self.learning_process[index]]
 
@@ -186,6 +190,11 @@ class ReviewRoom: #复习房间类
             return yourscore
 
     def nextProblem(self):
+        if self.currentquestion==49:
+            dict={}
+            for i in range(self.usernum):
+                dict[self.usernamelist[i]]=self.score[i]
+            return (dict,1)
         self.currentquestion+=1
         self.alreadyright=0
-        return self.problemlist[self.currentquestion]
+        return (self.problemlist[self.currentquestion],2)

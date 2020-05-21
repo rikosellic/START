@@ -161,9 +161,9 @@ class StudyCheckStart(APIView): #学习房间非房主检查是否开始
         result=roomcontroller.studyCheckStart(roomid)
         if result==False: #未开始
             return Response(False,status=status.HTTP_200_OK)
-        elif result==2: #开始了, 给第一题内容
+        elif result==2: #出错
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        else: #出错
+        else: #开始了, 给第一题内容
             return Response(result,status=status.HTTP_200_OK)
 
 class StudySetWordList(APIView): #学习房间房主选择单词
@@ -185,6 +185,8 @@ class NextWord(APIView): #学习界面, 下一题
         result=roomcontroller.nextWord(roomid,username)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        elif result==-1:
+            return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
             return Response(result, status=status.HTTP_200_OK)
 
@@ -196,6 +198,8 @@ class LastWord(APIView): #学习界面, 上一题
         result=roomcontroller.lastWord(roomid,username)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        elif result==-1:
+            return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
             return Response(result, status=status.HTTP_200_OK)
 
@@ -238,8 +242,11 @@ class NextProblem(APIView): #下一题
     def post(self,request):
         input = request.data
         roomid = input['roomid']
-        result=roomcontroller.nextProblem(roomid)
+        result,label=roomcontroller.nextProblem(roomid)
         if result!=False:
-            return  Response(result,status=status.HTTP_200_OK)
+            if label==2:
+                return  Response(result,status=status.HTTP_200_OK)
+            else:
+                return Response(result, status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
