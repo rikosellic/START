@@ -43,6 +43,7 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
     def post(self, request):     #以POST方法调用， 创建一个新用户， userID为现有用户数加1
         current_user_num=len(User.objects.all())
         input=request.data
+        print (input)
         input['userID']=current_user_num+1
         if 'goal' not in input.keys():
             input['goal']="No goal yet."
@@ -52,7 +53,7 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
             serializer.save()
             print(serializer.data)
             return Response(json.dumps(serializer.data,ensure_ascii=False), status=status.HTTP_201_CREATED)
-         return Response(json.dumps(serializer.errors,ensure_ascii=False), status=status.HTTP_400_BAD_REQUEST)
+        return Response(json.dumps(serializer.errors,ensure_ascii=False), status=status.HTTP_400_BAD_REQUEST)
 
 class CreateStudyRoom(APIView):#用于创建学习房间
     def post(self,request):
