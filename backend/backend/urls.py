@@ -27,5 +27,18 @@ urlpatterns = [
     path('api/login', views.Login.as_view()),
     path('api/enterstudyroom', views.EnterStudyRoom.as_view()),
     path('api/createstudyroom',views.CreateStudyRoom.as_view()),
-    path('api/quitstudyroom',views.QuitStudyRoom.as_view())
+    path('api/quitstudyroom',views.QuitStudyRoom.as_view()),
+    path('api/enterreviewroom', views.EnterReviewRoom.as_view()),
+    path('api/createreviewroom',views.CreateReviewRoom.as_view()),
+    path('api/quitreviewroom',views.QuitReviewRoom.as_view()),
+    path('api/setreviewproblem',views.SetReviewProblem.as_view()),
+    path('api/startstudy',views.StartStudy.as_view()),
+    path('api/studycheckstart',views.StudyCheckStart.as_view()),
+    path('api/studysetwordlist',views.StudySetWordList.as_view()),
+    path('api/nextword',views.NextWord.as_view()),
+    path('api/lastword',views.LastWord.as_view()),
+    path('api/startreview',views.StartReview.as_view()),
+    path('api/reviewcheckstart',views.ReviewCheckStart.as_view()),
+    path('api/calculatescore',views.CalculateScore.as_view()),
+    path('api/nextproblem',views.NextProblem.as_view())
 ]
