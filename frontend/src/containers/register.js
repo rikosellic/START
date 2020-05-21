@@ -17,7 +17,7 @@ class Register extends React.Component {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     password2: PropTypes.string.isRequired,
-    email:PropTypes.string.isRequired,
+    email:PropTypes.string.isRequired
   }
   constructor(props) {
     super(props);
@@ -70,7 +70,7 @@ class Register extends React.Component {
                    this.props.history.push('/login')
                }
                else{
-                   alert(res)
+                   alert(res.errors)
                }
 
            })
