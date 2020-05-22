@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component}from 'react';
 import {
   Jumbotron,
   Container,
@@ -12,9 +12,47 @@ import "./href.css";
 import Logo from "../components/Logo";
 import NavBar from "../components/Nav";
 import Footer from "../components/Footer";
-
+import PropTypes from 'prop-types';
 
 class Main extends React.Component {
+  static propTypes = {
+    username: PropTypes.string.isRequired,
+    }
+    constructor(props) {
+      super(props);
+      this.onusernameChange = this.onusernameChange.bind(this);
+      this.state = {
+        username: ''
+      }
+    }
+    componentDidMount() {
+        this.setState({
+            username:this.props.navigation.state.params.username
+        })
+    }
+    createstudyroom(username) {
+        const createstudyroomValue = {"username": username}
+        const url = " http://localhost:8000/api/createstudyroom";
+        try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(createstudyroomValue),
+            }).then(res=>{
+                if(res.status === 200){
+                    alert('Successful')
+                    this.props.history.push('/studyRoom')
+                }
+                else{
+                    alert(res)
+                }
+
+            })
+        } catch (error) {
+        }
+    }
   render() {
     return (
       <div>

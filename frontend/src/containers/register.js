@@ -16,21 +16,19 @@ class Register extends React.Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    email:PropTypes.string.isRequired,
+    password2: PropTypes.string.isRequired,
+    email:PropTypes.string.isRequired
   }
-    static defaultProps = {
-        username: 'username is illegal',
-        password: 'password is illegal',
-        email:'email is illegal'
-    }
   constructor(props) {
     super(props);
     this.onusernameChange = this.onusernameChange.bind(this);
     this.onpasswordChange = this.onpasswordChange.bind(this);
+    this.onpassword2Change = this.onpassword2Change.bind(this);
     this.onemailChange = this.onemailChange.bind(this)
     this.state = {
       username: '',
       password: '',
+      password2: '',
       email:''
     }
   }
@@ -42,6 +40,11 @@ class Register extends React.Component {
   onpasswordChange(event) {
     this.setState({
       password: event.target.value,
+    });
+  }
+  onpassword2Change(event) {
+    this.setState({
+      password2: event.target.value,
     });
   }
   onemailChange(event) {
@@ -67,17 +70,21 @@ class Register extends React.Component {
                    this.props.history.push('/login')
                }
                else{
-                   alert(res)
+                   alert(res.errors)
                }
 
            })
        } catch (error) {
        }
     }
-
-
+    checkPassword(password,password2){
+      if(this.state.password !=this.state.password2){
+          alert("两次输入不相同")
+          return
+      }
+    }
   render() {
-    const{username,password,email}=this.state;
+    const{username,password,password2,email}=this.state;
     return (
         <div className='register-div'>
           <div className='register-logo'><Logo/></div>
@@ -88,7 +95,7 @@ class Register extends React.Component {
                 Username
               </Form.Label>
               <Col sm="8">
-                <Form.Control type="text" placeholder="Please enter your username" onChange={this.onusernameChange}/>
+                <Form.Control type="text" placeholder="Please enter your username" onChange={this.onusernameChange} />
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -105,10 +112,9 @@ class Register extends React.Component {
                 Confirm Password
               </Form.Label>
               <Col sm="8">
-                <Form.Control type="password" placeholder="Please enter password again" />
+                <Form.Control type="password" placeholder="Please enter password again" onChange={this.onpassword2Change}/>
               </Col>
             </Form.Group>
-
             <Form.Group as={Row}>
               <Form.Label column sm="4">
                 Email
