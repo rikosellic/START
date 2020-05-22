@@ -73,8 +73,8 @@ class EnterStudyRoom(APIView): #用于加入房间
         roomid=input['roomid']
         username=input['username']
         result=roomcontroller.enterStudyRoom(username,roomid)
-        if result==True:
-            return Response(result,status=status.HTTP_200_OK)
+        if result!=False:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -118,8 +118,8 @@ class EnterReviewRoom(APIView): #用于加入复习房间
         roomid=input['roomid']
         username=input['username']
         result=roomcontroller.enterReviewRoom(username,roomid)
-        if result==True:
-            return Response(result,status=status.HTTP_200_OK)
+        if result!=False:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 

@@ -12,6 +12,8 @@ def printe(str,EN):
     return
 
 class StudyRoom: #学习房间类
+    alllist=allWordList()
+
     def __init__(self, roomID, hostname):
         self.roomID = roomID
         self.usernum = 1
@@ -24,9 +26,8 @@ class StudyRoom: #学习房间类
 
     def setWordList(self,idlist):
         idlist=randomIdList()
-        list = allWordList()
         for i in idlist:
-            self.wordlist.append(list[i-1])
+            self.wordlist.append(StudyRoom.alllist[i-1])
         printe(self.wordlist,EN)
 
     #def returnWord(self,username):
@@ -40,7 +41,11 @@ class StudyRoom: #学习房间类
             self.usernamelist.append(username)
             self.learning_process.append(0)
             printe(self.usernamelist,EN)
-            return self.usernamelist
+            userdict={}
+            userdict['roomid']=self.roomID
+            for index, username in enumerate(self.usernamelist):
+                userdict['user'+str(index)]=username
+            return userdict
 
     def quitRoom(self,username):
         printe('test',EN)
@@ -86,6 +91,8 @@ class StudyRoom: #学习房间类
         return self.usernamelist
 
 class ReviewRoom: #复习房间类
+    alllist=allWordList()
+
     def __init__(self, roomID,hostname):
         self.roomID = roomID
         self.usernum = 1
@@ -103,15 +110,13 @@ class ReviewRoom: #复习房间类
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
         self.reviewlist = random.sample(self.wordlist,30)
 
-    def setWordList(self):
+    def setWordList(self,list):
         idlist = randomIdList()
-        list = allWordList()
         for i in idlist:
             self.wordlist.append(list[i - 1])
         printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
-        alllist=allWordList()
         for word in self.wordlist:
             choicelist=[]   #选项列表
             choiceidlist=[] #选项ID列表
@@ -134,7 +139,7 @@ class ReviewRoom: #复习房间类
                         break
             random.shuffle(choiceidlist)
             for index,id in enumerate(choiceidlist,1):
-                choicedict['answer'+str(index)]=alllist[id-1]['meaning']
+                choicedict['answer'+str(index)]=ReviewRoom.alllist[id-1]['meaning']
             printe(choicedict,EN)
             self.problemlist.append(choicedict)
         printe(self.correctanswer,EN)
@@ -147,7 +152,11 @@ class ReviewRoom: #复习房间类
             self.usernum+=1
             self.usernamelist.append(username)
             self.score.append(0)
-            return self.usernamelist
+            userdict={}
+            userdict['roomid'] = self.roomID
+            for index, username in enumerate(self.usernamelist):
+                userdict['user' + str(index)] = username
+            return userdict
 
     def quitRoom(self,username):
         if self.usernum==1: #没人了，返回2
