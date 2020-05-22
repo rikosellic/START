@@ -119,6 +119,8 @@ class RoomControl:
     def nextWord(self,roomid,username):
         try:
             result=self.StudyRoomDict[roomid].nextWord(username)
+            if result==False:
+                return -1
             return result
         except Exception as e:
             print(e)
@@ -127,6 +129,8 @@ class RoomControl:
     def lastWord(self,roomid,username):
         try:
             result=self.StudyRoomDict[roomid].lastWord(username)
+            if result==False:
+                return -1
             return result
         except Exception as e:
             print(e)
