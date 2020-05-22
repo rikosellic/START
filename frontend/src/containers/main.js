@@ -20,15 +20,7 @@ class Main extends React.Component {
     }
     constructor(props) {
       super(props);
-      this.onusernameChange = this.onusernameChange.bind(this);
-      this.state = {
-        username: ''
-      }
-    }
-    componentDidMount() {
-        this.setState({
-            username:this.props.navigation.state.params.username
-        })
+      this.state = this.props.location.state
     }
     createstudyroom(username) {
         const createstudyroomValue = {"username": username}
@@ -40,20 +32,19 @@ class Main extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(createstudyroomValue),
-            }).then(res=>{
-                if(res.status === 200){
-                    alert('Successful')
-                    this.props.history.push('/studyRoom')
-                }
-                else{
-                    alert(res)
-                }
-
+            }).then(function(response) {
+                return response.json();
+            }).then(function(myJson){
+                alert(myJson);
             })
         } catch (error) {
         }
     }
+    joinroom(username){
+        this.props.history.push({pathname:'/joinRoom',state:{"username":username}})
+    }
   render() {
+    const{username}=this.state
     return (
       <div>
         <NavBar/>
@@ -79,10 +70,10 @@ class Main extends React.Component {
                   <Col>
                   </Col>
                   <div class="main-button">
-                    <Button variant="primary" size="lg">creat a room</Button>
+                    <Button variant="primary" size="lg" onClick={this.createstudyroom.bind(this, username)}>creat a room</Button>
                   </div>
                   <div class="main-button">
-                    <Button variant="primary" size="lg"><span class="white"><a href="/joinRoom">join a room</a></span></Button>
+                    <Button variant="primary" size="lg" onClick={this.joinroom.bind(this,username)}>join a room</Button>
                   </div>
                   <Col>
                   </Col>
