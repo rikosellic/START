@@ -22,7 +22,13 @@ class JoinRoom extends React.Component {
         this.onroomidChange = this.onroomidChange.bind(this);
         this.state = {
             roomid: '',
+            username:'',
         }
+    }
+    onusernameChange(event) {
+        this.setState({
+            username: this.props.location.state.username,
+        });
     }
     onroomidChange(event) {
         this.setState({
@@ -55,6 +61,7 @@ class JoinRoom extends React.Component {
     }
     render() {
         const{username,roomid}=this.state
+        
         return (
             <div>
                 <NavBar/>
