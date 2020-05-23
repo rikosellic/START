@@ -11,6 +11,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import {withRouter} from "react-router-dom";
 
 class Login extends React.Component {
   static propTypes = {
@@ -50,7 +51,7 @@ class Login extends React.Component {
         }).then(res=>{
           if(res.status === 200){
             alert('Successful')
-            this.props.history.push({pathname:'/main',state:{"username":username}})
+            this.props.history.push({pathname:'/main/'+this.state.username})
           }
           else{
             alert(res)
