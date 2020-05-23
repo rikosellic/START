@@ -64,7 +64,7 @@ class StudyRoom: #学习房间类
 
     def returnStudyProcess(self):
         processdict = {}
-        for index, name in enumerate(self.usernamelist):
+        for index, name in enumerate(self.usernamelist,1):
             processdict['user' + str(index) + 'name'] = self.usernamelist[index]
             processdict['user' + str(index) + 'process'] = self.learning_process[index]+1
         processdict['usernum'] = self.usernum
@@ -182,7 +182,7 @@ class ReviewRoom: #复习房间类
 
     def returnReviewScore(self):
         scoredict={}
-        for index, name in enumerate(self.usernamelist):
+        for index, name in enumerate(self.usernamelist,1):
             scoredict['user'+str(index)+'name']=self.usernamelist[index]
             scoredict['user'+str(index)+'score']=self.score[index]
         scoredict['usernum']=self.usernum
