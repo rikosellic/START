@@ -1,5 +1,11 @@
 # API使用方法
 
+## 测试版API
+
+当views.py开头的TESTAPI=1时，将使用测试版API. 此时将自动创建一个有三人的学习房间和一个有三人的复习房间, 其中学习房间房主为'ZSK'，用户有'SL','YZY'; 复习房间房主为'WXY'，用户有'LWL','TYB‘，房间号随机，会在后端命令行中打印。 此时若调用以下API之一:上一个单词、下一个单词、下一题、提交答案、返回学习进度、返回当前分数, 将无需创建房间等前置操作,而可以直接使用，并且以POST方法访问这些API时, "roomid"字段仍然需要,但其值可以**随意填写(不能为空)**，系统将默认对事先创建的房间进行操作。
+
+若要关闭此功能，将views.py中的TESTAPI值改为0即可。
+
 ## 登录
 
 **URL**: api/login
@@ -42,7 +48,7 @@
 
  
 
-## 加入学习房间
+## 加入房间
 
 **URL**:api/enterstudyroom
 
@@ -50,7 +56,7 @@
 
 **输入**: "username"，"roomid"（房间号）
 
-**返回值**: 成功: 一个字典,包括"roomid"(房间号),"user1"(用户1的用户名,此人是房主),"user2"(用户2的用户名),以此类推,有几个人显示几个， 状态 HTTP_200_OK
+**返回值**: 成功: 一个字典,包括"roomid"(房间号),"type"(房间类型,0表示学习房间,1表示复习房间),"user1"(用户1的用户名,此人是房主),"user2"(用户2的用户名),以此类推,有几个人显示几个， 状态 HTTP_200_OK
 
 ​			 失败: 状态HTTP_400_BAD_REQUEST
 
@@ -83,18 +89,6 @@
 ​			 失败: 状态HTTP_400_BAD_REQUEST
 
  
-
-## 加入复习房间
-
-**URL**:api/enterreviewroom
-
-**方法**:POST
-
-**输入**: "username"，"roomid"（房间号）
-
-**返回值**: 成功: 一个字典,包括"roomid"(房间号),"user1"(用户1的用户名,此人是房主),"user2"(用户2的用户名),以此类推,有几个人显示几个， 状态 HTTP_200_OK
-
-​			 失败: 状态HTTP_400_BAD_REQUEST
 
 
 
@@ -267,3 +261,31 @@
 已经到最后一题: 用户得分的字典,key是用户名, value是他的总得分(可能要改)，状态HTTP_202_ACCEPTED
 
 失败: 状态HTTP_400_BAD_REQUEST
+
+
+
+## 获取学习房间当前所有人的进度
+
+URL:api/returnstudyprocess
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:"usernum"(房间内用户人数), "user1name"(用户1的用户名),"user1process"(用户1当前的题目,1-50的整数),"user2name","user2process"..., 状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 获取复习房间当前所有人的成绩
+
+URL:api/returnreviewscore
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:"usernum"(房间内用户人数), "user1name"(用户1的用户名),"user1score"(用户1当前的分数,整数),"user2name","user2process"..., 状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
