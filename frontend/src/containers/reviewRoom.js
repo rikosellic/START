@@ -19,9 +19,12 @@ class ReviewRoom extends React.Component {
       view:"type_a",
       roomid:'',
       username:'',
-      choice:''
+      choice:'',
     }
   }
+
+  
+
     componentDidMount () {
       let remaining = 10000;
       this.timer = setInterval(() => {
@@ -85,40 +88,36 @@ class ReviewRoom extends React.Component {
             <div class="review-anwser">
               <Form.Group as={Row}>
                 <Col sm={10}>
-                <Button className="review-button" variant="outline-info">
+                <Button className="review-button" variant="outline-info" id="anwser1">
                   <Form.Check
                     className="review-choice"
                     type="radio"
                     label="nmsl"
                     name="Radios"
-                    id="anwser1"
                   />
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info">
+                <Button className="review-button" variant="outline-info" id="anwser2">
                   <Form.Check
                     className="review-choice"
                     type="radio"
                     label="wdnmd"
                     name="Radios"
-                    id="anwser2"
                   />
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info">
+                <Button className="review-button" variant="outline-info" id="anwser3">
                   <Form.Check
                     className="review-choice"
                     type="radio"
                     label="nnb"
                     name="Radios"
-                    id="anwser3"
                   />
                 </Button><br/><br/>
-                  <Button className="review-button" variant="outline-info">
+                  <Button className="review-button" variant="outline-info" id="anwser4">
                   <Form.Check
                     className="review-choice"
                     type="radio"
                     label="handsome"
                     name="Radios"
-                    id="anwser4"
                   />
                 </Button>
                 </Col>
