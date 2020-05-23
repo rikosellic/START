@@ -11,6 +11,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import {withRouter} from "react-router-dom";
 
 class Login extends React.Component {
   static propTypes = {
@@ -50,7 +51,7 @@ class Login extends React.Component {
         }).then(res=>{
           if(res.status === 200){
             alert('Successful')
-            this.props.history.push('/main')
+            this.props.history.push({pathname:'/main/'+this.state.username})
           }
           else{
             alert(res)
@@ -59,10 +60,6 @@ class Login extends React.Component {
         } catch (error) {
       }
     }
-  toOrderDetail(item){
-  //this.props.navigation.push('跳转的目标页面', { 参数名: 参数值 })
-  this.props.navigation.push('/personal', { username: this.username })
-  }
   render() {
     const{username,password}=this.state
     return (
