@@ -54,12 +54,25 @@ class Login extends React.Component {
             this.props.history.push({pathname:'/main/'+this.state.username})
           }
           else{
-            alert(res)
+            alert('Your username or password is wrong!')
+            this.props.history.push({pathname:'/login'})
           }
         })
         } catch (error) {
       }
     }
+  checkinformation(username,password){
+    if(username == ''){
+      document.getElementById("btn").disabled=true;
+      alert("user name can't be empty");
+    }
+    if(password == ''){
+      document.getElementById("btn").disabled=true;
+      alert("password name can't be empty");
+    }else{
+      document.getElementById("btn").disabled=false;
+    }
+  }
   render() {
     const{username,password}=this.state
     return (
@@ -79,7 +92,7 @@ class Login extends React.Component {
               <Form.Check type="checkbox" label="rememberme" />
             </Form.Group>
             <div className="login-button">
-            <Button variant="primary" size="sm" onClick={this.login.bind(this, username, password)}>
+            <Button id="btn" variant="primary" size="sm" onClick={this.login.bind(this, username, password)} onMouseEnter={this.checkinformation.bind(this,username,password)}>
               login
             </Button>
             <span class="blue">
