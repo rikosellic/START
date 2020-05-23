@@ -67,12 +67,12 @@ class CreateStudyRoom(APIView):#用于创建学习房间
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class EnterStudyRoom(APIView): #用于加入房间
+class EnterRoom(APIView): #用于加入房间
     def post(self,request):
         input=request.data
         roomid=input['roomid']
         username=input['username']
-        result=roomcontroller.enterStudyRoom(username,roomid)
+        result=roomcontroller.enterRoom(username,roomid)
         if result!=False:
             return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
@@ -112,16 +112,7 @@ class CreateReviewRoom(APIView):#用于创建复习房间
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class EnterReviewRoom(APIView): #用于加入复习房间
-    def post(self,request):
-        input=request.data
-        roomid=input['roomid']
-        username=input['username']
-        result=roomcontroller.enterReviewRoom(username,roomid)
-        if result!=False:
-            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 class QuitReviewRoom(APIView):#用于退出房间
     def post(self,request):
@@ -251,3 +242,23 @@ class NextProblem(APIView): #下一题
                 return Response(json.dums(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ReturnStudyProcess(APIView):
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        result=roomcontroller.returnStudyProcess(roomid)
+        if result==False:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
+
+class ReturnReviewScore(APIView):
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        result=roomcontroller.returnReviewScore(roomid)
+        if result==False:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)

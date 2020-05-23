@@ -42,7 +42,7 @@
 
  
 
-## 加入学习房间
+## 加入房间
 
 **URL**:api/enterstudyroom
 
@@ -50,7 +50,7 @@
 
 **输入**: "username"，"roomid"（房间号）
 
-**返回值**: 成功: 一个字典,包括"roomid"(房间号),"user1"(用户1的用户名,此人是房主),"user2"(用户2的用户名),以此类推,有几个人显示几个， 状态 HTTP_200_OK
+**返回值**: 成功: 一个字典,包括"roomid"(房间号),"type"(房间类型,0表示学习房间,1表示复习房间),"user1"(用户1的用户名,此人是房主),"user2"(用户2的用户名),以此类推,有几个人显示几个， 状态 HTTP_200_OK
 
 ​			 失败: 状态HTTP_400_BAD_REQUEST
 
@@ -83,18 +83,6 @@
 ​			 失败: 状态HTTP_400_BAD_REQUEST
 
  
-
-## 加入复习房间
-
-**URL**:api/enterreviewroom
-
-**方法**:POST
-
-**输入**: "username"，"roomid"（房间号）
-
-**返回值**: 成功: 一个字典,包括"roomid"(房间号),"user1"(用户1的用户名,此人是房主),"user2"(用户2的用户名),以此类推,有几个人显示几个， 状态 HTTP_200_OK
-
-​			 失败: 状态HTTP_400_BAD_REQUEST
 
 
 
@@ -267,3 +255,31 @@
 已经到最后一题: 用户得分的字典,key是用户名, value是他的总得分(可能要改)，状态HTTP_202_ACCEPTED
 
 失败: 状态HTTP_400_BAD_REQUEST
+
+
+
+## 获取学习房间当前所有人的进度
+
+URL:api/returnstudyprocess
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:"usernum"(房间内用户人数), "user1name"(用户1的用户名),"user1process"(用户1当前的题目,1-50的整数),"user2name","user2process"..., 状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 获取复习房间当前所有人的成绩
+
+URL:api/returnreviewscore
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:"usernum"(房间内用户人数), "user1name"(用户1的用户名),"user1score"(用户1当前的分数,整数),"user2name","user2process"..., 状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
