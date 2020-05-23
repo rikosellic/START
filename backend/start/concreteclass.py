@@ -36,6 +36,8 @@ class StudyRoom: #学习房间类
     def enterRoom(self,username):
         if self.usernum>=4: #满员，返回0
             return 0
+        elif self.start == True:
+            return 0
         else: #加入成功，返回1
             self.usernum+=1
             self.usernamelist.append(username)
@@ -60,8 +62,13 @@ class StudyRoom: #学习房间类
             self.learning_process.pop(index_to_delete)
             return 1
 
-    def returnProcess(self):
-        return self.learning_process
+    def returnStudyProcess(self):
+        processdict = {}
+        for index, name in enumerate(self.usernamelist):
+            processdict['user' + str(index) + 'name'] = self.usernamelist[index]
+            processdict['user' + str(index) + 'process'] = self.learning_process[index]+1
+        processdict['usernum'] = self.usernum
+        return processdict
 
     def nextWord(self,username):
         index=self.usernamelist.index(username)
@@ -146,7 +153,9 @@ class ReviewRoom: #复习房间类
 
 
     def enterRoom(self,username):
-        if self.usernum>=6: #满员，返回0
+        if self.usernum>=4: #满员，返回0
+            return 0
+        elif self.start == True: #已开始, 拒绝
             return 0
         else: #加入成功，返回1
             self.usernum+=1
@@ -171,8 +180,13 @@ class ReviewRoom: #复习房间类
             printe(self.usernamelist,EN)
             return 1
 
-    def return_score(self):
-        return self.score
+    def returnReviewScore(self):
+        scoredict={}
+        for index, name in enumerate(self.usernamelist):
+            scoredict['user'+str(index)+'name']=self.usernamelist[index]
+            scoredict['user'+str(index)+'score']=self.score[index]
+        scoredict['usernum']=self.usernum
+        return scoredict
 
     def startReview(self): #房间等待界面, 房主开始
         self.start=True
