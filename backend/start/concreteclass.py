@@ -65,8 +65,8 @@ class StudyRoom: #学习房间类
     def returnStudyProcess(self):
         processdict = {}
         for index, name in enumerate(self.usernamelist,1):
-            processdict['user' + str(index) + 'name'] = self.usernamelist[index]
-            processdict['user' + str(index) + 'process'] = self.learning_process[index]+1
+            processdict['user' + str(index) + 'name'] = self.usernamelist[index-1]
+            processdict['user' + str(index) + 'process'] = self.learning_process[index-1]+1
         processdict['usernum'] = self.usernum
         return processdict
 
@@ -117,10 +117,10 @@ class ReviewRoom: #复习房间类
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
         self.reviewlist = random.sample(self.wordlist,30)
 
-    def setWordList(self,list):
+    def setWordList(self,idlist):
         idlist = randomIdList()
         for i in idlist:
-            self.wordlist.append(list[i - 1])
+            self.wordlist.append(ReviewRoom.alllist[i - 1])
         printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
@@ -183,8 +183,8 @@ class ReviewRoom: #复习房间类
     def returnReviewScore(self):
         scoredict={}
         for index, name in enumerate(self.usernamelist,1):
-            scoredict['user'+str(index)+'name']=self.usernamelist[index]
-            scoredict['user'+str(index)+'score']=self.score[index]
+            scoredict['user'+str(index)+'name']=self.usernamelist[index-1]
+            scoredict['user'+str(index)+'score']=self.score[index-1]
         scoredict['usernum']=self.usernum
         return scoredict
 

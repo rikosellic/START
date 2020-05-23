@@ -11,15 +11,38 @@ from .UserLoginControl import UserLoginControl
 from  concurrent.futures import ProcessPoolExecutor
 import json
 
+TESTAPI=1 #1表示测试版API, 0表示正常API
+EN=1
+
 roomcontroller=RoomControl()
 print('RoomController created')
 userlogincontroller=UserLoginControl()
 print('Userlogincontroller created')
+if TESTAPI==1:
+
+    testid=roomcontroller.createStudyRoom('ZSK')
+    roomcontroller.enterRoom('SL',testid)
+    roomcontroller.enterRoom('YZY',testid)
+    roomcontroller.studySetWordList(testid)
+    roomcontroller.startStudy(testid)
+
+
+
+    testid2 = roomcontroller.createReviewRoom('WXY')
+    roomcontroller.enterRoom('LWL', testid2)
+    roomcontroller.enterRoom('TYB', testid2)
+    roomcontroller.setReviewProblem(testid2)
+    roomcontroller.startReview(testid2)
+    print('使用的是测试版API')
+    print('测试用学习房间ID', testid)
+    print('房主ZSK,用户SL,YZY', '已开始')
+    print('测试用学习房间ID', testid2)
+    print('房主WXY,用户LWL,TYB','已开始')
 
 pool = ProcessPoolExecutor(1)
 pool.submit(userlogincontroller.update)
 
-EN=1
+
 def printe(str,EN):
     if(EN==1):
         print(str)
@@ -173,6 +196,8 @@ class NextWord(APIView): #学习界面, 下一题
     def post(self, request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid
         username = input['username']
         result=roomcontroller.nextWord(roomid,username)
         if result==False:
@@ -186,6 +211,8 @@ class LastWord(APIView): #学习界面, 上一题
     def post(self, request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid
         username = input['username']
         result=roomcontroller.lastWord(roomid,username)
         if result==False:
@@ -222,6 +249,8 @@ class CalculateScore(APIView): #提交答案
     def post(self,request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid2
         username = input['username']
         choice = input['choice']
         result=roomcontroller.calculateScore(username,roomid,choice)
@@ -234,6 +263,8 @@ class NextProblem(APIView): #下一题
     def post(self,request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid2
         result,label=roomcontroller.nextProblem(roomid)
         if result!=False:
             if label==2:
@@ -247,6 +278,8 @@ class ReturnStudyProcess(APIView):
     def post(self,request):
         input=request.data
         roomid=input['roomid']
+        if TESTAPI==1:
+            roomid=testid
         result=roomcontroller.returnStudyProcess(roomid)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -257,6 +290,8 @@ class ReturnReviewScore(APIView):
     def post(self,request):
         input=request.data
         roomid=input['roomid']
+        if TESTAPI==1:
+            roomid=testid2
         result=roomcontroller.returnReviewScore(roomid)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
