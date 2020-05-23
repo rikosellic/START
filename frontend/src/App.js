@@ -9,7 +9,11 @@ import Personal from "./containers/personal";
 import ReviewRoom from "./containers/reviewRoom";
 import JoinRoom from "./containers/joinRoom";
 import ReviewSummary from "./containers/reviewSummary"
-import study from "./containers/study";
+import studyRoom from "./containers/studyRoom";
+import reviewWait from "./containers/reviewWait";
+import studyWait from "./containers/studyWait";
+import studySummary from "./containers/studySummary";
+
 
 class App extends Component {
   render() {
@@ -24,7 +28,10 @@ class App extends Component {
           <Route path='/reviewRoom' component={ReviewRoom}/>
           <Route path='/joinRoom' component={JoinRoom}/>
           <Route path='/reviewSummary' component={ReviewSummary}/>
-		  <Route path='/study' component={study}/>
+		  <Route path='/studyRoom' component={studyRoom}/>
+	      <Route path='/studyWait' component={studyWait}/>
+		  <Route path='/reviewWait' component={reviewWait}/>
+		  <Route path='/studySummary' component={studySummary}/>
         </div>
       </Router>
     )
