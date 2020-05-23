@@ -11,15 +11,38 @@ from .UserLoginControl import UserLoginControl
 from  concurrent.futures import ProcessPoolExecutor
 import json
 
+TESTAPI=1 #1表示测试版API, 0表示正常API
+EN=1
+
 roomcontroller=RoomControl()
 print('RoomController created')
 userlogincontroller=UserLoginControl()
 print('Userlogincontroller created')
+if TESTAPI==1:
+
+    testid=roomcontroller.createStudyRoom('ZSK')
+    roomcontroller.enterRoom('SL',testid)
+    roomcontroller.enterRoom('YZY',testid)
+    roomcontroller.studySetWordList(testid)
+    roomcontroller.startStudy(testid)
+
+
+
+    testid2 = roomcontroller.createReviewRoom('WXY')
+    roomcontroller.enterRoom('LWL', testid2)
+    roomcontroller.enterRoom('TYB', testid2)
+    roomcontroller.setReviewProblem(testid2)
+    roomcontroller.startReview(testid2)
+    print('使用的是测试版API')
+    print('测试用学习房间ID', testid)
+    print('房主ZSK,用户SL,YZY', '已开始')
+    print('测试用学习房间ID', testid2)
+    print('房主WXY,用户LWL,TYB','已开始')
 
 pool = ProcessPoolExecutor(1)
 pool.submit(userlogincontroller.update)
 
-EN=1
+
 def printe(str,EN):
     if(EN==1):
         print(str)
@@ -67,12 +90,12 @@ class CreateStudyRoom(APIView):#用于创建学习房间
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class EnterStudyRoom(APIView): #用于加入房间
+class EnterRoom(APIView): #用于加入房间
     def post(self,request):
         input=request.data
         roomid=input['roomid']
         username=input['username']
-        result=roomcontroller.enterStudyRoom(username,roomid)
+        result=roomcontroller.enterRoom(username,roomid)
         if result!=False:
             return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
@@ -112,16 +135,7 @@ class CreateReviewRoom(APIView):#用于创建复习房间
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class EnterReviewRoom(APIView): #用于加入复习房间
-    def post(self,request):
-        input=request.data
-        roomid=input['roomid']
-        username=input['username']
-        result=roomcontroller.enterReviewRoom(username,roomid)
-        if result!=False:
-            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 class QuitReviewRoom(APIView):#用于退出房间
     def post(self,request):
@@ -182,6 +196,8 @@ class NextWord(APIView): #学习界面, 下一题
     def post(self, request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid
         username = input['username']
         result=roomcontroller.nextWord(roomid,username)
         if result==False:
@@ -195,6 +211,8 @@ class LastWord(APIView): #学习界面, 上一题
     def post(self, request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid
         username = input['username']
         result=roomcontroller.lastWord(roomid,username)
         if result==False:
@@ -231,6 +249,8 @@ class CalculateScore(APIView): #提交答案
     def post(self,request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid2
         username = input['username']
         choice = input['choice']
         result=roomcontroller.calculateScore(username,roomid,choice)
@@ -243,6 +263,8 @@ class NextProblem(APIView): #下一题
     def post(self,request):
         input = request.data
         roomid = input['roomid']
+        if TESTAPI==1:
+            roomid=testid2
         result,label=roomcontroller.nextProblem(roomid)
         if result!=False:
             if label==2:
@@ -251,3 +273,27 @@ class NextProblem(APIView): #下一题
                 return Response(json.dums(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ReturnStudyProcess(APIView):
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        if TESTAPI==1:
+            roomid=testid
+        result=roomcontroller.returnStudyProcess(roomid)
+        if result==False:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
+
+class ReturnReviewScore(APIView):
+    def post(self,request):
+        input=request.data
+        roomid=input['roomid']
+        if TESTAPI==1:
+            roomid=testid2
+        result=roomcontroller.returnReviewScore(roomid)
+        if result==False:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
