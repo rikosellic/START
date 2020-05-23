@@ -13,8 +13,10 @@ class RoomControl:
         self.ReviewRoomDict={}
 
     def checkRoom(self,id): #检查房间是否存在
-        if id in self.StudyRoomDict.keys() or id in self.ReviewRoomDict.keys():
-            return True
+        if id in self.StudyRoomDict.keys()  :
+            return 1
+        elif id in self.ReviewRoomDict.keys():
+            return 2
         else:
             return False
 
@@ -44,10 +46,15 @@ class RoomControl:
             print(e)
             return 0
 
-    def enterStudyRoom(self,username,roomid):
+    def enterRoom(self,username,roomid):
         try:
-            if self.checkRoom(roomid):
+            if self.checkRoom(roomid)==1:
                 result=self.StudyRoomDict[roomid].enterRoom(username)
+                result['type']=0
+                return result
+            elif self.checkRoom(roomid)==2:
+                result = self.ReviewRoomDict[roomid].enterRoom(username)
+                result['type'] = 1
                 return result
             else:
                 return 0
@@ -55,16 +62,6 @@ class RoomControl:
             print(e)
             return 0
 
-    def enterReviewRoom(self, username, roomid):
-        try:
-            if self.checkRoom(roomid):
-                result=self.ReviewRoomDict[roomid].enterRoom(username)
-                return result
-            else:
-                return 0
-        except Exception as e:
-            print(e)
-            return 0
 
     def quitStudyRoom(self, username, roomid):
         try:
@@ -85,7 +82,7 @@ class RoomControl:
 
     def setReviewProblem(self,roomid):
         try:
-            self.ReviewRoomDict[roomid].setWordList()
+            self.ReviewRoomDict[roomid].setWordList([])
             self.ReviewRoomDict[roomid].setProblemList()
             return 1
         except Exception as e:
@@ -163,6 +160,24 @@ class RoomControl:
     def nextProblem(self,roomid):
         try:
             result=self.ReviewRoomDict[roomid].nextProblem()
+            return result
+        except Exception as e:
+            print(e)
+            return False
+
+    def returnStudyProcess(self,roomid):
+        try:
+            result=self.StudyRoomDict[roomid].returnStudyProcess()
+            printe(result,EN)
+            return result
+        except Exception as e:
+            print(e)
+            return False
+
+    def returnReviewScore(self, roomid):
+        try:
+            result = self.ReviewRoomDict[roomid].returnReviewScore()
+            printe(result,EN)
             return result
         except Exception as e:
             print(e)
