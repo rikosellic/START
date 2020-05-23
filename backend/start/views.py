@@ -9,6 +9,7 @@ from	rest_framework	import	status
 from .roomControl import  RoomControl
 from .UserLoginControl import UserLoginControl
 from  concurrent.futures import ProcessPoolExecutor
+import json
 
 roomcontroller=RoomControl()
 print('RoomController created')
@@ -37,7 +38,7 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
         usersinfo = User.objects.all()
         serializer = UserSerializer(usersinfo, many=True)
         print(list(User.objects.all().values_list('userID','username'))[0][0])
-        return Response(serializer.data)
+        return Response(json.dumps(serializer.data,ensure_ascii=False))
 
     def post(self, request):     #以POST方法调用， 创建一个新用户， userID为现有用户数加1
          current_user_num=len(User.objects.all())
@@ -50,8 +51,8 @@ class UserInfoManagement(APIView): #用于处理用户信息的API接口
          if serializer.is_valid():
             serializer.save()
             print(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(json.dumps(serializer.data,ensure_ascii=False), status=status.HTTP_201_CREATED)
+         return Response(json.dumps(serializer.errors,ensure_ascii=False), status=status.HTTP_400_BAD_REQUEST)
 
 class CreateStudyRoom(APIView):#用于创建学习房间
     def post(self,request):
@@ -72,8 +73,8 @@ class EnterStudyRoom(APIView): #用于加入房间
         roomid=input['roomid']
         username=input['username']
         result=roomcontroller.enterStudyRoom(username,roomid)
-        if result==True:
-            return Response(result,status=status.HTTP_200_OK)
+        if result!=False:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -117,8 +118,8 @@ class EnterReviewRoom(APIView): #用于加入复习房间
         roomid=input['roomid']
         username=input['username']
         result=roomcontroller.enterReviewRoom(username,roomid)
-        if result==True:
-            return Response(result,status=status.HTTP_200_OK)
+        if result!=False:
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -150,7 +151,7 @@ class StartStudy(APIView): #房主开始学习
         result=roomcontroller.startStudy(roomid)
         if result!=0:
             printe(result,EN)
-            return Response(result,status=status.HTTP_200_OK)
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -161,10 +162,10 @@ class StudyCheckStart(APIView): #学习房间非房主检查是否开始
         result=roomcontroller.studyCheckStart(roomid)
         if result==False: #未开始
             return Response(False,status=status.HTTP_200_OK)
-        elif result==2: #开始了, 给第一题内容
+        elif result==2: #出错
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        else: #出错
-            return Response(result,status=status.HTTP_200_OK)
+        else: #开始了, 给第一题内容
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
 
 class StudySetWordList(APIView): #学习房间房主选择单词
     def post(self,request):
@@ -185,8 +186,10 @@ class NextWord(APIView): #学习界面, 下一题
         result=roomcontroller.nextWord(roomid,username)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        elif result==-1:
+            return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
-            return Response(result, status=status.HTTP_200_OK)
+            return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_200_OK)
 
 class LastWord(APIView): #学习界面, 上一题
     def post(self, request):
@@ -196,8 +199,10 @@ class LastWord(APIView): #学习界面, 上一题
         result=roomcontroller.lastWord(roomid,username)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        elif result==-1:
+            return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
-            return Response(result, status=status.HTTP_200_OK)
+            return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_200_OK)
 
 class StartReview(APIView): #房主开始学习
     def post(self,request):
@@ -206,7 +211,7 @@ class StartReview(APIView): #房主开始学习
         result=roomcontroller.startReview(roomid)
         if result!=0:
             printe(result,EN)
-            return Response(result,status=status.HTTP_200_OK)
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -220,7 +225,7 @@ class ReviewCheckStart(APIView): #学习房间非房主检查是否开始
         elif result==2: #出错
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else: #开始了, 给第一题内容
-            return Response(result,status=status.HTTP_200_OK)
+            return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
 
 class CalculateScore(APIView): #提交答案
     def post(self,request):
@@ -238,8 +243,11 @@ class NextProblem(APIView): #下一题
     def post(self,request):
         input = request.data
         roomid = input['roomid']
-        result=roomcontroller.nextProblem(roomid)
+        result,label=roomcontroller.nextProblem(roomid)
         if result!=False:
-            return  Response(result,status=status.HTTP_200_OK)
+            if label==2:
+                return  Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
+            else:
+                return Response(json.dums(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
