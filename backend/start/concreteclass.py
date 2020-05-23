@@ -46,7 +46,7 @@ class StudyRoom: #学习房间类
             userdict={}
             userdict['roomid']=self.roomID
             for index, username in enumerate(self.usernamelist):
-                userdict['user'+str(index)]=username
+                userdict['user'+str(index+1)]=username
             return userdict
 
     def quitRoom(self,username):
@@ -64,9 +64,9 @@ class StudyRoom: #学习房间类
 
     def returnStudyProcess(self):
         processdict = {}
-        for index, name in enumerate(self.usernamelist,1):
-            processdict['user' + str(index) + 'name'] = self.usernamelist[index]
-            processdict['user' + str(index) + 'process'] = self.learning_process[index]+1
+        for index, name in enumerate(self.usernamelist):
+            processdict['user' + str(index+1) + 'name'] = self.usernamelist[index]
+            processdict['user' + str(index+1) + 'process'] = self.learning_process[index]+1
         processdict['usernum'] = self.usernum
         return processdict
 
@@ -117,10 +117,10 @@ class ReviewRoom: #复习房间类
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
         self.reviewlist = random.sample(self.wordlist,30)
 
-    def setWordList(self,list):
+    def setWordList(self,idlist):
         idlist = randomIdList()
         for i in idlist:
-            self.wordlist.append(list[i - 1])
+            self.wordlist.append(ReviewRoom.alllist[i - 1])
         printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
@@ -145,8 +145,8 @@ class ReviewRoom: #复习房间类
                     if(len(choiceidlist)==4):
                         break
             random.shuffle(choiceidlist)
-            for index,id in enumerate(choiceidlist,1):
-                choicedict['answer'+str(index)]=ReviewRoom.alllist[id-1]['meaning']
+            for index,id in enumerate(choiceidlist):
+                choicedict['answer'+str(index+1)]=ReviewRoom.alllist[id-1]['meaning']
             printe(choicedict,EN)
             self.problemlist.append(choicedict)
         printe(self.correctanswer,EN)
@@ -164,7 +164,7 @@ class ReviewRoom: #复习房间类
             userdict={}
             userdict['roomid'] = self.roomID
             for index, username in enumerate(self.usernamelist):
-                userdict['user' + str(index)] = username
+                userdict['user' + str(index+1)] = username
             return userdict
 
     def quitRoom(self,username):
@@ -182,9 +182,9 @@ class ReviewRoom: #复习房间类
 
     def returnReviewScore(self):
         scoredict={}
-        for index, name in enumerate(self.usernamelist,1):
-            scoredict['user'+str(index)+'name']=self.usernamelist[index]
-            scoredict['user'+str(index)+'score']=self.score[index]
+        for index, name in enumerate(self.usernamelist):
+            scoredict['user'+str(index+1)+'name']=self.usernamelist[index]
+            scoredict['user'+str(index+1)+'score']=self.score[index]
         scoredict['usernum']=self.usernum
         return scoredict
 
