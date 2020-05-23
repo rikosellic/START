@@ -69,7 +69,7 @@ class Main extends React.Component {
         }
     }
     joinroom(username){
-        this.props.history.push({pathname:'/joinRoom',state:{"username":username}})
+        this.props.history.push({pathname:'/joinRoom/'+this.state.username})
     }
   render() {
     const{username}=this.state
