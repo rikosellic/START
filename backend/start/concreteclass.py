@@ -45,7 +45,7 @@ class StudyRoom: #学习房间类
             printe(self.usernamelist,EN)
             userdict={}
             userdict['roomid']=self.roomID
-            for index, username in enumerate(self.usernamelist):
+            for index, username in enumerate(self.usernamelist,1):
                 userdict['user'+str(index)]=username
             return userdict
 
@@ -163,7 +163,7 @@ class ReviewRoom: #复习房间类
             self.score.append(0)
             userdict={}
             userdict['roomid'] = self.roomID
-            for index, username in enumerate(self.usernamelist):
+            for index, username in enumerate(self.usernamelist,1):
                 userdict['user' + str(index)] = username
             return userdict
 
