@@ -27,8 +27,29 @@ class reviewWait extends React.Component {
       roomid: '',
       }
 	}
-	startReview(roomid){}
-
+	startreview(roomid){
+		const value = {"roomid": roomid,}
+        const url = " http://localhost:8000/api/nextword";
+           fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(value),
+           }).then
+	}
+	quitreviewroom(username,roomid){
+		const value = {"roomid": roomid,
+						"username": username,}
+        const url = " http://localhost:8000/api/nextword";
+           fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(value),
+           }).then
+	}
     render() {
 	const{roomid,username}=this.state
     return (
@@ -45,10 +66,10 @@ class reviewWait extends React.Component {
 			  </Row>
               <Row>
                  <div class="main-button">
-                    <Button variant="primary" size="lg" onClick={this.startReview.bind(this,roomid)}>开始复习</Button>
+                    <Button variant="primary" size="lg" class="main-button" onClick={this.startreview.bind(this,roomid)}>开始复习</Button>
                  </div>
                  <div class="main-button">
-                    <Button variant="primary" size="lg" class="main-button" >退出</Button>
+                    <Button variant="primary" size="lg" class="main-button" onClick={this.quitreviewroom.bind(this,username,roomid)}>退出</Button>
                  </div>
               </Row>
             </html>
