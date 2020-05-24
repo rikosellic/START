@@ -64,16 +64,12 @@ class Register extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(registerValue),
-           }).then(res=>{
-               if(res.status === 201){
-                   alert('Successful')
-                   this.props.history.push('/login')
-               }
-               else{
-                   alert(res)
-               }
-
-           })
+           }).then(function(response) {
+            return response.json()
+          })
+          .then(function(myJson) {
+            console.log(myJson);
+          })
        } catch (error) {
        }
     }
