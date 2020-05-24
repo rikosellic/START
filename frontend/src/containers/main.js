@@ -13,7 +13,6 @@ import Logo from "../components/Logo";
 import NavBar from "../components/Nav";
 import Footer from "../components/Footer";
 import PropTypes from 'prop-types';
-import {withRouter} from "react-router-dom";
 
 class Main extends React.Component {
   static propTypes = {
