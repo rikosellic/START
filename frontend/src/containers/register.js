@@ -11,6 +11,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import $ from 'jquery'
 
 class Register extends React.Component {
   static propTypes = {
@@ -29,7 +30,7 @@ class Register extends React.Component {
       username: '',
       password: '',
       password2: '',
-      email:''
+      email:'',
     }
   }
   onusernameChange(event) {
@@ -66,21 +67,30 @@ class Register extends React.Component {
                 body: JSON.stringify(registerValue),
            }).then(res=>{
                if(res.status === 201){
-                   alert('Successful')
-                   this.props.history.push('/login')
+                   alert('Successful');
+                   this.props.history.push('/login');
                }
                else{
-                   alert(res.errors)
+                   alert("username or email is already registered");
                }
-
            })
        } catch (error) {
        }
     }
-    checkPassword(password,password2){
-      if(this.state.password !=this.state.password2){
-          alert("两次输入不相同")
-          return
+    checkinformation(password,password2,username,email){
+      if(password != password2){
+        document.getElementById("btn").disabled=true;
+        alert("The passwords are different");
+      }
+      if(username == ''){
+        document.getElementById("btn").disabled=true;
+        alert("user name can't be empty");
+      }
+      if(email == ''){
+        document.getElementById("btn").disabled=true;
+        alert("email name can't be empty");
+      }else{
+        document.getElementById("btn").disabled=false;
       }
     }
   render() {
@@ -106,7 +116,6 @@ class Register extends React.Component {
                 <Form.Control type="password" placeholder="Please enter your password" onChange={this.onpasswordChange}/>
               </Col>
             </Form.Group>
-
             <Form.Group as={Row}>
               <Form.Label column sm="4">
                 Confirm Password
@@ -124,7 +133,7 @@ class Register extends React.Component {
               </Col>
             </Form.Group>
             <div className="register-button">
-              <Button variant="primary" size="la" block onClick={this.register.bind(this, username, password,email)}>
+              <Button id="btn" variant="primary" size="la" block onClick={this.register.bind(this, username, password,email)} onMouseEnter={this.checkinformation.bind(this,password,password2,username,email)}>
                 register
               </Button>
             </div>
