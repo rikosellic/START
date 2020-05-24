@@ -36,7 +36,7 @@ class reviewWait extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then
+           }).then()
 	}
 	quitreviewroom(username,roomid){
 		const value = {"roomid": roomid,
@@ -48,7 +48,7 @@ class reviewWait extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then
+           }).then(this.props.history.push({pathname:'/main/'+this.state.username}))
 	}
     render() {
 	const{roomid,username}=this.state
