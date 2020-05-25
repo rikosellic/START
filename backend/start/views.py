@@ -248,7 +248,7 @@ class ReviewCheckStart(APIView): #学习房间非房主检查是否开始
 class CalculateScore(APIView): #提交答案
     def post(self,request):
         input = request.data
-        roomid = input['roomid']
+        roomid = int(input['roomid'])
         if TESTAPI==1:
             roomid=testid2
         username = input['username']

@@ -15,32 +15,76 @@ class ReviewRoom extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      second: 10,
+      second: 5,
       services:[],
       view:"type_a",
-      roomid:487577,
-      username:'',
+      roomid:806595,
+      username:'TYB',
       word:'',
+      score:0,
+      speed:0,
     }
   }
-    componentDidMount () {
-        let remaining=10000;
+  componentDidMount () {
+        let remaining=5000;
+        let speed=this.state.speed;
         let timer = setInterval(() => {
-        if (remaining >= 1000) {
+        if(remaining==0){
+                remaining += 10000;
+                let second = Math.floor(remaining/1000);
+                speed=speed+1;
+                this.setState({
+                    second:second < 10 ? "0" + second : second,
+                    speed:speed
+                })
+            }
+        else{
             remaining -= 1000;
             let second = Math.floor(remaining/1000);
             this.setState({
-                second:second < 10 ? "0" + second : second
-            })
-        }else{
-            remaining += 10000;
-            let second = Math.floor(remaining/1000);
-            this.setState({
-                second:second < 10 ? "0" + second : second
+                second:second < 10 ? "0" + second : second,
             })
         }
+        const getscoreValue = {"roomid":this.state.roomid}
+        const url = " http://localhost:8000/api/returnreviewscore";
+        try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(getscoreValue),
+            }).then(function(response) {
+                return response.json();
+            }).then(function(myJson){
+                var str=JSON.parse(myJson)
+                var len=str.usernum
+                switch(len){
+                    case 1:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                    break;
+                    case 2:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
+                    break;
+                    case 3:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
+                        document.getElementById("user3").innerHTML = str.user3name+": "+str.user3score;
+                    break;
+                    case 4:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
+                        document.getElementById("user3").innerHTML = str.user3name+": "+str.user3score;
+                        document.getElementById("user4").innerHTML = str.user4name+": "+str.user4score;
+                    break;
+                }
+                })
+            } catch (error) {
+            }
         }, 1000)
     }
+
     chanswer1(roomid,username) {
         const chanswer1Value = {"roomid": roomid,
         "username":username,"choice":1}
@@ -55,6 +99,12 @@ class ReviewRoom extends React.Component {
             }).then(function(response) {
                 return response.json();
             }).then(function(myJson){
+                var str=JSON.parse(myJson)
+                document.getElementById("block1").disabled=true;
+                document.getElementById("block2").disabled=true;
+                document.getElementById("block3").disabled=true;
+                document.getElementById("block4").disabled=true;
+                document.getElementById("score").innerHTML = "score: "+str+"/10"
             })
         } catch (error) {
         }
@@ -73,6 +123,12 @@ class ReviewRoom extends React.Component {
             }).then(function(response) {
                 return response.json();
             }).then(function(myJson){
+                var str=JSON.parse(myJson)
+                document.getElementById("block1").disabled=true;
+                document.getElementById("block2").disabled=true;
+                document.getElementById("block3").disabled=true;
+                document.getElementById("block4").disabled=true;
+                document.getElementById("score").innerHTML = "score: "+str+"/10"
             })
         } catch (error) {
         }
@@ -91,6 +147,12 @@ class ReviewRoom extends React.Component {
             }).then(function(response) {
                 return response.json();
             }).then(function(myJson){
+                var str=JSON.parse(myJson)
+                document.getElementById("block1").disabled=true;
+                document.getElementById("block2").disabled=true;
+                document.getElementById("block3").disabled=true;
+                document.getElementById("block4").disabled=true;
+                document.getElementById("score").innerHTML = "score: "+str+"/10"
             })
         } catch (error) {
         }
@@ -109,6 +171,12 @@ class ReviewRoom extends React.Component {
             }).then(function(response) {
                 return response.json();
             }).then(function(myJson){
+                var str=JSON.parse(myJson)
+                document.getElementById("block1").disabled=true;
+                document.getElementById("block2").disabled=true;
+                document.getElementById("block3").disabled=true;
+                document.getElementById("block4").disabled=true;
+                document.getElementById("score").innerHTML = "score: "+str+"/10"
             })
         } catch (error) {
         }
@@ -139,7 +207,11 @@ class ReviewRoom extends React.Component {
                     document.getElementById("answer2").innerHTML = str.answer2 ;
                     document.getElementById("answer3").innerHTML = str.answer3 ;
                     document.getElementById("answer4").innerHTML = str.answer4 ;
-                })
+                    document.getElementById("block1").disabled=false;
+                    document.getElementById("block2").disabled=false;
+                    document.getElementById("block3").disabled=false;
+                    document.getElementById("block4").disabled=false;
+                }).then(function(onscoreChange){})
             } catch (error) {
             }
         }
@@ -151,35 +223,37 @@ class ReviewRoom extends React.Component {
             <NavBar2/>
             <div class="row">
               {serviceShows}
-              <div class="review-score" style={{marginLeft: '24%'}}>tyb:0</div>
-              <div class="review-score">zs:0</div>
-              <div class="review-score">handsome:0</div>
-              <div class="review-score">email:0</div>
+              <div class="review-score" style={{marginLeft: '24%'}} id="user1"></div>
+              <div class="review-score" id="user2"></div>
+              <div class="review-score" id="user3"></div>
+              <div class="review-score" id="user4"></div>
             </div>
             <div class='review-time'>
               <span>time remaining: {this.state.second}s</span>
             </div>
-            <div class="review-word" id="word">integrity</div>
+            <div class="review-word" id="word">the word will be showed here</div>
             <div class="review-anwser">
               <Form.Group as={Row}>
                 <Col sm={10}>
-                <Button className="review-button" variant="outline-info" onClick={this.chanswer1.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer1">nmsl</h6>
+                <Button className="review-button" variant="outline-info" id="block1" type="submit" onClick={this.chanswer1.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer1">the answer1 will be showed here</h6>
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info" onClick={this.chanswer2.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer2">nmsl</h6>
+                <Button className="review-button" variant="outline-info" id="block2" type="submit" onClick={this.chanswer2.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer2">the answer2 will be showed here</h6>
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info" onClick={this.chanswer3.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer3">nmsl</h6>
+                <Button className="review-button" variant="outline-info" id="block3" type="submit" onClick={this.chanswer3.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer3">the answer3 will be showed here</h6>
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info" onClick={this.chanswer4.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer4">nmsl</h6>
+                <Button className="review-button" variant="outline-info" id="block4" type="submit" onClick={this.chanswer4.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer4">the answer4 will be showed here</h6>
                 </Button>
                 </Col>
               </Form.Group>
             </div>
-            <div class="review-speed">
-              score:20/50 speed:21/50
+            <div class="row">
+              {serviceShows}
+              <div class="review-speed" style={{marginLeft: '39.5%'}} id="score">score: 0/10</div>
+              <div class="review-speed"style={{marginLeft: '8%'}} >speed: {this.state.speed}/50</div>
             </div>
           </div>
     );
