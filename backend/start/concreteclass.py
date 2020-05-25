@@ -80,9 +80,9 @@ class StudyRoom: #学习房间类
     def lastWord(self,username):
         index = self.usernamelist.index(username)
         if self.learning_process[index]==0:
-           return False
+           return (self.wordlist[0],0)
         self.learning_process[index] -= 1
-        return self.wordlist[self.learning_process[index]]
+        return (self.wordlist[self.learning_process[index]],1)
 
     def startStudy(self): #房间等待界面, 房主开始
         self.start=True
@@ -111,8 +111,8 @@ class ReviewRoom: #复习房间类
         self.currentquestion=0
         self.problemlist=[]
         self.start=False
-        self.alreadyright = [0]
-        self.alreadyrighttotal=0
+        self.alreadyanswer = [0]
+        self.alreadyright=0
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -163,7 +163,7 @@ class ReviewRoom: #复习房间类
             self.usernum+=1
             self.usernamelist.append(username)
             self.score.append(0)
-            self.alreadyright.append(0)
+            self.alreadyanswer.append(0)
             userdict={}
             userdict['roomid'] = self.roomID
             for index, username in enumerate(self.usernamelist):
@@ -180,6 +180,7 @@ class ReviewRoom: #复习房间类
                 self.hostname = self.usernamelist[1]
             self.usernamelist.pop(index_to_delete)
             self.score.pop(index_to_delete)
+            self.alreadyanswer.pop(index_to_delete)
             printe(self.usernamelist,EN)
             return 1
 
@@ -206,17 +207,18 @@ class ReviewRoom: #复习房间类
 
     def calculateScore(self,username,choice):
         index=self.usernamelist.index(username)
-        if choice!=self.correctanswer[self.currentquestion]:
-            return 0
-        elif self.alreadyright[index]==1:
+        if self.alreadyanswer[index]==1:
             return  0
         else:
-            yourscore=10-2*self.alreadyrighttotal
-            self.score[index]+=yourscore
-            self.alreadyrighttotal+=1
-            self.alreadyright[index]=1
-            printe(self.score,EN)
-            return yourscore
+            self.alreadyanswer[index]=1
+            if choice!=self.correctanswer[self.currentquestion]:
+                return 0
+            else:
+                yourscore=10-2*self.alreadyright
+                self.score[index]+=yourscore
+                self.alreadyright+=1
+                printe(self.score,EN)
+                return yourscore
 
     def nextProblem(self):
         if self.currentquestion==49:
@@ -225,7 +227,7 @@ class ReviewRoom: #复习房间类
                 dict[self.usernamelist[i]]=self.score[i]
             return (dict,1)
         self.currentquestion+=1
-        self.alreadyrighttotal=0
-        for i,x in enumerate(self.alreadyright):
-            self.alreadyright[i]=0
+        self.alreadyright=0
+        for i,x in enumerate(self.alreadyanswer):
+            self.alreadyanswer[i]=0
         return (self.problemlist[self.currentquestion],2)
