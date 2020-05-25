@@ -226,6 +226,6 @@ class ReviewRoom: #复习房间类
             return (dict,1)
         self.currentquestion+=1
         self.alreadyrighttotal=0
-        for i in self.alreadyright:
-            i=0
+        for i,x in enumerate(self.alreadyright):
+            self.alreadyright[i]=0
         return (self.problemlist[self.currentquestion],2)
