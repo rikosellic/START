@@ -208,11 +208,11 @@ class LastWord(APIView): #学习界面, 上一题
         if TESTAPI==1:
             roomid=testid
         username = input['username']
-        result=roomcontroller.lastWord(roomid,username)
+        result,label=roomcontroller.lastWord(roomid,username)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        elif result==-1:
-            return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
+        elif label==0:
+            return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
             return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_200_OK)
 
@@ -262,9 +262,11 @@ class NextProblem(APIView): #下一题
         result,label=roomcontroller.nextProblem(roomid)
         if result!=False:
             if label==2:
+                result['status']= 200
                 return  Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
             else:
-                return Response(json.dums(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
+                result['status'] = 202
+                return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 

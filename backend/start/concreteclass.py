@@ -80,9 +80,9 @@ class StudyRoom: #学习房间类
     def lastWord(self,username):
         index = self.usernamelist.index(username)
         if self.learning_process[index]==0:
-           return False
+           return (self.wordlist[0],0)
         self.learning_process[index] -= 1
-        return self.wordlist[self.learning_process[index]]
+        return (self.wordlist[self.learning_process[index]],1)
 
     def startStudy(self): #房间等待界面, 房主开始
         self.start=True
@@ -222,10 +222,12 @@ class ReviewRoom: #复习房间类
 
     def nextProblem(self):
         if self.currentquestion==49:
-            dict={}
-            for i in range(self.usernum):
-                dict[self.usernamelist[i]]=self.score[i]
-            return (dict,1)
+            scoredict = {}
+            for index, name in enumerate(self.usernamelist):
+                scoredict['user' + str(index + 1) + 'name'] = self.usernamelist[index]
+                scoredict['user' + str(index + 1) + 'score'] = self.score[index]
+            scoredict['usernum'] = self.usernum
+            return (scoredict,1)
         self.currentquestion+=1
         self.alreadyright=0
         for i,x in enumerate(self.alreadyanswer):
