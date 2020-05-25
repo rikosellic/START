@@ -21,12 +21,22 @@ class reviewWait extends React.Component {
     roomid: PropTypes.string.isRequired,
     }
 	constructor(props) {
+    var message=window.location.href;
+    var messagesplit=message.split('/');
+    var messagearr=new Array();
+    while(messagesplit.length!=4){
+      for(var i=4; ;i++){
+        messagearr.push(messagesplit[i]);
+      }
+    }
     super(props);
     this.state = {
-      username: '',
-      roomid: '',
+      username:  messagearr[1],
+      roomid: messagesplit[4],
+      hostname: messagesplit[6],
       }
-	}
+    alert(this.state.username);
+  }
 	startreview(roomid){
 		const value = {"roomid": roomid,}
         const url = " http://localhost:8000/api/nextword";
@@ -36,7 +46,7 @@ class reviewWait extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then
+           }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
 	}
 	quitreviewroom(username,roomid){
 		const value = {"roomid": roomid,
@@ -48,7 +58,7 @@ class reviewWait extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then
+           }).then(this.props.history.push({pathname:'/main/'+this.state.username}))
 	}
     render() {
 	const{roomid,username}=this.state
