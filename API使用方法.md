@@ -192,7 +192,7 @@
 
 **返回值**: 成功: 上一个单词的字典,包括"ID","Word"(单词),"meaning"(释义),"lx"(例句)，状态:HTTP_200_OK
 
-第一题不能上一题: 状态HTTP_501_NOT_IMPLEMENTED
+第一题不能上一题: 第一个单词的字典，状态HTTP_501_NOT_IMPLEMENTED
 
 失败:状态HTTP_400_BAD_REQUEST
 
@@ -256,9 +256,9 @@
 
 **输入:**"roomid"
 
-**返回值**:  成功：下一题的字典， 包括Word"(单词),"answer1"(选项1),"answer2","answer3","answer4",状态:HTTP_200_OK
+**返回值**:  成功：下一题的字典， 包括Word"(单词),"answer1"(选项1),"answer2","answer3","answer4", "status":200, 状态:HTTP_200_OK
 
-已经到最后一题: 用户得分的字典,key是用户名, value是他的总得分(可能要改)，状态HTTP_202_ACCEPTED
+已经到最后一题: "usernum"(房间内用户人数), "user1name"(用户1的用户名),"user1score"(用户1当前的分数,整数),"user2name","user2process"..., "status":202，状态HTTP_202_ACCEPTED
 
 失败: 状态HTTP_400_BAD_REQUEST
 

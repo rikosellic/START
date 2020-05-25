@@ -161,7 +161,7 @@ class RoomControl:
             return result
         except Exception as e:
             print(e)
-            return False
+            return (False,0)
 
     def returnStudyProcess(self,roomid):
         try:
