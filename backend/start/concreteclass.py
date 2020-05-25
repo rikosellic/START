@@ -222,10 +222,12 @@ class ReviewRoom: #复习房间类
 
     def nextProblem(self):
         if self.currentquestion==49:
-            dict={}
-            for i in range(self.usernum):
-                dict[self.usernamelist[i]]=self.score[i]
-            return (dict,1)
+            scoredict = {}
+            for index, name in enumerate(self.usernamelist):
+                scoredict['user' + str(index + 1) + 'name'] = self.usernamelist[index]
+                scoredict['user' + str(index + 1) + 'score'] = self.score[index]
+            scoredict['usernum'] = self.usernum
+            return (scoredict,1)
         self.currentquestion+=1
         self.alreadyright=0
         for i,x in enumerate(self.alreadyanswer):
