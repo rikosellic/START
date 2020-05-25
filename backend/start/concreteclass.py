@@ -133,7 +133,6 @@ class ReviewRoom: #复习房间类
             meaning=word['meaning']
             #printe(meaning,EN)
             choicedict['word']=w
-            self.correctanswer.append(meaning)
             choicelist.append(meaning)
             choiceidlist.append(id)
             while(True):
@@ -145,6 +144,8 @@ class ReviewRoom: #复习房间类
                     if(len(choiceidlist)==4):
                         break
             random.shuffle(choiceidlist)
+            correct_id_index=choiceidlist.index(id)
+            self.correctanswer.append(correct_id_index+1)
             for index,id in enumerate(choiceidlist):
                 choicedict['answer'+str(index+1)]=ReviewRoom.alllist[id-1]['meaning']
             printe(choicedict,EN)
@@ -205,7 +206,7 @@ class ReviewRoom: #复习房间类
 
     def calculateScore(self,username,choice):
         index=self.usernamelist.index(username)
-        if choice.strip()!=self.correctanswer[self.currentquestion].strip():
+        if choice!=self.correctanswer[self.currentquestion]:
             return 0
         else:
             yourscore=10-2*self.alreadyright

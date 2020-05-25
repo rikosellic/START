@@ -21,12 +21,23 @@ class reviewWait extends React.Component {
     roomid: PropTypes.string.isRequired,
     }
 	constructor(props) {
+    var message=window.location.href;
+    var messagesplit=message.split('/');
+    var messagearr=new Array();
+    while(messagesplit.length!=4){
+      var tmp=messagesplit.pop();
+      messagearr.unshift(tmp);
+    }
+    messagearr=[...new Set(messagearr)];//这一步为数组去重操作；将后边重复出现的当前用户的username去掉
+    //messagearr即为包含房间号和所有username的数组，
+    //其中messagearr[0]为房间号，messagearr[1]为当前用户的username，messagearr[2]为房主的username,之后的即为其他成员的username
     super(props);
     this.state = {
-      username: '',
-      roomid: '',
+      username:  messagearr[1],
+      roomid: messagearr[0],
+      //hostname: messagearr[2],
       }
-	}
+  }
 	startreview(roomid){
 		const value = {"roomid": roomid,}
         const url = " http://localhost:8000/api/nextword";
@@ -36,7 +47,7 @@ class reviewWait extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then()
+           }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
 	}
 	quitreviewroom(username,roomid){
 		const value = {"roomid": roomid,
