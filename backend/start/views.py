@@ -111,7 +111,7 @@ class Login(APIView):#用于用户登录
 class QuitStudyRoom(APIView):#用于退出房间
     def post(self,request):
         input=request.data
-        roomid = input['roomid']
+        roomid = int(input['roomid'])
         username = input['username']
         result=roomcontroller.quitStudyRoom(username,roomid)
         if result==True:
@@ -135,7 +135,7 @@ class CreateReviewRoom(APIView):#用于创建复习房间
 class QuitReviewRoom(APIView):#用于退出房间
     def post(self,request):
         input=request.data
-        roomid = input['roomid']
+        roomid =int( input['roomid'])
         username = input['username']
         result=roomcontroller.quitReviewRoom(username,roomid)
         if result==True:
@@ -146,7 +146,7 @@ class QuitReviewRoom(APIView):#用于退出房间
 class SetReviewProblem(APIView): #生成复习房间题目
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         result=roomcontroller.setReviewProblem(roomid)
         if result==True:
             return Response(status=status.HTTP_200_OK)
@@ -156,7 +156,7 @@ class SetReviewProblem(APIView): #生成复习房间题目
 class StartStudy(APIView): #房主开始学习
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         result=roomcontroller.startStudy(roomid)
         if result!=0:
             printe(result,EN)
@@ -167,7 +167,7 @@ class StartStudy(APIView): #房主开始学习
 class StudyCheckStart(APIView): #学习房间非房主检查是否开始
     def post(self, request):
         input = request.data
-        roomid = input['roomid']
+        roomid = int(input['roomid'])
         result=roomcontroller.studyCheckStart(roomid)
         if result==0: #未开始
             return Response(0,status=status.HTTP_200_OK)
@@ -179,7 +179,7 @@ class StudyCheckStart(APIView): #学习房间非房主检查是否开始
 class StudySetWordList(APIView): #学习房间房主选择单词
     def post(self,request):
         input = request.data
-        roomid = input['roomid']
+        roomid =int( input['roomid'])
         result=roomcontroller.studySetWordList(roomid)
         if result==True:
             return Response( status=status.HTTP_200_OK)
@@ -190,7 +190,7 @@ class StudySetWordList(APIView): #学习房间房主选择单词
 class NextWord(APIView): #学习界面, 下一题
     def post(self, request):
         input = request.data
-        roomid = input['roomid']
+        roomid =int( input['roomid'])
         if TESTAPI==1:
             roomid=testid
         username = input['username']
@@ -205,7 +205,7 @@ class NextWord(APIView): #学习界面, 下一题
 class LastWord(APIView): #学习界面, 上一题
     def post(self, request):
         input = request.data
-        roomid = input['roomid']
+        roomid =int( input['roomid'])
         if TESTAPI==1:
             roomid=testid
         username = input['username']
@@ -220,7 +220,7 @@ class LastWord(APIView): #学习界面, 上一题
 class StartReview(APIView): #房主开始学习
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         result=roomcontroller.startReview(roomid)
         if result!=0:
             printe(result,EN)
@@ -231,7 +231,7 @@ class StartReview(APIView): #房主开始学习
 class ReviewCheckStart(APIView): #学习房间非房主检查是否开始
     def post(self, request):
         input = request.data
-        roomid = input['roomid']
+        roomid = int(input['roomid'])
         result=roomcontroller.reviewCheckStart(roomid)
         if result==0: #未开始
             return Response(0,status=status.HTTP_200_OK)
@@ -257,7 +257,7 @@ class CalculateScore(APIView): #提交答案
 class NextProblem(APIView): #下一题
     def post(self,request):
         input = request.data
-        roomid = input['roomid']
+        roomid =int( input['roomid'])
         if TESTAPI==1:
             roomid=testid2
         result,label=roomcontroller.nextProblem(roomid)
@@ -274,7 +274,7 @@ class NextProblem(APIView): #下一题
 class ReturnStudyProcess(APIView):
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         if TESTAPI==1:
             roomid=testid
         result=roomcontroller.returnStudyProcess(roomid)
@@ -286,7 +286,7 @@ class ReturnStudyProcess(APIView):
 class ReturnReviewScore(APIView):
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         if TESTAPI==1:
             roomid=testid2
         result=roomcontroller.returnReviewScore(roomid)
@@ -298,7 +298,7 @@ class ReturnReviewScore(APIView):
 class StudyWaitCheckUser(APIView):
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         result=roomcontroller.studyWaitCheckUser(roomid)
         if result!=False:
             return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
@@ -308,7 +308,7 @@ class StudyWaitCheckUser(APIView):
 class ReviewWaitCheckUser(APIView):
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         result=roomcontroller.reviewWaitCheckUser(roomid)
         if result!=False:
             return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
