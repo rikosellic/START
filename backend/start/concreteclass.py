@@ -99,6 +99,10 @@ class StudyRoom: #学习房间类
         for index, name in enumerate(self.usernamelist):
             userdict['user' + str(index + 1)] = self.usernamelist[index]
         userdict['usernum'] = self.usernum
+        if self.start==False:
+            userdict['start']=0
+        else:
+            userdict['start']=1
         return userdict
 
 class ReviewRoom: #复习房间类
@@ -212,6 +216,10 @@ class ReviewRoom: #复习房间类
             userdict['user' + str(index + 1) ] = self.usernamelist[index]
         userdict['usernum'] = self.usernum
         printe(userdict,EN)
+        if self.start==False:
+            userdict['start']=0
+        else:
+            userdict['start']=1
         return userdict
 
     def calculateScore(self,username,choice):
