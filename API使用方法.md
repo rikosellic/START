@@ -144,9 +144,9 @@
 
 **输入**："roomid"
 
-**返回值**: 未开始:返回false, 状态: HTTP_200_OK
+**返回值**: 未开始:返回0, 状态: HTTP_200_OK
 
-​			开始了: 返回第一个单词的字典, 包括"ID","Word"(单词),"meaning"(释义),"lx"(例句)，状态:HTTP_200_OK
+​			开始了: 返回1，状态:HTTP_200_OK
 
 ​			失败: 状态HTTP_400_BADREQUEST
 
@@ -222,9 +222,9 @@
 
 **输入**："roomid"
 
-**返回值**: 未开始:返回false, 状态: HTTP_200_OK
+**返回值**: 未开始:返回0, 状态: HTTP_200_OK
 
-​			开始了: 第一题的字典, 包括Word"(单词),"answer1"(选项1),"answer2","answer3","answer4",状态:HTTP_200_OK
+​			开始了: 返回1,状态:HTTP_200_OK
 
 ​			失败: 状态HTTP_400_BAD_REQUEST
 
@@ -287,5 +287,33 @@ URL:api/returnreviewscore
 输入:"roomid"
 
 返回值:  成功:"usernum"(房间内用户人数), "user1name"(用户1的用户名),"user1score"(用户1当前的分数,整数),"user2name","user2process"..., 状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 学习等待页面检查有哪些人
+
+URL:api/studywaitcheckuser
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:"usernum"(房间内用户人数), "user1"(用户1的用户名),,"user2"..., 状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 复习等待页面检查有哪些人
+
+URL:api/reviewwaitcheckuser
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:"usernum"(房间内用户人数), "user1"(用户1的用户名),,"user2"..., 状态:HTTP_200_OK
 
 失败: 状态:HTTP_400_BAD_REQUEST
