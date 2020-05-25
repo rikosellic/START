@@ -13,6 +13,7 @@ import Logo from "../components/Logo";
 import NavBar from "../components/Nav";
 import Footer from "../components/Footer";
 import PropTypes from 'prop-types';
+import {withRouter} from "react-router-dom";
 
 class Main extends React.Component {
   static propTypes = {
@@ -48,6 +49,7 @@ class Main extends React.Component {
             })
         } catch (error) {
         }
+        this.props.history.push({pathname:'/studyWait/'+this.state.username})
     }
     createreviewroom(username) {
         const createreviewroomValue = {"username": username}
@@ -66,6 +68,7 @@ class Main extends React.Component {
             })
         } catch (error) {
         }
+        this.props.history.push({pathname:'/reviewWait/'+this.state.username})
     }
     joinroom(username){
         this.props.history.push({pathname:'/joinRoom/'+this.state.username})
