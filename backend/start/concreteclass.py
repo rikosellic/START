@@ -90,12 +90,16 @@ class StudyRoom: #学习房间类
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
         if self.start==False:
-            return False
+            return 0
         else:
-            return self.wordlist[0]
+            return 1
 
-    def checkUser(self): #房间等待界面, 获取房间内用户
-        return self.usernamelist
+    def checkUser(self):  # 房间等待界面, 获取房间内用户
+        userdict = {}
+        for index, name in enumerate(self.usernamelist):
+            userdict['user' + str(index + 1)] = self.usernamelist[index]
+        userdict['usernum'] = self.usernum
+        return userdict
 
 class ReviewRoom: #复习房间类
     alllist=allWordList()
@@ -192,20 +196,23 @@ class ReviewRoom: #复习房间类
         scoredict['usernum']=self.usernum
         return scoredict
 
-
-
     def startReview(self): #房间等待界面, 房主开始
         self.start=True
         return self.problemlist[0]
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
         if self.start==False:
-            return False
+            return 0
         else:
-            return self.problemlist[0]
+            return 1
 
     def checkUser(self): #房间等待界面, 获取房间内用户
-        return self.usernamelist
+        userdict={}
+        for index, name in enumerate(self.usernamelist):
+            userdict['user' + str(index + 1) ] = self.usernamelist[index]
+        userdict['usernum'] = self.usernum
+        printe(userdict,EN)
+        return userdict
 
     def calculateScore(self,username,choice):
         index=self.usernamelist.index(username)

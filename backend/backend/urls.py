@@ -37,5 +37,7 @@ urlpatterns = [
     path('api/calculatescore',views.CalculateScore.as_view()),
     path('api/nextproblem',views.NextProblem.as_view()),
     path('api/returnstudyprocess',views.ReturnStudyProcess.as_view()),
-    path('api/returnreviewscore',views.ReturnReviewScore.as_view())
+    path('api/returnreviewscore',views.ReturnReviewScore.as_view()),
+    path('api/studywaitcheckuser',views.StudyWaitCheckUser.as_view()),
+    path('api/reviewwaitcheckuser',views.ReviewWaitCheckUser.as_view())
 ]

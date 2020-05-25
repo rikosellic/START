@@ -180,3 +180,19 @@ class RoomControl:
         except Exception as e:
             print(e)
             return False
+
+    def studyWaitCheckUser(self,roomid):
+        try:
+            result= self.StudyRoomDict[roomid].checkUser()
+            return result
+        except Exception as e:
+            print(e)
+            return False
+
+    def reviewWaitCheckUser(self,roomid):
+        try:
+            result= self.ReviewRoomDict[roomid].checkUser()
+            return result
+        except Exception as e:
+            print(e)
+            return False
