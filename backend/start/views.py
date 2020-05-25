@@ -270,8 +270,6 @@ class NextProblem(APIView): #下一题
                 return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-<<<<<<< HEAD
-=======
 
 class ReturnStudyProcess(APIView):
     def post(self,request):
@@ -296,4 +294,3 @@ class ReturnReviewScore(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
->>>>>>> 5b2aabb0af73829d5aacd8abeaa8ddc76ed1045a
