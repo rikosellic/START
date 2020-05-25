@@ -126,12 +126,10 @@ class RoomControl:
     def lastWord(self,roomid,username):
         try:
             result=self.StudyRoomDict[roomid].lastWord(username)
-            if result==False:
-                return -1
             return result
         except Exception as e:
             print(e)
-            return False
+            return (False,0)
 
     def startReview(self,roomid):
         try:

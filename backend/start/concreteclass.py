@@ -80,9 +80,9 @@ class StudyRoom: #学习房间类
     def lastWord(self,username):
         index = self.usernamelist.index(username)
         if self.learning_process[index]==0:
-           return False
+           return (self.wordlist[0],0)
         self.learning_process[index] -= 1
-        return self.wordlist[self.learning_process[index]]
+        return (self.wordlist[self.learning_process[index]],1)
 
     def startStudy(self): #房间等待界面, 房主开始
         self.start=True
