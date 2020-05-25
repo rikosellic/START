@@ -33,11 +33,11 @@ if TESTAPI==1:
     roomcontroller.enterRoom('TYB', testid2)
     roomcontroller.setReviewProblem(testid2)
     roomcontroller.startReview(testid2)
-    print('使用的是测试版API')
-    print('测试用学习房间ID', testid)
-    print('房主ZSK,用户SL,YZY', '已开始')
-    print('测试用学习房间ID', testid2)
-    print('房主WXY,用户LWL,TYB','已开始')
+    print('当前使用测试版API')
+    print('测试用学习房间ID: ', testid)
+    print('房主ZSK,用户 SL, YZY', '已开始')
+    print('测试用复习房间ID: ', testid2)
+    print('房主WXY,用户 LWL, TYB','已开始')
 
 pool = ProcessPoolExecutor(1)
 pool.submit(userlogincontroller.update)
@@ -49,12 +49,6 @@ def printe(str,EN):
     return
 
 # Create your views here.
-
-'''
-class TodoView(viewsets.ModelViewSet):
-    serializer_class = TodoSerializer
-    queryset = Todo.objects.all()
-'''
 
 class UserInfoManagement(APIView): #用于处理用户信息的API接口
     def get(self, request):  #以GET方法调用，返回全部用户信息
@@ -215,11 +209,11 @@ class LastWord(APIView): #学习界面, 上一题
         if TESTAPI==1:
             roomid=testid
         username = input['username']
-        result=roomcontroller.lastWord(roomid,username)
+        result,label=roomcontroller.lastWord(roomid,username)
         if result==False:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        elif result==-1:
-            return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
+        elif label==0:
+            return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
             return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_200_OK)
 
@@ -269,9 +263,11 @@ class NextProblem(APIView): #下一题
         result,label=roomcontroller.nextProblem(roomid)
         if result!=False:
             if label==2:
+                result['status']= 200
                 return  Response(json.dumps(result,ensure_ascii=False),status=status.HTTP_200_OK)
             else:
-                return Response(json.dums(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
+                result['status'] = 202
+                return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 <<<<<<< HEAD
