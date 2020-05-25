@@ -107,11 +107,12 @@ class ReviewRoom: #复习房间类
         self.hostname = hostname
         self.score =[0]
         self.wordlist = []
-        self.alreadyright=0
         self.correctanswer=[]
         self.currentquestion=0
         self.problemlist=[]
         self.start=False
+        self.alreadyright = [0]
+        self.alreadyrighttotal=0
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -162,6 +163,7 @@ class ReviewRoom: #复习房间类
             self.usernum+=1
             self.usernamelist.append(username)
             self.score.append(0)
+            self.alreadyright.append(0)
             userdict={}
             userdict['roomid'] = self.roomID
             for index, username in enumerate(self.usernamelist):
@@ -206,10 +208,13 @@ class ReviewRoom: #复习房间类
         index=self.usernamelist.index(username)
         if choice!=self.correctanswer[self.currentquestion]:
             return 0
+        elif self.alreadyright[index]==1:
+            return  0
         else:
-            yourscore=10-2*self.alreadyright
+            yourscore=10-2*self.alreadyrighttotal
             self.score[index]+=yourscore
-            self.alreadyright+=1
+            self.alreadyrighttotal+=1
+            self.alreadyright[index]=1
             printe(self.score,EN)
             return yourscore
 
@@ -220,5 +225,7 @@ class ReviewRoom: #复习房间类
                 dict[self.usernamelist[i]]=self.score[i]
             return (dict,1)
         self.currentquestion+=1
-        self.alreadyright=0
+        self.alreadyrighttotal=0
+        for i in self.alreadyright:
+            i=0
         return (self.problemlist[self.currentquestion],2)

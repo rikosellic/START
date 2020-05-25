@@ -33,11 +33,11 @@ if TESTAPI==1:
     roomcontroller.enterRoom('TYB', testid2)
     roomcontroller.setReviewProblem(testid2)
     roomcontroller.startReview(testid2)
-    print('使用的是测试版API')
-    print('测试用学习房间ID', testid)
-    print('房主ZSK,用户SL,YZY', '已开始')
-    print('测试用学习房间ID', testid2)
-    print('房主WXY,用户LWL,TYB','已开始')
+    print('当前使用测试版API')
+    print('测试用学习房间ID: ', testid)
+    print('房主ZSK,用户 SL, YZY', '已开始')
+    print('测试用复习房间ID: ', testid2)
+    print('房主WXY,用户 LWL, TYB','已开始')
 
 pool = ProcessPoolExecutor(1)
 pool.submit(userlogincontroller.update)
@@ -49,12 +49,6 @@ def printe(str,EN):
     return
 
 # Create your views here.
-
-'''
-class TodoView(viewsets.ModelViewSet):
-    serializer_class = TodoSerializer
-    queryset = Todo.objects.all()
-'''
 
 class UserInfoManagement(APIView): #用于处理用户信息的API接口
     def get(self, request):  #以GET方法调用，返回全部用户信息
