@@ -21,14 +21,45 @@ class reviewWait extends React.Component {
     roomid: PropTypes.string.isRequired,
     }
 	constructor(props) {
+    var message=window.location.href;
+    var messagesplit=message.split('/');
+    var messagearr=new Array();
+    while(messagesplit.length!=4){
+      for(var i=4; ;i++){
+        messagearr.push(messagesplit[i]);
+      }
+    }
     super(props);
     this.state = {
-      username: '',
-      roomid: '',
+      username:  messagearr[1],
+      roomid: messagesplit[4],
+      hostname: messagesplit[6],
       }
+    alert(this.state.username);
+  }
+	startreview(roomid){
+		const value = {"roomid": roomid,}
+        const url = " http://localhost:8000/api/nextword";
+           fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(value),
+           }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
 	}
-	startReview(roomid){}
-
+	quitreviewroom(username,roomid){
+		const value = {"roomid": roomid,
+						"username": username,}
+        const url = " http://localhost:8000/api/nextword";
+           fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(value),
+           }).then(this.props.history.push({pathname:'/main/'+this.state.username}))
+	}
     render() {
 	const{roomid,username}=this.state
     return (
@@ -45,10 +76,10 @@ class reviewWait extends React.Component {
 			  </Row>
               <Row>
                  <div class="main-button">
-                    <Button variant="primary" size="lg" onClick={this.startReview.bind(this,roomid)}>开始复习</Button>
+                    <Button variant="primary" size="lg" class="main-button" onClick={this.startreview.bind(this,roomid)}>开始复习</Button>
                  </div>
                  <div class="main-button">
-                    <Button variant="primary" size="lg" class="main-button" >退出</Button>
+                    <Button variant="primary" size="lg" class="main-button" onClick={this.quitreviewroom.bind(this,username,roomid)}>退出</Button>
                  </div>
               </Row>
             </html>
