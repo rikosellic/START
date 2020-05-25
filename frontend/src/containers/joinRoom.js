@@ -12,17 +12,21 @@ import Logo from "../components/Logo";
 import "./href.css"
 import NavBar from "../components/Nav";
 import PropTypes from 'prop-types';
+import {withRouter} from "react-router-dom";
 
 class JoinRoom extends React.Component {
     static propTypes = {
         roomid: PropTypes.string.isRequired,
+		username: PropTypes.string.isRequired,
     }
     constructor(props) {
+		var message=window.location.href;
         super(props);
         this.onroomidChange = this.onroomidChange.bind(this);
+		this.onusernameChange = this.onusernameChange.bind(this);
         this.state = {
             roomid: '',
-            username:'',
+            username:message.slice(31),
         }
     }
     onusernameChange(event) {
@@ -35,33 +39,56 @@ class JoinRoom extends React.Component {
             roomid: event.target.value,
         });
     }
-    joinroom(username,roomid) {
-        const registerValue = {"username": username,
+	joinroom(username,roomid) {
+        const joinroomValue = {"username": username,
             "roomid": roomid}
-        const url = " http://localhost:8000/api/enterstudyroom";
+		var that = this;
+		//var str = Object.create(null);
+        const url = " http://localhost:8000/api/enterroom";
         try {
             fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-type":"application/json;charset=utf-8",
                 },
-                body: JSON.stringify(registerValue),
+                body: JSON.stringify(joinroomValue),
             }).then(res=>{
-                if(res.status === 200){
-                    alert('Successful')
-                    this.props.history.push('/studyRoom')
-                }
-                else{
-                    alert(res)
-                }
-
-            })
+                return res.json();
+            }).then(function(myJson){
+                var str = JSON.parse(myJson);
+				var len = Object.getOwnPropertyNames(str).length;
+				if(str.type == 0){
+					switch(len) {
+						case 4:
+						that.props.history.push({pathname:'/studyWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2});
+						break;
+						case 5:
+						that.props.history.push({pathname:'/studyWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3});
+						break;
+						case 6:
+						that.props.history.push({pathname:'/studyWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3+'/'+str.user4});
+						break;
+					} 
+				}
+				if(str.type == 1){
+					switch(len) {
+						case 4:
+						that.props.history.push({pathname:'/reviewWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2});
+						break;
+						case 5:
+						that.props.history.push({pathname:'/reviewWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3});
+						break;
+						case 6:
+						that.props.history.push({pathname:'/reviewWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3+'/'+str.user4});
+						break;
+					} 
+				}
+			})
         } catch (error) {
         }
     }
     render() {
-        const{username,roomid}=this.state
-        
+        const{username,roomid}=this.state  
         return (
             <div>
                 <NavBar/>

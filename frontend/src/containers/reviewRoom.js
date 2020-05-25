@@ -14,9 +14,12 @@ class ReviewRoom extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-       second: 10,
-       services:[],
-       view:"type_a"
+      second: 10,
+      services:[],
+      view:"type_a",
+      roomid:'',
+      username:'',
+      choice:''
     }
   }
     componentDidMount () {
@@ -33,14 +36,37 @@ class ReviewRoom extends React.Component {
           }
       }, 1000);
      }
+
+    nextword(roomid) {
+        const nextwordValue = {"roomid":roomid}
+        const url = " http://localhost:8000/api/nextproblem";
+        try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(nextwordValue),
+            }).then(res=>{
+                if(res.status === 202){
+                    alert('Successful')
+                }
+                else{
+                    alert(res.errors)
+                }
+            })
+        } catch (error) {
+        }
+    }
     render() {
+        const{roomid,username,choice}=this.state
         const serviceShows = this.state.services.map((service,index)=>{
             if(service.type === this.state.view){
                 return <div className="one-service" key={index}>{service}</div>
             }
         })
         if (this.state.second <= 0) {
-            window.location.href='/reviewRoom';
+            this.nextword.bind(this,roomid);
         }
         return (
           <div>

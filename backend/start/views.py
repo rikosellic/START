@@ -93,7 +93,7 @@ class CreateStudyRoom(APIView):#用于创建学习房间
 class EnterRoom(APIView): #用于加入房间
     def post(self,request):
         input=request.data
-        roomid=input['roomid']
+        roomid=int(input['roomid'])
         username=input['username']
         result=roomcontroller.enterRoom(username,roomid)
         if result!=False:
