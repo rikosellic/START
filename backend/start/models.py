@@ -4,18 +4,7 @@ from django.db import models
 # Create your models here.
 
 # add this
-'''
-class Todo(models.Model):
-    title = models.CharField('title',max_length=120)
-    description = models.TextField('description')
-    completed = models.BooleanField('completed',default=False)
 
-    class Meta:
-        db_table = 'Todo'
-
-    def _str_(self):
-        return self.title
-'''
 class User(models.Model):
 	"""
 	创建如下几个表的字段
