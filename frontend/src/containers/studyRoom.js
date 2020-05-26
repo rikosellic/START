@@ -102,7 +102,7 @@ class study extends React.Component {
                 this.props.history.push({pathname:'/studySummary'});
                 alert("跳转至复习页面")}
             }
-        }).then(text=>{try{document.getElementById("word").innerHTML = text;} catch(error){}})
+        }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word; document.getElementById("mean").innerHTML = JSON.parse(text).meaning;} catch(error){}})
     }
 
     lastWord(roomid,username)
@@ -121,7 +121,7 @@ class study extends React.Component {
                 return res.json();}
             else{alert("已经是第一题");
             }
-        }).then(text=>{document.getElementById("word").innerHTML = text;})
+        }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word; document.getElementById("mean").innerHTML = JSON.parse(text).meaning;} catch(error){}})
     }
     render() {
         const{roomid,username}=this.state

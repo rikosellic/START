@@ -101,13 +101,13 @@ class Main extends React.Component {
                   <Col>
                   </Col>
                   <div class="main-button">
-                    <Button variant="primary" onClick={this.createreviewroom.bind(this, username)}>Create reviewroom</Button>
+                    <Button variant="outline-light" onClick={this.createreviewroom.bind(this, username)}>Create reviewroom</Button>
                   </div>
                   <div class="main-button">
-                    <Button variant="primary" onClick={this.createstudyroom.bind(this, username)}>Create studyroom</Button>
+                    <Button variant="outline-light" onClick={this.createstudyroom.bind(this, username)}>Create studyroom</Button>
                   </div>
                   <div class="main-button">
-                    <Button variant="primary" onClick={this.joinroom.bind(this,username)}>Join room</Button>
+                    <Button variant="outline-light" onClick={this.joinroom.bind(this,username)}>Join room</Button>
                   </div>
                   <Col>
                   </Col>
