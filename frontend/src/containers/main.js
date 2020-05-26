@@ -32,8 +32,10 @@ class Main extends React.Component {
             username: this.props.params.username,
         });
     }
+
     createstudyroom(username) {
         const createstudyroomValue = {"username": username}
+        var username=this.state.username
         const url = " http://localhost:8000/api/createstudyroom";
         try {
             fetch(url, {
@@ -45,14 +47,15 @@ class Main extends React.Component {
             }).then(function(response) {
                 return response.json();
             }).then(function(myJson){
-                alert(myJson);
+                var roomid=JSON.parse(myJson);
+                window.location='/studyWait/'+username+'/'+roomid
             })
         } catch (error) {
         }
-        this.props.history.push({pathname:'/studyWait/'+this.state.username})
     }
     createreviewroom(username) {
         const createreviewroomValue = {"username": username}
+        var username = this.state.username
         const url = " http://localhost:8000/api/createreviewroom";
         try {
             fetch(url, {
@@ -64,11 +67,11 @@ class Main extends React.Component {
             }).then(function(response) {
                 return response.json();
             }).then(function(myJson){
-                alert(myJson);
+                var roomid=JSON.parse(myJson)
+                window.location='/reviewWait/'+username+'/'+roomid
             })
         } catch (error) {
         }
-        this.props.history.push({pathname:'/reviewWait/'+this.state.username})
     }
     joinroom(username){
         this.props.history.push({pathname:'/joinRoom/'+this.state.username})
