@@ -300,7 +300,7 @@ URL:api/studywaitcheckuser
 
 输入:"roomid"
 
-返回值:  成功:"usernum"(房间内用户人数), "user1"(用户1的用户名),,"user2"..., 状态:HTTP_200_OK
+返回值:  成功:"usernum"(房间内用户人数), "user1"(用户1的用户名),,"user2"..., "start"(未开始0,已开始1) 状态:HTTP_200_OK
 
 失败: 状态:HTTP_400_BAD_REQUEST
 
@@ -314,6 +314,6 @@ URL:api/reviewwaitcheckuser
 
 输入:"roomid"
 
-返回值:  成功:"usernum"(房间内用户人数), "user1"(用户1的用户名),,"user2"..., 状态:HTTP_200_OK
+返回值:  成功:"usernum"(房间内用户人数), "user1"(用户1的用户名),,"user2"...,"start"(未开始0,已开始1)  状态:HTTP_200_OK
 
 失败: 状态:HTTP_400_BAD_REQUEST
