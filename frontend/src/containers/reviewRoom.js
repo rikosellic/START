@@ -14,12 +14,14 @@ import PropTypes from 'prop-types';
 class ReviewRoom extends React.Component {
   constructor(props) {
     super(props)
+    var message=window.location.href;
+    var messagesplit=message.split('/');
     this.state = {
       second: 5,
       services:[],
       view:"type_a",
-      roomid:806595,
-      username:'TYB',
+      roomid:messagesplit[4],
+      username:messagesplit[5],
       word:'',
       score:0,
       speed:0,
@@ -55,22 +57,28 @@ class ReviewRoom extends React.Component {
                 },
                 body: JSON.stringify(getscoreValue),
             }).then(function(response) {
-                return response.json();
+               return response.json();
             }).then(function(myJson){
                 var str=JSON.parse(myJson)
                 var len=str.usernum
                 switch(len){
                     case 1:
                         document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = "";
+                        document.getElementById("user3").innerHTML = "";
+                        document.getElementById("user4").innerHTML = "";
                     break;
                     case 2:
                         document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
                         document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
+                        document.getElementById("user3").innerHTML = "";
+                        document.getElementById("user4").innerHTML = "";
                     break;
                     case 3:
                         document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
                         document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
                         document.getElementById("user3").innerHTML = str.user3name+": "+str.user3score;
+                        document.getElementById("user4").innerHTML = "";
                     break;
                     case 4:
                         document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
@@ -84,7 +92,6 @@ class ReviewRoom extends React.Component {
             }
         }, 1000)
     }
-
     chanswer1(roomid,username) {
         const chanswer1Value = {"roomid": roomid,
         "username":username,"choice":1}
@@ -189,7 +196,8 @@ class ReviewRoom extends React.Component {
             }
         })
         function nextproblem(roomid) {
-            const nextproblemValue = {"roomid": roomid}
+            const nextproblemValue = {"roomid": roomid,
+            "username":username};
             const url = " http://localhost:8000/api/nextproblem";
             try {
                 fetch(url, {
@@ -200,18 +208,39 @@ class ReviewRoom extends React.Component {
                     body: JSON.stringify(nextproblemValue),
                 }).then(function(response) {
                     return response.json();
+                    console.log(response.json())
                 }).then(function(myJson){
-                    var str=JSON.parse(myJson)
-                    document.getElementById("word").innerHTML = str.word ;
-                    document.getElementById("answer1").innerHTML = str.answer1 ;
-                    document.getElementById("answer2").innerHTML = str.answer2 ;
-                    document.getElementById("answer3").innerHTML = str.answer3 ;
-                    document.getElementById("answer4").innerHTML = str.answer4 ;
-                    document.getElementById("block1").disabled=false;
-                    document.getElementById("block2").disabled=false;
-                    document.getElementById("block3").disabled=false;
-                    document.getElementById("block4").disabled=false;
-                }).then(function(onscoreChange){})
+                    var str=JSON.parse(myJson);
+                    var statu=str.status
+                    if(statu==200) {
+                        document.getElementById("word").innerHTML = str.word;
+                        document.getElementById("answer1").innerHTML = str.answer1;
+                        document.getElementById("answer2").innerHTML = str.answer2;
+                        document.getElementById("answer3").innerHTML = str.answer3;
+                        document.getElementById("answer4").innerHTML = str.answer4;
+                        document.getElementById("block1").disabled = false;
+                        document.getElementById("block2").disabled = false;
+                        document.getElementById("block3").disabled = false;
+                        document.getElementById("block4").disabled = false;
+                    }
+                    if(statu==202){
+                        var len=str.usernum;
+                        switch(len){
+                            case 1:
+                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score
+                            break;
+                            case 2:
+                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score+"/"+str.user2name+"/"+str.user2score
+                            break;
+                            case 3:
+                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score+"/"+str.user2name+"/"+str.user2score+"/"+str.user3name+"/"+str.user3score
+                            break;
+                            case 4:
+                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score+"/"+str.user2name+"/"+str.user2score+"/"+str.user3name+"/"+str.user3score+"/"+str.user4name+"/"+str.user4score
+                            break;
+                        }
+                    }
+                })
             } catch (error) {
             }
         }

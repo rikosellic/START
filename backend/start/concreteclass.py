@@ -25,6 +25,8 @@ class StudyRoom: #学习房间类
         printe(self.usernamelist,EN)
 
     def setWordList(self,idlist):
+        if self.wordlist!=[]:
+            return
         idlist=randomIdList()
         for i in idlist:
             self.wordlist.append(StudyRoom.alllist[i-1])
@@ -90,12 +92,20 @@ class StudyRoom: #学习房间类
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
         if self.start==False:
-            return False
+            return 0
         else:
-            return self.wordlist[0]
+            return 1
 
-    def checkUser(self): #房间等待界面, 获取房间内用户
-        return self.usernamelist
+    def checkUser(self):  # 房间等待界面, 获取房间内用户
+        userdict = {}
+        for index, name in enumerate(self.usernamelist):
+            userdict['user' + str(index + 1)] = self.usernamelist[index]
+        userdict['usernum'] = self.usernum
+        if self.start==False:
+            userdict['start']=0
+        else:
+            userdict['start']=1
+        return userdict
 
 class ReviewRoom: #复习房间类
     alllist=allWordList()
@@ -108,7 +118,7 @@ class ReviewRoom: #复习房间类
         self.score =[0]
         self.wordlist = []
         self.correctanswer=[]
-        self.currentquestion=0
+        self.currentquestion=[0]
         self.problemlist=[]
         self.start=False
         self.alreadyanswer = [0]
@@ -119,12 +129,16 @@ class ReviewRoom: #复习房间类
         self.reviewlist = random.sample(self.wordlist,30)
 
     def setWordList(self,idlist):
+        if self.wordlist!=[]:
+            return
         idlist = randomIdList()
         for i in idlist:
             self.wordlist.append(ReviewRoom.alllist[i - 1])
         printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
+        if self.problemlist!=[]:
+            return
         for word in self.wordlist:
             choicelist=[]   #选项列表
             choiceidlist=[] #选项ID列表
@@ -164,6 +178,7 @@ class ReviewRoom: #复习房间类
             self.usernamelist.append(username)
             self.score.append(0)
             self.alreadyanswer.append(0)
+            self.currentquestion.append(0)
             userdict={}
             userdict['roomid'] = self.roomID
             for index, username in enumerate(self.usernamelist):
@@ -181,6 +196,7 @@ class ReviewRoom: #复习房间类
             self.usernamelist.pop(index_to_delete)
             self.score.pop(index_to_delete)
             self.alreadyanswer.pop(index_to_delete)
+            self.currentquestion.pop(index_to_delete)
             printe(self.usernamelist,EN)
             return 1
 
@@ -192,20 +208,27 @@ class ReviewRoom: #复习房间类
         scoredict['usernum']=self.usernum
         return scoredict
 
-
-
     def startReview(self): #房间等待界面, 房主开始
         self.start=True
         return self.problemlist[0]
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
         if self.start==False:
-            return False
+            return 0
         else:
-            return self.problemlist[0]
+            return 1
 
     def checkUser(self): #房间等待界面, 获取房间内用户
-        return self.usernamelist
+        userdict={}
+        for index, name in enumerate(self.usernamelist):
+            userdict['user' + str(index + 1) ] = self.usernamelist[index]
+        userdict['usernum'] = self.usernum
+        printe(userdict,EN)
+        if self.start==False:
+            userdict['start']=0
+        else:
+            userdict['start']=1
+        return userdict
 
     def calculateScore(self,username,choice):
         index=self.usernamelist.index(username)
@@ -213,7 +236,7 @@ class ReviewRoom: #复习房间类
             return  0
         else:
             self.alreadyanswer[index]=1
-            if choice!=self.correctanswer[self.currentquestion]:
+            if choice!=self.correctanswer[self.currentquestion[index]]:
                 return 0
             else:
                 yourscore=10-2*self.alreadyright
@@ -222,16 +245,17 @@ class ReviewRoom: #复习房间类
                 printe(self.score,EN)
                 return yourscore
 
-    def nextProblem(self):
-        if self.currentquestion==49:
+    def nextProblem(self,username):
+        index = self.usernamelist.index(username)
+        if self.currentquestion[index]==49:
             scoredict = {}
             for index, name in enumerate(self.usernamelist):
                 scoredict['user' + str(index + 1) + 'name'] = self.usernamelist[index]
                 scoredict['user' + str(index + 1) + 'score'] = self.score[index]
             scoredict['usernum'] = self.usernum
             return (scoredict,1)
-        self.currentquestion+=1
+        self.currentquestion[index]+=1
         self.alreadyright=0
         for i,x in enumerate(self.alreadyanswer):
             self.alreadyanswer[i]=0
-        return (self.problemlist[self.currentquestion],2)
+        return (self.problemlist[self.currentquestion[index]],2)

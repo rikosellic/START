@@ -155,9 +155,9 @@ class RoomControl:
             print(e)
             return -1
 
-    def nextProblem(self,roomid):
+    def nextProblem(self,roomid,username):
         try:
-            result=self.ReviewRoomDict[roomid].nextProblem()
+            result=self.ReviewRoomDict[roomid].nextProblem(username)
             return result
         except Exception as e:
             print(e)
@@ -176,6 +176,22 @@ class RoomControl:
         try:
             result = self.ReviewRoomDict[roomid].returnReviewScore()
             printe(result,EN)
+            return result
+        except Exception as e:
+            print(e)
+            return False
+
+    def studyWaitCheckUser(self,roomid):
+        try:
+            result= self.StudyRoomDict[roomid].checkUser()
+            return result
+        except Exception as e:
+            print(e)
+            return False
+
+    def reviewWaitCheckUser(self,roomid):
+        try:
+            result= self.ReviewRoomDict[roomid].checkUser()
             return result
         except Exception as e:
             print(e)

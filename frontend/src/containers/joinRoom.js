@@ -29,6 +29,9 @@ class JoinRoom extends React.Component {
             username:message.slice(31),
         }
     }
+    backtohome(username){
+        window.location="/main/"+username;
+    }
     onusernameChange(event) {
         this.setState({
             username: this.props.location.state.username,
@@ -58,30 +61,10 @@ class JoinRoom extends React.Component {
                 var str = JSON.parse(myJson);
 				var len = Object.getOwnPropertyNames(str).length;
 				if(str.type == 0){
-					switch(len) {
-						case 4:
-						that.props.history.push({pathname:'/studyWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2});
-						break;
-						case 5:
-						that.props.history.push({pathname:'/studyWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3});
-						break;
-						case 6:
-						that.props.history.push({pathname:'/studyWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3+'/'+str.user4});
-						break;
-					} 
+                    that.props.history.push({pathname:'/studyWait/'+username+'/'+roomid});
 				}
 				if(str.type == 1){
-					switch(len) {
-						case 4:
-						that.props.history.push({pathname:'/reviewWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2});
-						break;
-						case 5:
-						that.props.history.push({pathname:'/reviewWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3});
-						break;
-						case 6:
-						that.props.history.push({pathname:'/reviewWait/'+roomid+'/'+username+'/'+str.user1+'/'+str.user2+'/'+str.user3+'/'+str.user4});
-						break;
-					} 
+                    that.props.history.push({pathname:'/reviewWait/'+username+'/'+roomid});
 				}
 			})
         } catch (error) {
@@ -108,7 +91,7 @@ class JoinRoom extends React.Component {
                             <Button variant="outline-dark" block onClick={this.joinroom.bind(this, username, roomid)}>join the room</Button>
                         </div>
                         <div className="join-button">
-                            <Button variant="outline-dark"><span class="black"><a href="/main">back to home</a></span></Button>
+                            <Button variant="outline-dark" onClick={this.backtohome.bind(this,username)}><span class="black">back to home</span></Button>
                         </div>
                     </Row>
                 </div>
