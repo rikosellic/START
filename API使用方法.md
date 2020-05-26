@@ -254,7 +254,7 @@
 
 **方法**:POST
 
-**输入:**"roomid"
+**输入:**"roomid","username"
 
 **返回值**:  成功：下一题的字典， 包括Word"(单词),"answer1"(选项1),"answer2","answer3","answer4", "status":200, 状态:HTTP_200_OK
 
