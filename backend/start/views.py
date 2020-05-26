@@ -258,9 +258,10 @@ class NextProblem(APIView): #下一题
     def post(self,request):
         input = request.data
         roomid =int( input['roomid'])
+        username=input['username']
         if TESTAPI==1:
             roomid=testid2
-        result,label=roomcontroller.nextProblem(roomid)
+        result,label=roomcontroller.nextProblem(roomid,username)
         if result!=False:
             if label==2:
                 result['status']= 200

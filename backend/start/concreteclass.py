@@ -118,7 +118,7 @@ class ReviewRoom: #复习房间类
         self.score =[0]
         self.wordlist = []
         self.correctanswer=[]
-        self.currentquestion=0
+        self.currentquestion=[0]
         self.problemlist=[]
         self.start=False
         self.alreadyanswer = [0]
@@ -178,6 +178,7 @@ class ReviewRoom: #复习房间类
             self.usernamelist.append(username)
             self.score.append(0)
             self.alreadyanswer.append(0)
+            self.currentquestion.append(0)
             userdict={}
             userdict['roomid'] = self.roomID
             for index, username in enumerate(self.usernamelist):
@@ -195,6 +196,7 @@ class ReviewRoom: #复习房间类
             self.usernamelist.pop(index_to_delete)
             self.score.pop(index_to_delete)
             self.alreadyanswer.pop(index_to_delete)
+            self.currentquestion.pop(index_to_delete)
             printe(self.usernamelist,EN)
             return 1
 
@@ -234,7 +236,7 @@ class ReviewRoom: #复习房间类
             return  0
         else:
             self.alreadyanswer[index]=1
-            if choice!=self.correctanswer[self.currentquestion]:
+            if choice!=self.correctanswer[self.currentquestion[index]]:
                 return 0
             else:
                 yourscore=10-2*self.alreadyright
@@ -243,16 +245,17 @@ class ReviewRoom: #复习房间类
                 printe(self.score,EN)
                 return yourscore
 
-    def nextProblem(self):
-        if self.currentquestion==49:
+    def nextProblem(self,username):
+        index = self.usernamelist.index(username)
+        if self.currentquestion[index]==49:
             scoredict = {}
             for index, name in enumerate(self.usernamelist):
                 scoredict['user' + str(index + 1) + 'name'] = self.usernamelist[index]
                 scoredict['user' + str(index + 1) + 'score'] = self.score[index]
             scoredict['usernum'] = self.usernum
             return (scoredict,1)
-        self.currentquestion+=1
+        self.currentquestion[index]+=1
         self.alreadyright=0
         for i,x in enumerate(self.alreadyanswer):
             self.alreadyanswer[i]=0
-        return (self.problemlist[self.currentquestion],2)
+        return (self.problemlist[self.currentquestion[index]],2)
