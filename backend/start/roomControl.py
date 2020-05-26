@@ -155,9 +155,9 @@ class RoomControl:
             print(e)
             return -1
 
-    def nextProblem(self,roomid):
+    def nextProblem(self,roomid,username):
         try:
-            result=self.ReviewRoomDict[roomid].nextProblem()
+            result=self.ReviewRoomDict[roomid].nextProblem(username)
             return result
         except Exception as e:
             print(e)
