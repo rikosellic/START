@@ -58,14 +58,21 @@ class reviewWait extends React.Component {
                     },
                     body: JSON.stringify(reviewwaitcheckuserValue),
                 }).then(function (response) {
-                    return response.json();
+                    if(response.status==200) {
+                        return response.json();
+                    }else{
+                        return '{"start":2}'
+                    }
                 }).then(function(myJson){
                     var str=JSON.parse(myJson)
                     var len=str.usernum
                     var start=str.start
-                    if(that.state.url =="reviewWait" && start==0){
+                    if(start==0){
                         if(that.state.username != str.user1){
                             document.getElementById("block").disabled=true;
+                        }
+                        if(that.state.username == str.user1){
+                            document.getElementById("block").disabled=false;
                         }
                         switch(len){
                         case 1:
@@ -94,10 +101,10 @@ class reviewWait extends React.Component {
                         break;
                         }
                     }
-                    else{
+                    if(start==1){
                         window.location="/reviewRoom/"+that.state.roomid+'/'+that.state.username
                         clearInterval(that.state.timer);
-                    }
+                    }else{}
                 })
             }catch(error){
             }

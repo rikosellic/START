@@ -80,6 +80,7 @@ class Main extends React.Component {
     const{username}=this.state
     return (
       <div>
+
         <NavBar/>
         <main role="main">
           <Jumbotron>
@@ -119,6 +120,11 @@ class Main extends React.Component {
           </Jumbotron>
         </main>
         <Footer/>
+        <h10 class="back" id="block"></h10>
+        <h10 class="back" id="usern1"></h10>
+        <h10 class="back" id="usern2"></h10>
+        <h10 class="back" id="usern3"></h10>
+        <h10 class="back" id="usern4"></h10>
       </div>
     );
   }
