@@ -25,6 +25,8 @@ class StudyRoom: #学习房间类
         printe(self.usernamelist,EN)
 
     def setWordList(self,idlist):
+        if self.wordlist!=[]:
+            return
         idlist=randomIdList()
         for i in idlist:
             self.wordlist.append(StudyRoom.alllist[i-1])
@@ -127,12 +129,16 @@ class ReviewRoom: #复习房间类
         self.reviewlist = random.sample(self.wordlist,30)
 
     def setWordList(self,idlist):
+        if self.wordlist!=[]:
+            return
         idlist = randomIdList()
         for i in idlist:
             self.wordlist.append(ReviewRoom.alllist[i - 1])
         printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
+        if self.problemlist!=[]:
+            return
         for word in self.wordlist:
             choicelist=[]   #选项列表
             choiceidlist=[] #选项ID列表
