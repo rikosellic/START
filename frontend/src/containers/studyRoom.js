@@ -25,6 +25,7 @@ class study extends React.Component {
         var messagesplit=message.split('/');
         super(props);
         this.state = {
+            url: messagesplit[3],
             username: messagesplit[5],
             roomid: messagesplit[4],
         }
@@ -36,46 +37,48 @@ class study extends React.Component {
             const roomid=this.state.roomid;
             const reviewwaitcheckuserValue={"roomid":roomid};
             const url=" http://localhost:8000/api/returnstudyprocess";
-            try {
-                fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json;charset=utf-8",
-                    },
-                    body: JSON.stringify(reviewwaitcheckuserValue),
-                }).then(function (response) {
-                    return response.json();
-                }).then(function(myJson){
-                    var str=JSON.parse(myJson)
-                    var len=str.usernum
-                    switch(len){
-                        case 1:
-                            document.getElementById("speed1").innerHTML=str.user1name+": "+str.user1process+"/50"
-                            document.getElementById("speed2").innerHTML=""
-                            document.getElementById("speed3").innerHTML=""
-                            document.getElementById("speed4").innerHTML=""
-                            break;
-                        case 2:
-                            document.getElementById("speed1").innerHTML=str.user1name+": "+str.user1process+"/50"
-                            document.getElementById("speed2").innerHTML=str.user2name+": "+str.user2process+"/50"
-                            document.getElementById("speed3").innerHTML=""
-                            document.getElementById("speed4").innerHTML=""
-                            break;
-                        case 3:
-                            document.getElementById("speed1").innerHTML=str.user1name+": "+str.user1process+"/50"
-                            document.getElementById("speed2").innerHTML=str.user2name+": "+str.user2process+"/50"
-                            document.getElementById("speed3").innerHTML=str.user3name+": "+str.user3process+"/50"
-                            document.getElementById("speed4").innerHTML=""
-                            break;
-                        case 4:
-                            document.getElementById("usern1").innerHTML=str.user1name+": "+str.user1process+"/50"
-                            document.getElementById("usern2").innerHTML=str.user2name+": "+str.user2process+"/50"
-                            document.getElementById("usern3").innerHTML=str.user3name+": "+str.user3process+"/50"
-                            document.getElementById("usern4").innerHTML=str.user4name+": "+str.user4process+"/50"
-                            break;
-                    }
-                })
-            }catch(error){
+            if(this.state.url=="studyRoom") {
+                try {
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json;charset=utf-8",
+                        },
+                        body: JSON.stringify(reviewwaitcheckuserValue),
+                    }).then(function (response) {
+                        return response.json();
+                    }).then(function (myJson) {
+                        var str = JSON.parse(myJson)
+                        var len = str.usernum
+                        switch (len) {
+                            case 1:
+                                document.getElementById("speed1").innerHTML = str.user1name + ": " + str.user1process + "/50"
+                                document.getElementById("speed2").innerHTML = ""
+                                document.getElementById("speed3").innerHTML = ""
+                                document.getElementById("speed4").innerHTML = ""
+                                break;
+                            case 2:
+                                document.getElementById("speed1").innerHTML = str.user1name + ": " + str.user1process + "/50"
+                                document.getElementById("speed2").innerHTML = str.user2name + ": " + str.user2process + "/50"
+                                document.getElementById("speed3").innerHTML = ""
+                                document.getElementById("speed4").innerHTML = ""
+                                break;
+                            case 3:
+                                document.getElementById("speed1").innerHTML = str.user1name + ": " + str.user1process + "/50"
+                                document.getElementById("speed2").innerHTML = str.user2name + ": " + str.user2process + "/50"
+                                document.getElementById("speed3").innerHTML = str.user3name + ": " + str.user3process + "/50"
+                                document.getElementById("speed4").innerHTML = ""
+                                break;
+                            case 4:
+                                document.getElementById("usern1").innerHTML = str.user1name + ": " + str.user1process + "/50"
+                                document.getElementById("usern2").innerHTML = str.user2name + ": " + str.user2process + "/50"
+                                document.getElementById("usern3").innerHTML = str.user3name + ": " + str.user3process + "/50"
+                                document.getElementById("usern4").innerHTML = str.user4name + ": " + str.user4process + "/50"
+                                break;
+                        }
+                    })
+                } catch (error) {
+                }
             }
         },100)
     }
@@ -97,7 +100,7 @@ class study extends React.Component {
                 return res.json();}
             else{if(res.status === 501){
                 this.props.history.push({pathname:'/studySummary'});
-                alert("跳转至复习页面")} else alert("出错")
+                alert("跳转至复习页面")}
             }
         }).then(text=>{try{document.getElementById("word").innerHTML = text;} catch(error){}})
     }

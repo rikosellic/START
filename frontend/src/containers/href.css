@@ -16,19 +16,19 @@
 }
 
 .blue a:link{
-    color:blue;
-    text-decoration:none;
-}
-.blue a:visited{
-    color:blue;
-    text-decoration:none;
-}
-.blue a:hover{
     color:skyblue;
     text-decoration:none;
 }
-.blue a:active{
+.blue a:visited{
+    color:skyblue;
+    text-decoration:none;
+}
+.blue a:hover{
     color:blue;
+    text-decoration:none;
+}
+.blue a:active{
+    color:skyblue;
     text-decoration:none;
 }
 

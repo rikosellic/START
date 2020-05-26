@@ -41,6 +41,7 @@ class Main extends React.Component {
                   <Col>
                   </Col>
                 </Row>
+          <h10 id="speed1" class="back"></h10><h10 class="back" id="speed2"></h10><h10 class="back" id="speed3"></h10><h10 class="back" id="speed4"></h10>
       </div>
 	</html>
     );

@@ -80,10 +80,7 @@ class Main extends React.Component {
     const{username}=this.state
     return (
       <div>
-
         <NavBar/>
-        <main role="main">
-          <Jumbotron>
             <Container>
               <Logo/>
               <h4>
@@ -117,8 +114,6 @@ class Main extends React.Component {
                 </Row>
               </p>
             </Container>
-          </Jumbotron>
-        </main>
         <Footer/>
         <h10 class="back" id="block"></h10>
         <h10 class="back" id="usern1"></h10>
