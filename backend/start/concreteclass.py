@@ -237,7 +237,7 @@ class ReviewRoom: #复习房间类
             return  0
         else:
             self.alreadyanswer[index]=1
-            if choice!=self.correctanswer[self.currentquestion[index]]:
+            if choice!=self.correctanswer[self.currentquestion]:
                 return 0
             else:
                 yourscore=10-2*self.alreadyright
