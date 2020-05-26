@@ -85,7 +85,7 @@ class studyWait extends React.Component {
                 })
             }catch(error){
             }
-        },1000)
+        },100)
     }
 	startstudy(roomid){
 		const value = {"roomid": roomid,}
