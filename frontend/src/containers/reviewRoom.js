@@ -108,11 +108,19 @@ class ReviewRoom extends React.Component {
                 return response.json();
             }).then(function(myJson){
                 var str=JSON.parse(myJson)
+                var score=str.score
+                var correct=str.correct
                 document.getElementById("block1").disabled=true;
                 document.getElementById("block2").disabled=true;
                 document.getElementById("block3").disabled=true;
                 document.getElementById("block4").disabled=true;
-                document.getElementById("score").innerHTML = "score: "+str+"/10"
+                document.getElementById("score").innerHTML = "score: "+score+"/10"
+                if(correct==1) {
+                    document.getElementById("answer" + correct).style.color = "green"
+                }else{
+                    document.getElementById("answer1").style.color = "red"
+                    document.getElementById("answer" + correct).style.color = "green"
+                }
             })
         } catch (error) {
         }
@@ -132,11 +140,19 @@ class ReviewRoom extends React.Component {
                 return response.json();
             }).then(function(myJson){
                 var str=JSON.parse(myJson)
+                var score=str.score
+                var correct=str.correct
                 document.getElementById("block1").disabled=true;
                 document.getElementById("block2").disabled=true;
                 document.getElementById("block3").disabled=true;
                 document.getElementById("block4").disabled=true;
                 document.getElementById("score").innerHTML = "score: "+str+"/10"
+                if(correct==2) {
+                    document.getElementById("answer" + correct).style.color = "green"
+                }else{
+                    document.getElementById("answer2").style.color = "red"
+                    document.getElementById("answer" + correct).style.color = "green"
+                }
             })
         } catch (error) {
         }
@@ -156,11 +172,19 @@ class ReviewRoom extends React.Component {
                 return response.json();
             }).then(function(myJson){
                 var str=JSON.parse(myJson)
+                var score=str.score
+                var correct=str.correct
                 document.getElementById("block1").disabled=true;
                 document.getElementById("block2").disabled=true;
                 document.getElementById("block3").disabled=true;
                 document.getElementById("block4").disabled=true;
                 document.getElementById("score").innerHTML = "score: "+str+"/10"
+                if(correct==3) {
+                    document.getElementById("answer" + correct).style.color = "green"
+                }else{
+                    document.getElementById("answer3").style.color = "red"
+                    document.getElementById("answer" + correct).style.color = "green"
+                }
             })
         } catch (error) {
         }
@@ -180,11 +204,19 @@ class ReviewRoom extends React.Component {
                 return response.json();
             }).then(function(myJson){
                 var str=JSON.parse(myJson)
+                var score=str.score
+                var correct=str.correct
                 document.getElementById("block1").disabled=true;
                 document.getElementById("block2").disabled=true;
                 document.getElementById("block3").disabled=true;
                 document.getElementById("block4").disabled=true;
                 document.getElementById("score").innerHTML = "score: "+str+"/10"
+                if(correct==4) {
+                    document.getElementById("answer" + correct).style.color = "green"
+                }else{
+                    document.getElementById("answer4").style.color = "red"
+                    document.getElementById("answer" + correct).style.color = "green"
+                }
             })
         } catch (error) {
         }
@@ -219,6 +251,10 @@ class ReviewRoom extends React.Component {
                         document.getElementById("answer2").innerHTML = str.answer2;
                         document.getElementById("answer3").innerHTML = str.answer3;
                         document.getElementById("answer4").innerHTML = str.answer4;
+                        document.getElementById("answer1").style.color = "black"
+                        document.getElementById("answer2").style.color = "black"
+                        document.getElementById("answer3").style.color = "black"
+                        document.getElementById("answer4").style.color = "black"
                         document.getElementById("block1").disabled = false;
                         document.getElementById("block2").disabled = false;
                         document.getElementById("block3").disabled = false;
