@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Logo from "../components/Logo";
 import {
     Jumbotron,
     Container,
@@ -248,42 +249,41 @@ class ReviewRoom extends React.Component {
             nextproblem(this.state.roomid)
         }
         return (
-          <div>
-            <NavBar2/>
-            <div class="row">
+          <div class="reviewroom">
+            <NavBar2/><br/>
+            <Row>
               {serviceShows}
               <div class="review-score" style={{marginLeft: '24%'}} id="user1"></div>
               <div class="review-score" id="user2"></div>
               <div class="review-score" id="user3"></div>
               <div class="review-score" id="user4"></div>
-            </div>
+            </Row>
             <div class='review-time'>
               <span>time remaining: {this.state.second}s</span>
             </div>
-            <div class="review-word" id="word">the word will be showed here</div>
+            <div class="review-word" id="word">The word will be shown here</div>
             <div class="review-anwser">
               <Form.Group as={Row}>
                 <Col sm={10}>
-                <Button className="review-button" variant="outline-info" id="block1" type="submit" onClick={this.chanswer1.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer1">the answer1 will be showed here</h6>
+                <Button className="review-button" id="block1" type="submit" onClick={this.chanswer1.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer1">Answer1 will be shown here</h6>
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info" id="block2" type="submit" onClick={this.chanswer2.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer2">the answer2 will be showed here</h6>
+                <Button className="review-button" id="block2" type="submit" onClick={this.chanswer2.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer2">Answer2 will be shown here</h6>
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info" id="block3" type="submit" onClick={this.chanswer3.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer3">the answer3 will be showed here</h6>
+                <Button className="review-button" id="block3" type="submit" onClick={this.chanswer3.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer3">Answer3 will be shown here</h6>
                 </Button><br/><br/>
-                <Button className="review-button" variant="outline-info" id="block4" type="submit" onClick={this.chanswer4.bind(this,roomid,username)}>
-                  <h6 className="review-choice" id="answer4">the answer4 will be showed here</h6>
+                <Button className="review-button" id="block4" type="submit" onClick={this.chanswer4.bind(this,roomid,username)}>
+                  <h6 className="review-choice" id="answer4">Answer4 will be shown here</h6>
                 </Button>
                 </Col>
               </Form.Group>
             </div>
-            <div class="row">
-              {serviceShows}
-              <div class="review-speed" style={{marginLeft: '39.5%'}} id="score">score: 0/10</div>
-              <div class="review-speed"style={{marginLeft: '8%'}} >speed: {this.state.speed}/50</div>
-            </div>
+            <Row>
+              <div class="review-perscore" id="score">score: 0/10</div>
+              <div class="review-speed" >speed: {this.state.speed}/50</div>
+            </Row>
           </div>
     );
     }

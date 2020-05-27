@@ -133,7 +133,7 @@ class Register extends React.Component {
               </Col>
             </Form.Group>
             <div className="register-button"><br/>
-              <Button id="btn" variant="primary" size="la" block onClick={this.register.bind(this, username, password,email)} onMouseEnter={this.checkinformation.bind(this,password,password2,username,email)}>
+              <Button id="btn" variant="primary" align="center" size="la" block onClick={this.register.bind(this, username, password,email)} onMouseEnter={this.checkinformation.bind(this,password,password2,username,email)}>
                 Register
               </Button>
             </div>

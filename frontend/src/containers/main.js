@@ -79,7 +79,7 @@ class Main extends React.Component {
   render() {
     const{username}=this.state
     return (
-      <div>
+      <div class="main">
         <NavBar/>
             <Container>
               <br/><Logo/><br/>
@@ -91,7 +91,7 @@ class Main extends React.Component {
                   <Col></Col>
                   <Form inline>
                     <Form.Control type="text" placeholder="🔍Search" className="mr-sm-2" required/>
-                    <Button variant="success" type="submit">Search</Button>
+                    <Button variant="danger" type="submit">Search</Button>
                   </Form>
                   <Col></Col>
                 </Row>
@@ -114,6 +114,8 @@ class Main extends React.Component {
                 </Row>
               </p>
             </Container>
+
+      <br/><br/><br/><br/>
         <h10 class="back" id="block"></h10>
         <h10 class="back" id="usern1"></h10>
         <h10 class="back" id="usern2"></h10>

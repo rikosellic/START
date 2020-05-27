@@ -1,5 +1,18 @@
+.reviewroom{
+    background-image: url('../logo/rb3.jpg');
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size:100% 100%;
+}
+
+
 .review-score{
     width: 16%;
+}
+
+.review-logo{
+    height: 15%;
+    width:15%;
 }
 
 .review-word{
@@ -23,10 +36,19 @@
 
 }
 
-.review-speed{
-    padding-top: 320px;
-    text-align: center;
+.review-perscore{
+    margin-top: 320px;
+    margin-left: 40%;
     height: 50px;
+    width: 50%;
+    font-size: 20px;
+}
+
+.review-speed{
+    margin-top: -51px;
+    margin-left: 54.5%;
+    height: 50px;
+    width: 50%;
     font-size: 20px;
 }
 
@@ -37,4 +59,33 @@
 
 .review-choice{
     text-align:left;
+    color: black;
+}
+
+#block1{
+    background-color: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.5);
+}
+
+#block2{
+    background-color: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.5);
+}
+
+#block3{
+    background-color: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.5);
+}
+
+#block4{
+    background-color: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.5);
+}
+
+body{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
