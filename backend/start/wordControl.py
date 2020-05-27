@@ -46,6 +46,8 @@ def allWordList():
 		x.pop('GQFC')
 		x.pop('XZFC')
 		x.pop('FS')
+		if x['lx']!=None:
+			x['lx']=x['lx'].replace("/r/n","<br>")
 		wordlist.append(x)
 	wordlist = sorted(wordlist,key = lambda e:e['ID'],reverse = False)
 	return wordlist
