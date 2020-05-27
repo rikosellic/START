@@ -1,0 +1,117 @@
+.studyRoom{
+    background-image: url('../logo/rb3.jpg');
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.study-button1{
+    width: 8%;
+	position: fixed;
+    top: 500px;
+    left: 500px;
+	background-color: rgba(255,255,255,0.5);
+	color:black
+	
+}
+ span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.2s;
+}
+.study-button1 span:before {
+  content: "<";
+  opacity: 0;
+  top: 0;
+  right: -200px;
+  transition: 0.2s;
+}
+.study-button1:hover span {
+  padding-right: 25px;
+}
+
+.study-button1:hover span:before {
+  opacity: 1;
+  right: 0;
+}
+.study-button2{
+    width: 8%;
+	position: fixed;
+    top: 500px;
+    left: 900px;
+	transition: all 0.2s;
+	cursor: pointer;
+	background-color: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.5);
+	color:black
+	
+}
+ span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.2s;
+}
+.study-button2 span:after {
+  content: '>';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.2s;
+}
+.study-button2:hover span {
+  padding-right: 25px;
+}
+
+.study-button2:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.study-word{
+	position: fixed;
+    top: 100px;
+    left: 500px;
+}
+.study-mean{
+	position: fixed;
+    top: 200px;
+    left: 500px;
+}
+.study-lx{
+	position: fixed;
+    top: 300px;
+    left: 500px;
+}
+.study-speed1{
+	position: fixed;
+    top: 600px;
+    left: 630px;
+}
+.study-speed2{
+	position: fixed;
+    top: 600px;
+    left: 830px;
+}
+.study-speed3{
+	position: fixed;
+    top: 650px;
+    left: 630px;
+}
+.study-speed4{
+	position: fixed;
+    top: 650px;
+    left: 830px;
+}
+
+body{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
