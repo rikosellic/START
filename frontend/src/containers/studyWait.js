@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBar from "../components/Nav";
 import {
   Jumbotron,
   Container,
@@ -13,7 +12,7 @@ import Logo from "../components/Logo";
 import NavBar2 from "../components/Nav2";
 import Footer from "../components/Footer";
 import PropTypes from 'prop-types';
-
+import "./studyWait.css"
 class studyWait extends React.Component {
 	static propTypes = {
     username: PropTypes.string.isRequired,
@@ -126,24 +125,23 @@ class studyWait extends React.Component {
     render() {
 	const{roomid,username}=this.state
     return (
+	<div class="studyWait">
             <html>
-              <div className='login-logo' ><Logo/></div>
+			<NavBar2/>
+			<div class="logo"> <Logo/></div>
               <h4>房间号：{this.state.roomid}</h4>
 			  <Row>
-			    <h4 id="usern1">房主:</h4>
-				<h4 id="usern2"></h4>
-			  	<h4 id="usern3"></h4>
-                <h4 id="usern4"></h4>
+			    <h4 class="usern1" id="usern1">房主:</h4>
+				<h4 class="usern2" id="usern2"></h4>
+			  	<h4 class="usern3" id="usern3"></h4>
+                <h4 class="usern4" id="usern4"></h4>
 			  </Row>
               <Row>
-                 <div class="main-button">
-                    <Button variant="primary" size="lg" onClick={this.startstudy.bind(this,roomid)} onMouseEnter={this.studysetwordlist.bind(this,roomid)}>开始学习</Button>
-                 </div>
-                 <div class="main-button">
-                    <Button variant="primary" size="lg" class="main-button" onClick={this.quitstudyroom.bind(this,roomid)}>退出</Button>
-                 </div>
+                  <Button variant="primary" size="lg" id="b1" className="b1" onClick={this.startstudy.bind(this,roomid)} onMouseEnter={this.studysetwordlist.bind(this,roomid)}>开始学习</Button>
+                  <Button variant="primary" size="lg" id="b2" className="b2" onClick={this.quitstudyroom.bind(this,roomid)}>退出</Button>
               </Row>
             </html>
+			</div>
     );
   }
 }
