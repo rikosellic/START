@@ -153,6 +153,7 @@ class RoomControl:
             result={}
             result['score']=score
             result['correct']=correct
+            return result
         except Exception as e:
             print(e)
             return -1

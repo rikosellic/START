@@ -244,7 +244,6 @@ class ReviewRoom: #复习房间类
                 self.score[index]+=yourscore
                 self.alreadyright+=1
                 printe(self.score,EN)
-
                 return (yourscore,self.correctanswer[self.currentquestion])
 
     def nextProblem(self,username):
