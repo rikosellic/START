@@ -250,7 +250,8 @@ class CalculateScore(APIView): #提交答案
         choice = input['choice']
         result=roomcontroller.calculateScore(username,roomid,choice)
         if result!=-1:
-            return Response(result, status=status.HTTP_200_OK)
+            printe(result,EN)
+            return Response(json.dumps(result,ensure_ascii=False), status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 

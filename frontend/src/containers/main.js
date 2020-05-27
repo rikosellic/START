@@ -79,7 +79,7 @@ class Main extends React.Component {
   render() {
     const{username}=this.state
     return (
-      <div>
+      <div class="main">
         <NavBar/>
             <Container>
               <br/><Logo/><br/>
@@ -91,7 +91,7 @@ class Main extends React.Component {
                   <Col></Col>
                   <Form inline>
                     <Form.Control type="text" placeholder="🔍Search" className="mr-sm-2" required/>
-                    <Button variant="success" type="submit">Search</Button>
+                    <Button variant="danger" type="submit">Search</Button>
                   </Form>
                   <Col></Col>
                 </Row>
@@ -101,19 +101,21 @@ class Main extends React.Component {
                   <Col>
                   </Col>
                   <div class="main-button">
-                    <Button variant="primary" onClick={this.createreviewroom.bind(this, username)}>Create reviewroom</Button>
+                    <Button variant="outline-light" onClick={this.createreviewroom.bind(this, username)}>Create reviewroom</Button>
                   </div>
                   <div class="main-button">
-                    <Button variant="primary" onClick={this.createstudyroom.bind(this, username)}>Create studyroom</Button>
+                    <Button variant="outline-light" onClick={this.createstudyroom.bind(this, username)}>Create studyroom</Button>
                   </div>
                   <div class="main-button">
-                    <Button variant="primary" onClick={this.joinroom.bind(this,username)}>Join room</Button>
+                    <Button variant="outline-light" onClick={this.joinroom.bind(this,username)}>Join room</Button>
                   </div>
                   <Col>
                   </Col>
                 </Row>
               </p>
             </Container>
+
+      <br/><br/><br/><br/>
         <h10 class="back" id="block"></h10>
         <h10 class="back" id="usern1"></h10>
         <h10 class="back" id="usern2"></h10>

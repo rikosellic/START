@@ -20,3 +20,9 @@
     text-align: center;
     width: 100%;
 }
+
+#btn {
+    height: 35px;
+    width: 100px;
+    text-align: center;
+}
