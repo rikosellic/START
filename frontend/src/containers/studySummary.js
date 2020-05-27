@@ -19,29 +19,16 @@ class Main extends React.Component {
 	<html>
       <div>
               <div className='login-logo' ><Logo/></div>
-              <h4>房间号：123
-              </h4>
-			  <h4>小华
-			  </h4>
-			  <Row>
-			  <h4>正确的单词：
-              </h4>
-			  <h4>错误的单词：
-              </h4>
-			  </Row>
-                <Row>
-                  <Col>
-                  </Col>
+              <h4>房间号：123</h4>
+			  <h4>小华</h4>
+              <Row>
                   <div class="main-button">
                     <Button variant="primary" size="lg">继续学习</Button>
                   </div>
                   <div class="main-button">
                     <Button variant="primary" size="lg" class="main-button">退出</Button>
                   </div>
-                  <Col>
-                  </Col>
-                </Row>
-          <h10 id="speed1" class="back"></h10><h10 class="back" id="speed2"></h10><h10 class="back" id="speed3"></h10><h10 class="back" id="speed4"></h10>
+              </Row>
       </div>
 	</html>
     );

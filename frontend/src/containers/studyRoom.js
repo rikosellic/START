@@ -13,9 +13,8 @@ import Logo from "../components/Logo";
 import NavBar2 from "../components/Nav2";
 import Footer from "../components/Footer";
 import PropTypes from 'prop-types';
-
-class study extends React.Component {
-
+import "./studyRoom.css"
+class studyRoom extends React.Component {
     static propTypes = {
         username: PropTypes.string.isRequired,
         roomid: PropTypes.string.isRequired,
@@ -102,7 +101,11 @@ class study extends React.Component {
                 this.props.history.push({pathname:'/studySummary'});
                 alert("跳转至复习页面")}
             }
-        }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word; document.getElementById("mean").innerHTML = JSON.parse(text).meaning;} catch(error){}})
+        }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word;
+		document.getElementById("mean").innerHTML = JSON.parse(text).meaning;
+		if (JSON.parse(text).lx !=null){document.getElementById("lx").innerHTML = JSON.parse(text).lx;}
+		else {document.getElementById("lx").innerHTML = "暂无例句"};} 
+		catch(error){}})
     }
 
     lastWord(roomid,username)
@@ -121,28 +124,33 @@ class study extends React.Component {
                 return res.json();}
             else{alert("已经是第一题");
             }
-        }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word; document.getElementById("mean").innerHTML = JSON.parse(text).meaning;} catch(error){}})
+        }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word;
+		document.getElementById("mean").innerHTML = JSON.parse(text).meaning;
+		if (JSON.parse(text).lx !=null){document.getElementById("lx").innerHTML = JSON.parse(text).lx;}
+		else {document.getElementById("lx").innerHTML = "暂无例句"}} catch(error){}})
     }
     render() {
         const{roomid,username}=this.state
-        return (
+        return (<div class="studyRoom">
+		
             <html>
-            <div className='login-logo' ><Logo/></div>
-            <h4 className="study-word" variant="outline-info"> </h4>
-            <h4 className="study-word" variant="outline-info">单词： </h4>
-            <h4 className="study-word" variant="outline-info" id="word">pear</h4>
-            <h4 className="study-word" variant="outline-info">释义： </h4>
-            <h4 className="study-word" variant="outline-info" id="mean">梨子</h4>
-            <Button variant="primary" size="lg" onClick={this.lastWord.bind(this,roomid,username)}>上一个单词</Button>
-            <Button variant="primary" size="lg" onClick={this.nextWord.bind(this,roomid,username)}>下一个单词</Button>
+			<NavBar2/>
+			<div>
+            <h1 className="study-word" id="word"></h1>
+            <h4 className="study-mean" id="mean"></h4>
+            <h5 className="study-lx" id="lx"></h5>
+            <Button variant="primary" className="study-button1" id="but1" size="lg" onClick={this.lastWord.bind(this,roomid,username) }><span>last</span></Button>
+            <Button variant="primary" className="study-button2" id="but2" size="lg" onClick={this.nextWord.bind(this,roomid,username)} ><span>next</span></Button>
             <Row>
-            <div class="study-speed" id="speed1">22</div>
-            <div class="study-speed" id="speed2">22</div>
-            <div class="study-speed" id="speed3">22</div>
-            <div class="study-speed" id="speed4">22</div>
+            <h4 class="study-speed1" id="speed1"></h4>
+            <div class="study-speed2" id="speed2"></div>
+            <div class="study-speed3" id="speed3"></div>
+            <div class="study-speed4" id="speed4"></div>
             </Row>
+			</div>
             </html>
+		</div>
     );
     }
 }
-export default study;
+export default studyRoom;

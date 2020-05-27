@@ -1,0 +1,27 @@
+.reviewsummary-div{
+    width: 30%;
+    margin-left: 35%;
+    padding-top: 6%;
+    padding-bottom: 10%;
+}
+
+.reviewsummary-logo{
+    margin-top: -20%;
+    width: 200%;
+    margin-left:-50%;
+}
+
+.reviewsummary-button{
+    text-align: center;
+    width: 100%;
+    padding-top: 8%;
+}
+
+.reviewsummary-score{
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+    border-style: solid;
+    border-color: skyblue;
+    border-width:1.5px;
+}
