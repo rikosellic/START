@@ -7,7 +7,6 @@ import {
     Form,
     Button,
 } from 'react-bootstrap';
-import "./reviewSummary.css";
 import "./href.css";
 import Logo from "../components/Logo";
 import NavBar2 from "../components/Nav2";
@@ -143,9 +142,9 @@ class studyRoom extends React.Component {
             <Button variant="primary" className="study-button2" id="but2" size="lg" onClick={this.nextWord.bind(this,roomid,username)} ><span>next</span></Button>
             <Row>
             <h4 class="study-speed1" id="speed1"></h4>
-            <div class="study-speed2" id="speed2"></div>
-            <div class="study-speed3" id="speed3"></div>
-            <div class="study-speed4" id="speed4"></div>
+            <h4 class="study-speed2" id="speed2"></h4>
+            <h4 class="study-speed3" id="speed3"></h4>
+            <h4 class="study-speed4" id="speed4"></h4>
             </Row>
 			</div>
             </html>
