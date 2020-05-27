@@ -234,17 +234,18 @@ class ReviewRoom: #复习房间类
     def calculateScore(self,username,choice):
         index=self.usernamelist.index(username)
         if self.alreadyanswer[index]==1:
-            return  0
+            return  (0,self.correctanswer[self.currentquestion])
         else:
             self.alreadyanswer[index]=1
             if choice!=self.correctanswer[self.currentquestion]:
-                return 0
+                return (0,self.correctanswer[self.currentquestion])
             else:
                 yourscore=10-2*self.alreadyright
                 self.score[index]+=yourscore
                 self.alreadyright+=1
                 printe(self.score,EN)
-                return yourscore
+
+                return (yourscore,self.correctanswer[self.currentquestion])
 
     def nextProblem(self,username):
         #index = self.usernamelist.index(username)
