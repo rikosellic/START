@@ -1,4 +1,4 @@
-body{
+.main{
     background-image: url('../logo/b5.jpg');
     background-repeat: no-repeat;
     background-attachment:fixed;
@@ -25,4 +25,5 @@ h4 {
 
 .word{
     text-align: center;
+    color: white;
 }
