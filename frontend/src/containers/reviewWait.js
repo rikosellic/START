@@ -1,5 +1,4 @@
 import React, { Component }from 'react';
-import NavBar from "../components/Nav";
 import {
   Jumbotron,
   Container,
@@ -8,7 +7,7 @@ import {
   Form,
   Button,
 } from 'react-bootstrap';
-import "./reviewSummary.css";
+import "./reviewWait.css";
 import "./href.css";
 import Logo from "../components/Logo";
 import NavBar2 from "../components/Nav2";
@@ -150,24 +149,23 @@ class reviewWait extends React.Component {
     render() {
 	const{roomid,username}=this.state
     return (
+		<div class="reviewWait">
             <html>
-              <div className='login-logo' ><Logo/></div>
+			  <NavBar2/>
+              <div className='logo' ><Logo/></div>
               <h4>房间号：{this.state.roomid}</h4>
 			  <Row>
-			  <h4 id="usern1">房主:</h4>
-				<h4 id="usern2"></h4>
-			  	<h4 id="usern3"></h4>
-                <h4 id="usern4"></h4>
+			    <h4 class="usern1" id="usern1">房主:</h4>
+				<h4 class="usern2" id="usern2"></h4>
+			  	<h4 class="usern3" id="usern3"></h4>
+                <h4 class="usern4" id="usern4"></h4>
 			  </Row>
               <Row>
-                 <div class="main-button">
-                    <Button variant="primary" size="lg" class="main-button" id="block" onClick={this.startreview.bind(this,roomid)} onMouseEnter={this.setreviewproblem.bind(this,roomid)}>开始复习</Button>
-                 </div>
-                 <div class="main-button">
-                    <Button variant="primary" size="lg" class="main-button" onClick={this.quitreviewroom.bind(this,username,roomid)}>退出</Button>
-                 </div>
+                   <Button variant="primary" size="lg" className="b1" id="block" onClick={this.startreview.bind(this,roomid)} onMouseEnter={this.setreviewproblem.bind(this,roomid)}>开始复习</Button>
+                   <Button variant="primary" size="lg" className="b2" onClick={this.quitreviewroom.bind(this,username,roomid)}>退出</Button>
               </Row>
             </html>
+		</div>
     );
   }
 }
