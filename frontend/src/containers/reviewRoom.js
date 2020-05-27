@@ -146,7 +146,7 @@ class ReviewRoom extends React.Component {
                 document.getElementById("block2").disabled=true;
                 document.getElementById("block3").disabled=true;
                 document.getElementById("block4").disabled=true;
-                document.getElementById("score").innerHTML = "score: "+str+"/10"
+                document.getElementById("score").innerHTML = "score: "+str.score+"/10"
                 if(correct==2) {
                     document.getElementById("answer" + correct).style.color = "green"
                 }else{
@@ -178,7 +178,7 @@ class ReviewRoom extends React.Component {
                 document.getElementById("block2").disabled=true;
                 document.getElementById("block3").disabled=true;
                 document.getElementById("block4").disabled=true;
-                document.getElementById("score").innerHTML = "score: "+str+"/10"
+                document.getElementById("score").innerHTML = "score: "+str.score+"/10"
                 if(correct==3) {
                     document.getElementById("answer" + correct).style.color = "green"
                 }else{
@@ -210,7 +210,7 @@ class ReviewRoom extends React.Component {
                 document.getElementById("block2").disabled=true;
                 document.getElementById("block3").disabled=true;
                 document.getElementById("block4").disabled=true;
-                document.getElementById("score").innerHTML = "score: "+str+"/10"
+                document.getElementById("score").innerHTML = "score: "+str.score+"/10"
                 if(correct==4) {
                     document.getElementById("answer" + correct).style.color = "green"
                 }else{
@@ -247,6 +247,7 @@ class ReviewRoom extends React.Component {
                     var statu=str.status
                     if(statu==200) {
                         document.getElementById("word").innerHTML = str.word;
+                        document.getElementById("score").innerHTML = "score: 0/10";
                         document.getElementById("answer1").innerHTML = str.answer1;
                         document.getElementById("answer2").innerHTML = str.answer2;
                         document.getElementById("answer3").innerHTML = str.answer3;
