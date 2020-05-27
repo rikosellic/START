@@ -79,19 +79,19 @@ class Main extends React.Component {
   render() {
     const{username}=this.state
     return (
-      <div>
+      <div class="main">
         <NavBar/>
             <Container>
-              <Logo/>
-              <h4>
+              <br/><Logo/><br/>
+              <div class="word">
                 It's the third day you joined START, you have studied 150 words
-              </h4>
+              </div>
               <p className="search-box">
                 <Row>
                   <Col></Col>
                   <Form inline>
                     <Form.Control type="text" placeholder="🔍Search" className="mr-sm-2" required/>
-                    <Button variant="success" type="submit">search</Button>
+                    <Button variant="danger" type="submit">Search</Button>
                   </Form>
                   <Col></Col>
                 </Row>
@@ -101,20 +101,21 @@ class Main extends React.Component {
                   <Col>
                   </Col>
                   <div class="main-button">
-                    <Button variant="primary" size="lg" onClick={this.createreviewroom.bind(this, username)}>creat a reviewroom</Button>
+                    <Button variant="outline-light" onClick={this.createreviewroom.bind(this, username)}>Create reviewroom</Button>
                   </div>
                   <div class="main-button">
-                    <Button variant="primary" size="lg" onClick={this.createstudyroom.bind(this, username)}>creat a studyroom</Button>
+                    <Button variant="outline-light" onClick={this.createstudyroom.bind(this, username)}>Create studyroom</Button>
                   </div>
                   <div class="main-button">
-                    <Button variant="primary" size="lg" onClick={this.joinroom.bind(this,username)}>join a room</Button>
+                    <Button variant="outline-light" onClick={this.joinroom.bind(this,username)}>Join room</Button>
                   </div>
                   <Col>
                   </Col>
                 </Row>
               </p>
             </Container>
-        <Footer/>
+
+      <br/><br/><br/><br/>
         <h10 class="back" id="block"></h10>
         <h10 class="back" id="usern1"></h10>
         <h10 class="back" id="usern2"></h10>

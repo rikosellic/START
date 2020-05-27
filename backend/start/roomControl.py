@@ -149,7 +149,10 @@ class RoomControl:
 
     def calculateScore(self,username,roomid,choice):
         try:
-            result=self.ReviewRoomDict[roomid].calculateScore(username,choice)
+            score,correct=self.ReviewRoomDict[roomid].calculateScore(username,choice)
+            result={}
+            result['score']=score
+            result['correct']=correct
             return result
         except Exception as e:
             print(e)

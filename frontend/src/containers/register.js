@@ -98,7 +98,7 @@ class Register extends React.Component {
     return (
         <div className='register-div'>
           <div className='register-logo'><Logo/></div>
-          <div className='register-title'>register</div>
+          <div className='register-title'>Register</div>
           <Form>
             <Form.Group as={Row}>
               <Form.Label column sm="4">
@@ -132,9 +132,9 @@ class Register extends React.Component {
                 <Form.Control type="email" placeholder="Please enter your email" onChange={this.onemailChange} />
               </Col>
             </Form.Group>
-            <div className="register-button">
-              <Button id="btn" variant="primary" size="la" block onClick={this.register.bind(this, username, password,email)} onMouseEnter={this.checkinformation.bind(this,password,password2,username,email)}>
-                register
+            <div className="register-button"><br/>
+              <Button id="btn" variant="primary" align="center" size="la" block onClick={this.register.bind(this, username, password,email)} onMouseEnter={this.checkinformation.bind(this,password,password2,username,email)}>
+                Register
               </Button>
             </div>
           </Form>
