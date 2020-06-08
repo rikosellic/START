@@ -1,5 +1,4 @@
 import React, { Component }from 'react';
-import Chat from 'chat-react';
 import {
   Jumbotron,
   Container,
@@ -15,7 +14,6 @@ import Logo from "../components/Logo";
 import NavBar2 from "../components/Nav2";
 import Footer from "../components/Footer";
 import PropTypes from 'prop-types';
-
 
 class reviewWait extends React.Component {
 	static propTypes = {
@@ -50,9 +48,10 @@ class reviewWait extends React.Component {
             var that=this;
             const roomid=this.state.roomid;
             const reviewwaitcheckuserValue={"roomid":roomid};
-            const url=" http://localhost:8000/api/reviewwaitcheckuser";
+            const url1=" http://localhost:8000/api/reviewwaitcheckuser";
+            const url2=" http://localhost:8000/api/reviewwaitcheckuser";
             try {
-                fetch(url, {
+                fetch(url1, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json;charset=utf-8",
@@ -77,7 +76,6 @@ class reviewWait extends React.Component {
                         }
                         switch(len){
                         case 1:
-                            document.getElementById("chat").innerHTML=str.user1
                             document.getElementById("usern1").innerHTML="房主："+str.user1
                             document.getElementById("usern2").innerHTML=""
                             document.getElementById("usern3").innerHTML=""
@@ -107,6 +105,21 @@ class reviewWait extends React.Component {
                         window.location="/reviewRoom/"+that.state.roomid+'/'+that.state.username
                         clearInterval(that.state.timer);
                     }else{}
+                })
+            }catch(error){
+            }
+            try {
+                fetch(url2, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json;charset=utf-8",
+                    },
+                    body: JSON.stringify(reviewwaitcheckuserValue),
+                }).then(function (response) {
+                    return response.json();
+                }).then(function(myJson){
+                    var str=JSON.parse(myJson)
+                    document.getElementById("chat").innerHTML=str.user3;
                 })
             }catch(error){
             }
@@ -149,8 +162,37 @@ class reviewWait extends React.Component {
                 body: JSON.stringify(value),
            }).then(this.props.history.push({pathname:'/main/'+this.state.username}))
 	}
+
+    sendout(roomid){
+        const value = {"roomid": roomid,}
+        const url = " http://localhost:8000/api/startreview";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-type":"application/json;charset=utf-8",
+            },
+            body: JSON.stringify(value),
+        }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
+    }
+
     render() {
-	const{roomid,username}=this.state
+	const{roomid,username}=this.state;
+    function sendout(roomid){
+        const value = {"roomid": roomid,}
+        const url = " http://localhost:8000/api/startreview";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-type":"application/json;charset=utf-8",
+            },
+            body: JSON.stringify(value),
+        }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
+    }
+    onkeydown = (e)=>{
+        if (e.keyCode === 13) {
+            sendout(this.state.roomid)
+        }
+    }
     return (
 		<div class="reviewWait">
             <html>
@@ -160,9 +202,12 @@ class reviewWait extends React.Component {
                 <Form.Control as="textarea" id="chat" rows="5" disabled/>
                 </Form.Group>
                 <Form.Group><Form.Control type="text"/></Form.Group>
+                <div class="chatButton">
+                <Button id="chat_button" size="sm" onClick={this.sendout.bind(this,roomid)}>Send out</Button>
+                </div>
               </DropdownButton>
               <div className='logo' ><Logo/></div>
-              <h4>房间号：{this.state.roomid}</h4>
+              <h4>RoomID：{this.state.roomid}</h4>
 			  <Row>
 			    <h4 class="usern1" id="usern1">房主:</h4>
 				<h4 class="usern2" id="usern2"></h4>
