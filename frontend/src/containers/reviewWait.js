@@ -1,4 +1,5 @@
 import React, { Component }from 'react';
+import Chat from 'chat-react';
 import {
   Jumbotron,
   Container,
@@ -6,6 +7,7 @@ import {
   Col,
   Form,
   Button,
+  DropdownButton,
 } from 'react-bootstrap';
 import "./reviewWait.css";
 import "./href.css";
@@ -75,6 +77,7 @@ class reviewWait extends React.Component {
                         }
                         switch(len){
                         case 1:
+                            document.getElementById("chat").innerHTML=str.user1
                             document.getElementById("usern1").innerHTML="房主："+str.user1
                             document.getElementById("usern2").innerHTML=""
                             document.getElementById("usern3").innerHTML=""
@@ -152,18 +155,25 @@ class reviewWait extends React.Component {
 		<div class="reviewWait">
             <html>
 			  <NavBar2/>
+              <DropdownButton title="chat" size="sm">
+                <Form.Group>
+                <Form.Control as="textarea" id="chat" rows="5" disabled/>
+                </Form.Group>
+                <Form.Group><Form.Control type="text"/></Form.Group>
+              </DropdownButton>
               <div className='logo' ><Logo/></div>
               <h4>房间号：{this.state.roomid}</h4>
 			  <Row>
 			    <h4 class="usern1" id="usern1">房主:</h4>
 				<h4 class="usern2" id="usern2"></h4>
 			  	<h4 class="usern3" id="usern3"></h4>
-                <h4 class="usern4" id="usern4"></h4>
+                <h4 class="usern4" id="usern4" ></h4>
 			  </Row>
               <Row>
                    <Button variant="primary" size="lg" className="b1" id="block" onClick={this.startreview.bind(this,roomid)} onMouseEnter={this.setreviewproblem.bind(this,roomid)}>开始复习</Button>
                    <Button variant="primary" size="lg" className="b2" onClick={this.quitreviewroom.bind(this,username,roomid)}>退出</Button>
               </Row>
+            <div class="sb" id="chat"></div>
             </html>
 		</div>
     );
