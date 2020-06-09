@@ -316,3 +316,55 @@ class ReviewWaitCheckUser(APIView):
             return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class StudyRoomSpeak(APIView):
+    def post(self, request):
+        input = request.data
+        roomid = int(input['roomid'])
+        username=input['username']
+        str=input['str']
+        if TESTAPI == 1:
+            roomid = testid
+        result=roomcontroller.studyRoomSpeak(roomid,username,str)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ReviewRoomSpeak(APIView):
+    def post(self, request):
+        input = request.data
+        roomid = int(input['roomid'])
+        username=input['username']
+        str=input['str']
+        if TESTAPI == 1:
+            roomid = testid2
+        result=roomcontroller.reviewRoomSpeak(roomid,username,str)
+        if result==True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class StudyRoomCheckTalk(APIView):
+    def post(self, request):
+        input = request.data
+        roomid = int(input['roomid'])
+        if TESTAPI == 1:
+            roomid = testid
+        result=roomcontroller.studyRoomCheckTalk(roomid)
+        if result!=False:
+            return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ReviewRoomCheckTalk(APIView):
+    def post(self, request):
+        input = request.data
+        roomid = int(input['roomid'])
+        if TESTAPI == 1:
+            roomid = testid2
+        result=roomcontroller.reviewRoomCheckTalk(roomid)
+        if result!=False:
+            return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

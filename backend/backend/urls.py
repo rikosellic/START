@@ -39,5 +39,9 @@ urlpatterns = [
     path('api/returnstudyprocess',views.ReturnStudyProcess.as_view()),
     path('api/returnreviewscore',views.ReturnReviewScore.as_view()),
     path('api/studywaitcheckuser',views.StudyWaitCheckUser.as_view()),
-    path('api/reviewwaitcheckuser',views.ReviewWaitCheckUser.as_view())
+    path('api/reviewwaitcheckuser',views.ReviewWaitCheckUser.as_view()),
+    path('api/studyroomspeak',views.StudyRoomSpeak.as_view()),
+    path('api/reviewroomspeak',views.ReviewRoomSpeak.as_view()),
+    path('api/studyroomchecktalk',views.StudyRoomCheckTalk.as_view()),
+    path('api/reviewroomchecktalk',views.ReviewRoomCheckTalk.as_view())
 ]
