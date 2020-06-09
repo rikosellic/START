@@ -22,6 +22,8 @@ class StudyRoom: #学习房间类
         self.learning_process =[0]
         self.wordlist = []
         self.start=False
+        self.talknum=0
+        self.talkstring=''
         printe(self.usernamelist,EN)
 
     def setWordList(self,idlist):
@@ -107,6 +109,16 @@ class StudyRoom: #学习房间类
             userdict['start']=1
         return userdict
 
+    def speak(self,username,str):
+        self.talknum+=1
+        self.talkstring=self.talkstring+username+':'+str
+        return True
+
+    def checkTalk(self):
+        dic = {}
+        dic['str'] = self.talkstring
+        return dic
+
 class ReviewRoom: #复习房间类
     alllist=allWordList()
 
@@ -124,6 +136,8 @@ class ReviewRoom: #复习房间类
         self.alreadyanswer = [0]
         self.alreadyright=0
         self.temp=0
+        self.talknum = 0
+        self.talkstring = ''
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -266,3 +280,13 @@ class ReviewRoom: #复习房间类
         print ('current',self.currentquestion)
         print(username,self.problemlist[self.currentquestion])
         return (self.problemlist[self.currentquestion],2)
+
+    def speak(self, username, str):
+        self.talknum += 1
+        self.talkstring = self.talkstring + username + ':' + str
+        return True
+
+    def checkTalk(self):
+        dic={}
+        dic['str']=self.talkstring
+        return dic
