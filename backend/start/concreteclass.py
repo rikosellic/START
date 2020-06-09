@@ -111,7 +111,7 @@ class StudyRoom: #学习房间类
 
     def speak(self,username,str):
         self.talknum+=1
-        self.talkstring=self.talkstring+username+':'+str
+        self.talkstring = self.talkstring + username + ':<br/>' + str+'<br/>'
         return True
 
     def checkTalk(self):
@@ -295,7 +295,7 @@ class ReviewRoom: #复习房间类
 
     def speak(self, username, str):
         self.talknum += 1
-        self.talkstring = self.talkstring + username + ':' + str
+        self.talkstring = self.talkstring + username + ':<br/>' + str+'<br/>'
         return True
 
     def checkTalk(self):
