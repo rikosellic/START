@@ -263,10 +263,22 @@ class ReviewRoom: #复习房间类
     def nextProblem(self,username):
         #index = self.usernamelist.index(username)
         if self.currentquestion==49:
+            index=0
+            tempscore=[]
+            tempbool=[]
+            for i in range (self.usernum):
+                tempscore.append(self.score[i])
+                tempbool.append(True)
+            tempscore.sort(reverse=True)
             scoredict = {}
-            for index, name in enumerate(self.usernamelist):
-                scoredict['user' + str(index + 1) + 'name'] = self.usernamelist[index]
-                scoredict['user' + str(index + 1) + 'score'] = self.score[index]
+            for tscore in tempscore:
+                for j in range (self.usernum):
+                    if self.score[j]==tscore and tempbool[j]==True:
+                        tempbool[j]=False
+                        index+=1
+                        scoredict['user' + str(index ) + 'name'] = self.usernamelist[j]
+                        scoredict['user' + str(index ) + 'score'] = self.score[j]
+                        break
             scoredict['usernum'] = self.usernum
             return (scoredict,1)
         self.temp+=1
