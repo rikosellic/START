@@ -56,6 +56,9 @@
 .sb{
     margin-left:-1000px
 }
+.chatButton{
+    margin-left: 25%;
+}
 body{
     position: fixed;
     top: 0;
@@ -67,9 +70,6 @@ body{
     height:25px;
     width: 100px;
     text-align: cneter;
-}
-.chatButton{
-    margin-left: 25%;
 }
 /*#chat{
     height: 200px;

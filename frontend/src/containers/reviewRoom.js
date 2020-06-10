@@ -7,6 +7,7 @@ import {
     Col,
     Form,
     Button,
+    DropdownButton,
 } from 'react-bootstrap';
 import "./reviewRoom.css";
 import NavBar2 from "../components/Nav2";
@@ -33,7 +34,7 @@ class ReviewRoom extends React.Component {
         let speed=this.state.speed;
         let timer = setInterval(() => {
         if(remaining==0){
-                remaining += 10000;
+                remaining += 3000;
                 let second = Math.floor(remaining/1000);
                 speed=speed+1;
                 this.setState({
@@ -221,13 +222,38 @@ class ReviewRoom extends React.Component {
         } catch (error) {
         }
     }
+
+    sendout(roomid){
+        const value = {"roomid": roomid,}
+        const url = " http://localhost:8000/api/startreview";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-type":"application/json;charset=utf-8",
+            },
+            body: JSON.stringify(value),
+        }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
+    }
+
     render() {
-        const{roomid,username}=this.state
+        const{roomid,username}=this.state;
         const serviceShows = this.state.services.map((service,index)=>{
             if(service.type === this.state.view){
                 return <div className="one-service" key={index}>{service}</div>
             }
         })
+        function sendout(roomid){
+            const value = {"roomid": roomid,}
+            const url = " http://localhost:8000/api/startreview";
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(value),
+            }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
+        }
+
         function nextproblem(roomid) {
             const nextproblemValue = {"roomid": roomid,
             "username":username};
@@ -262,21 +288,8 @@ class ReviewRoom extends React.Component {
                         document.getElementById("block4").disabled = false;
                     }
                     if(statu==202){
-                        var len=str.usernum;
-                        switch(len){
-                            case 1:
-                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score
-                            break;
-                            case 2:
-                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score+"/"+str.user2name+"/"+str.user2score
-                            break;
-                            case 3:
-                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score+"/"+str.user2name+"/"+str.user2score+"/"+str.user3name+"/"+str.user3score
-                            break;
-                            case 4:
-                                window.location='/reviewSummary/'+str.usernum+'/'+str.user1name+"/"+str.user1score+"/"+str.user2name+"/"+str.user2score+"/"+str.user3name+"/"+str.user3score+"/"+str.user4name+"/"+str.user4score
-                            break;
-                        }
+                        window.location='/reviewSummary/'+roomid+'/'+username
+
                     }
                 })
             } catch (error) {
@@ -285,9 +298,23 @@ class ReviewRoom extends React.Component {
         if (this.state.second <= 0) {
             nextproblem(this.state.roomid)
         }
+        onkeydown = (e)=>{
+            if (e.keyCode === 13) {
+                sendout(this.state.roomid)
+            }
+        }
         return (
           <div class="reviewroom">
             <NavBar2/><br/>
+            <DropdownButton title="chat" size="sm">
+                <Form.Group>
+                <Form.Control as="textarea" id="chat" rows="5" disabled/>
+                </Form.Group>
+                <Form.Group><Form.Control type="text"/></Form.Group>
+                <div class="chatButton">
+                    <Button id="chat_button" size="sm" onClick={this.sendout.bind(this,roomid)}>Send out</Button>
+                </div>
+            </DropdownButton>
             <Row>
               {serviceShows}
               <div class="review-score" style={{marginLeft: '24%'}} id="user1"></div>
@@ -321,6 +348,7 @@ class ReviewRoom extends React.Component {
               <div class="review-perscore" id="score">score: 0/10</div>
               <div class="review-speed" >speed: {this.state.speed}/50</div>
             </Row>
+            <div class="sb" id="chat"></div>
           </div>
     );
     }

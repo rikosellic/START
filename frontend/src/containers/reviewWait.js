@@ -34,12 +34,14 @@ class reviewWait extends React.Component {
     //messagearr即为包含房间号和所有username的数组，
     //其中messagearr[0]为房间号，messagearr[1]为当前用户的username，messagearr[2]为房主的username,之后的即为其他成员的username
     super(props);
+    this.onstrChange = this.onstrChange.bind(this);
     this.state = {
       url:messagesplit[3],
       username:  messagesplit[4],
       roomid: messagesplit[5],
       services:[],
       view:"type_a",
+      str:"",
       //hostname: messagearr[2],
       }
   }
@@ -49,7 +51,7 @@ class reviewWait extends React.Component {
             const roomid=this.state.roomid;
             const reviewwaitcheckuserValue={"roomid":roomid};
             const url1=" http://localhost:8000/api/reviewwaitcheckuser";
-            const url2=" http://localhost:8000/api/reviewwaitcheckuser";
+            const url2=" http://localhost:8000/api/reviewroomchecktalk";
             try {
                 fetch(url1, {
                     method: "POST",
@@ -119,13 +121,17 @@ class reviewWait extends React.Component {
                     return response.json();
                 }).then(function(myJson){
                     var str=JSON.parse(myJson)
-                    document.getElementById("chat").innerHTML=str.user3;
+                    if(document.getElementById("chat")){document.getElementById("chat").innerHTML=str.str;}
                 })
             }catch(error){
             }
         },100)
     }
-
+    onstrChange(event) {
+        this.setState({
+            str: event.target.value,
+        });
+    }
     setreviewproblem(roomid){
         const value = {"roomid": roomid,}
         const url = " http://localhost:8000/api/setreviewproblem";
@@ -163,34 +169,46 @@ class reviewWait extends React.Component {
            }).then(this.props.history.push({pathname:'/main/'+this.state.username}))
 	}
 
-    sendout(roomid){
-        const value = {"roomid": roomid,}
-        const url = " http://localhost:8000/api/startreview";
+    sendout(roomid,username,str){
+        const value = {"roomid": roomid,
+        "username":username,
+        "str":str}
+        const url = " http://localhost:8000/api/reviewroomspeak";
+        if (str==""){}
+        else{
         fetch(url, {
             method: "POST",
             headers: {
                 "Content-type":"application/json;charset=utf-8",
             },
             body: JSON.stringify(value),
-        }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
-    }
+        }).then()}
+        document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight
+        document.getElementById('string').value=""
+	}
 
     render() {
-	const{roomid,username}=this.state;
+	const{roomid,username,str}=this.state;
     function sendout(roomid){
-        const value = {"roomid": roomid,}
-        const url = " http://localhost:8000/api/startreview";
+        const value = {"roomid": roomid,
+            "username":username,
+            "str":str}
+        const url = " http://localhost:8000/api/reviewroomspeak";
         fetch(url, {
             method: "POST",
             headers: {
                 "Content-type":"application/json;charset=utf-8",
             },
             body: JSON.stringify(value),
-        }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
+        }).then()
     }
-    onkeydown = (e)=>{
+    onkeyup = (e)=>{
         if (e.keyCode === 13) {
-            sendout(this.state.roomid)
+            if(this.state.str==""){}
+            else{
+            sendout(this.state.roomid,this.state.username,this.state.str)
+            document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight}
+            document.getElementById('string').value=""
         }
     }
     return (
@@ -201,9 +219,9 @@ class reviewWait extends React.Component {
                 <Form.Group>
                 <Form.Control as="textarea" id="chat" rows="5" disabled/>
                 </Form.Group>
-                <Form.Group><Form.Control type="text"/></Form.Group>
+                <Form.Group ><Form.Control type="text" id="string" onChange={this.onstrChange}/></Form.Group>
                 <div class="chatButton">
-                <Button id="chat_button" size="sm" onClick={this.sendout.bind(this,roomid)}>Send out</Button>
+                <Button id="chat_button" size="sm" onClick={this.sendout.bind(this,roomid,username,str)}>Send out</Button>
                 </div>
               </DropdownButton>
               <div className='logo' ><Logo/></div>
@@ -218,7 +236,6 @@ class reviewWait extends React.Component {
                    <Button variant="primary" size="lg" className="b1" id="block" onClick={this.startreview.bind(this,roomid)} onMouseEnter={this.setreviewproblem.bind(this,roomid)}>开始复习</Button>
                    <Button variant="primary" size="lg" className="b2" onClick={this.quitreviewroom.bind(this,username,roomid)}>退出</Button>
               </Row>
-            <div class="sb" id="chat"></div>
             </html>
 		</div>
     );
