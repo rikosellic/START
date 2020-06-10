@@ -375,3 +375,17 @@ URL:api/reviewroomchecktalk
 返回值:  成功:一个字典，只有一个key:"str"(一整个字符串);状态:HTTP_200_OK
 
 失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 获取学习记录
+
+**URL**: api/getstudyrecord
+
+**方法**: POST
+
+**输入**: "username"(用户名)
+
+**返回值**: 成功: 字典, 包含一个key"history"(value是一个包含所有学习记录的字符串);状态HTTP_200_OK
+
+​			  失败（访问错误或无记录）: 状态HTTP_400_BAD_REQUEST
