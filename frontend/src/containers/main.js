@@ -17,25 +17,31 @@ import {withRouter} from "react-router-dom";
 
 class Main extends React.Component {
   static propTypes = {
-    username: PropTypes.string.isRequired,
+		word: PropTypes.string.isRequired,
+		username: PropTypes.string.isRequired,
     }
     constructor(props) {
       var message=window.location.href;
       super(props);
       this.onusernameChange = this.onusernameChange.bind(this);
+	  this.onwordChange = this.onwordChange.bind(this);
       this.state = {
-        username: message.slice(27)
+		word: '',
+        username: message.slice(27),
       }
     }
     onusernameChange(event) {
         this.setState({
-            username: this.props.params.username,
+            username: this.props.location.state.username,
         });
     }
-
+	onwordChange(event) {
+        this.setState({
+            word: event.target.value,
+        });
+	}
     createstudyroom(username) {
         const createstudyroomValue = {"username": username}
-        var username=this.state.username
         const url = " http://localhost:8000/api/createstudyroom";
         try {
             fetch(url, {
@@ -55,7 +61,6 @@ class Main extends React.Component {
     }
     createreviewroom(username) {
         const createreviewroomValue = {"username": username}
-        var username = this.state.username
         const url = " http://localhost:8000/api/createreviewroom";
         try {
             fetch(url, {
@@ -73,11 +78,34 @@ class Main extends React.Component {
         } catch (error) {
         }
     }
+	searchword(word){
+		var that = this;
+		const searchwordValue = {"word": word}
+        const url = " http://localhost:8000/api/searchword";
+		if(that.state.word !== ''){
+			try {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(searchwordValue),
+            }).then(function(response) {
+				return response.json()
+            }).then(function(myJson){
+				var cont = JSON.parse(myJson);
+                that.props.history.push({pathname:'/searchWord/'+that.state.username},
+				{res1: cont},{res2:that.state.word},{res3:that.state.username});
+            })
+        } catch (error) {
+        }
+		}  
+	}
     joinroom(username){
         this.props.history.push({pathname:'/joinRoom/'+this.state.username})
     }
   render() {
-    const{username}=this.state
+    const{username,word}=this.state
     return (
       <div class="main">
         <NavBar/>
@@ -90,8 +118,9 @@ class Main extends React.Component {
                 <Row>
                   <Col></Col>
                   <Form inline>
-                    <Form.Control type="text" placeholder="🔍Search" className="mr-sm-2" required/>
-                    <Button variant="danger" type="submit">Search</Button>
+					<Form.Control style={{display:"none"}}/>
+                    <Form.Control type="text" onChange={this.onwordChange}/>
+                    <Button variant="danger" onClick={this.searchword.bind(this,word)}>Search</Button>
                   </Form>
                   <Col></Col>
                 </Row>
@@ -114,13 +143,6 @@ class Main extends React.Component {
                 </Row>
               </p>
             </Container>
-
-      <br/><br/><br/><br/>
-        <h10 class="back" id="block"></h10>
-        <h10 class="back" id="usern1"></h10>
-        <h10 class="back" id="usern2"></h10>
-        <h10 class="back" id="usern3"></h10>
-        <h10 class="back" id="usern4"></h10>
       </div>
     );
   }
