@@ -117,15 +117,15 @@ class reviewWait extends React.Component {
                         "Content-type": "application/json;charset=utf-8",
                     },
                     body: JSON.stringify(reviewwaitcheckuserValue),
-                }).then(function (response) {
+                }).then(function(response) {
                     return response.json();
                 }).then(function(myJson){
-                    var str=JSON.parse(myJson)
-                    if(document.getElementById("chat")){document.getElementById("chat").innerHTML=str.str;}
+                    var string=JSON.parse(myJson);
+                    if(document.getElementById("chat")){document.getElementById("chat").innerHTML=string.str;}
                 })
             }catch(error){
             }
-        },100)
+        },3000)
     }
     onstrChange(event) {
         this.setState({
@@ -207,8 +207,8 @@ class reviewWait extends React.Component {
             if(this.state.str==""){}
             else{
             sendout(this.state.roomid,this.state.username,this.state.str)
-            document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight}
-            document.getElementById('string').value=""
+            if(document.getElementById('chat')) {document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight}}
+            if(document.getElementById('string')){document.getElementById('string').value = ""}
         }
     }
     return (
