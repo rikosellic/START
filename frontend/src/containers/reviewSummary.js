@@ -47,7 +47,6 @@ class ReviewSummary extends React.Component {
                     body: JSON.stringify(nextproblemValue),
                 }).then(function(response) {
                     return response.json();
-                    console.log(response.json())
                 }).then(function(myJson){
                     var str=JSON.parse(myJson);
                     var len=str.usernum;
@@ -79,7 +78,7 @@ class ReviewSummary extends React.Component {
                     }
                     if(username==str.user1name){document.getElementById("personal").innerHTML = "你麻痹的是第一名，开心了吧"}
                     if(username==str.user2name){document.getElementById("personal").innerHTML = "第一都得不到，蔡狗！"}
-                    if(username==str.user3name){document.getElementById("personal").innerHTML = "倒数第二你很骄傲吗？"}
+                    if(username==str.user3name){document.getElementById("personal").innerHTML = "第三你很骄傲吗？乐色。"}
                     if(username==str.user4name){document.getElementById("personal").innerHTML = "这么废物配用我们的软件？"}
                 })
             } catch (error) {

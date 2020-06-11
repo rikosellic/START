@@ -120,12 +120,15 @@ class reviewWait extends React.Component {
                 }).then(function(response) {
                     return response.json();
                 }).then(function(myJson){
-                    var string=JSON.parse(myJson);
+                    var str=myJson
+                    console.log(str)
+                    var string=JSON.parse(str);
+                    console.log(string)
                     if(document.getElementById("chat")){document.getElementById("chat").innerHTML=string.str;}
                 })
             }catch(error){
             }
-        },3000)
+        },100)
     }
     onstrChange(event) {
         this.setState({
