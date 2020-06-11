@@ -95,7 +95,9 @@ class studyWait extends React.Component {
                     },
                     body: JSON.stringify(reviewwaitcheckuserValue),
                 }).then(function(response) {
-                    return response.json();
+                    if(response.status==200)
+                    {return response.json();}
+                    else{return '{"str":"failed"}'}
                 }).then(function(myJson){
                     var str=myJson
                     console.log(str)
