@@ -4,6 +4,7 @@ import django
 django.setup()
 from .wordControl import *
 import random
+from .views import *
 
 EN=1
 def printe(str,EN):
@@ -22,6 +23,9 @@ class StudyRoom: #学习房间类
         self.learning_process =[0]
         self.wordlist = []
         self.start=False
+        self.talknum=0
+        self.talkstring=''
+        self.allwordstring='' #用于更新用户学习记录
         printe(self.usernamelist,EN)
 
     def setWordList(self,idlist):
@@ -29,7 +33,9 @@ class StudyRoom: #学习房间类
             return
         idlist=randomIdList()
         for i in idlist:
-            self.wordlist.append(StudyRoom.alllist[i-1])
+            worddict=StudyRoom.alllist[i-1]
+            self.wordlist.append(worddict)
+            self.allwordstring=self.allwordstring+worddict['Word']+' '
         printe(self.wordlist,EN)
 
     #def returnWord(self,username):
@@ -88,6 +94,8 @@ class StudyRoom: #学习房间类
 
     def startStudy(self): #房间等待界面, 房主开始
         self.start=True
+        for username in self.usernamelist:
+            userlogincontroller.localUpdateHistory(username,self.allwordstring)
         return self.wordlist[0]
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
@@ -107,6 +115,16 @@ class StudyRoom: #学习房间类
             userdict['start']=1
         return userdict
 
+    def speak(self,username,str):
+        self.talknum+=1
+        self.talkstring = self.talkstring + username + ':\n' + str+'\n'
+        return True
+
+    def checkTalk(self):
+        dic = {}
+        dic['str'] = self.talkstring
+        return dic
+
 class ReviewRoom: #复习房间类
     alllist=allWordList()
 
@@ -124,6 +142,9 @@ class ReviewRoom: #复习房间类
         self.alreadyanswer = [0]
         self.alreadyright=0
         self.temp=0
+        self.talknum = 0
+        self.talkstring = ''
+        self.allwordstring = ''  # 用于更新用户学习记录
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -134,7 +155,9 @@ class ReviewRoom: #复习房间类
             return
         idlist = randomIdList()
         for i in idlist:
-            self.wordlist.append(ReviewRoom.alllist[i - 1])
+            worddict = ReviewRoom.alllist[i - 1]
+            self.wordlist.append(worddict)
+            self.allwordstring = self.allwordstring + worddict['Word'] + ' '
         printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
@@ -211,6 +234,8 @@ class ReviewRoom: #复习房间类
 
     def startReview(self): #房间等待界面, 房主开始
         self.start=True
+        for username in self.usernamelist:
+            userlogincontroller.localUpdateHistory(username,self.allwordstring)
         return self.problemlist[0]
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
@@ -249,10 +274,22 @@ class ReviewRoom: #复习房间类
     def nextProblem(self,username):
         #index = self.usernamelist.index(username)
         if self.currentquestion==49:
+            index=0
+            tempscore=[]
+            tempbool=[]
+            for i in range (self.usernum):
+                tempscore.append(self.score[i])
+                tempbool.append(True)
+            tempscore.sort(reverse=True)
             scoredict = {}
-            for index, name in enumerate(self.usernamelist):
-                scoredict['user' + str(index + 1) + 'name'] = self.usernamelist[index]
-                scoredict['user' + str(index + 1) + 'score'] = self.score[index]
+            for tscore in tempscore:
+                for j in range (self.usernum):
+                    if self.score[j]==tscore and tempbool[j]==True:
+                        tempbool[j]=False
+                        index+=1
+                        scoredict['user' + str(index ) + 'name'] = self.usernamelist[j]
+                        scoredict['user' + str(index ) + 'score'] = self.score[j]
+                        break
             scoredict['usernum'] = self.usernum
             return (scoredict,1)
         self.temp+=1
@@ -266,3 +303,13 @@ class ReviewRoom: #复习房间类
         print ('current',self.currentquestion)
         print(username,self.problemlist[self.currentquestion])
         return (self.problemlist[self.currentquestion],2)
+
+    def speak(self, username, str):
+        self.talknum += 1
+        self.talkstring = self.talkstring + username + ':\n' + str+'\n'
+        return True
+
+    def checkTalk(self):
+        dic={}
+        dic['str']=self.talkstring
+        return dic

@@ -199,3 +199,35 @@ class RoomControl:
         except Exception as e:
             print(e)
             return False
+
+    def studyRoomSpeak(self,roomid,username,str):
+        try:
+            result=self.StudyRoomDict[roomid].speak(username,str)
+            return result
+        except Exception as e:
+            print(e)
+            return  False
+
+    def reviewRoomSpeak(self,roomid,username,str):
+        try:
+            result=self.ReviewRoomDict[roomid].speak(username,str)
+            return result
+        except Exception as e:
+            print(e)
+            return  False
+
+    def studyRoomCheckTalk(self,roomid):
+        try:
+            result = self.StudyRoomDict[roomid].checkTalk()
+            return result
+        except Exception as e:
+            print(e)
+            return False
+
+    def reviewRoomCheckTalk(self,roomid):
+        try:
+            result = self.ReviewRoomDict[roomid].checkTalk()
+            return result
+        except Exception as e:
+            print(e)
+            return False

@@ -2,7 +2,7 @@
 
 ## 测试版API
 
-当views.py开头的TESTAPI=1时，将使用测试版API. 此时将自动创建一个有三人的学习房间和一个有三人的复习房间, 其中学习房间房主为'ZSK'，用户有'SL','YZY'; 复习房间房主为'WXY'，用户有'LWL','TYB‘，房间号随机，会在后端命令行中打印。 此时若调用以下API之一:上一个单词、下一个单词、下一题、提交答案、返回学习进度、返回当前分数, 将无需创建房间等前置操作,而可以直接使用，并且以POST方法访问这些API时, "roomid"字段仍然需要,但其值可以**随意填写(不能为空)**，系统将默认对事先创建的房间进行操作。
+当views.py开头的TESTAPI=1时，将使用测试版API. 此时将自动创建一个有三人的学习房间和一个有三人的复习房间, 其中学习房间房主为'ZSK'，用户有'SL','YZY'; 复习房间房主为'WXY'，用户有'LWL','TYB‘，房间号随机，会在后端命令行中打印。 此时若调用以下API之一:上一个单词、下一个单词、下一题、提交答案、返回学习进度、返回当前分数、聊天系统, 将无需创建房间等前置操作,而可以直接使用，并且以POST方法访问这些API时, "roomid"字段仍然需要,但其值可以**随意填写(不能为空)**，系统将默认对事先创建的房间进行操作。
 
 若要关闭此功能，将views.py中的TESTAPI值改为0即可。
 
@@ -317,3 +317,75 @@ URL:api/reviewwaitcheckuser
 返回值:  成功:"usernum"(房间内用户人数), "user1"(用户1的用户名),,"user2"...,"start"(未开始0,已开始1)  状态:HTTP_200_OK
 
 失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 学习房间发消息
+
+URL:api/studyroomspeak
+
+方法:POST
+
+输入:"roomid","username","str"(聊天内容)
+
+返回值:  成功:  状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+
+
+## 复习房间发消息
+
+URL:api/reviewroomspeak
+
+方法:POST
+
+输入:"roomid","username","str"(聊天内容)
+
+返回值:  成功:  状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 学习房间检查聊天消息
+
+URL:api/studyroomchecktalk
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:一个字典，只有一个key:"str"(一整个字符串);状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 复习房间检查聊天消息
+
+URL:api/reviewroomchecktalk
+
+方法:POST
+
+输入:"roomid"
+
+返回值:  成功:一个字典，只有一个key:"str"(一整个字符串);状态:HTTP_200_OK
+
+失败: 状态:HTTP_400_BAD_REQUEST
+
+
+
+## 获取学习记录
+
+**URL**: api/getstudyrecord
+
+**方法**: POST
+
+**输入**: "username"(用户名)
+
+**返回值**: 成功: 字典, 包含一个key"history"(value是一个包含所有学习记录的字符串);状态HTTP_200_OK
+
+​			  失败（访问错误或无记录）: 状态HTTP_400_BAD_REQUEST
