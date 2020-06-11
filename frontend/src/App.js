@@ -13,6 +13,7 @@ import studyRoom from "./containers/studyRoom";
 import reviewWait from "./containers/reviewWait";
 import studyWait from "./containers/studyWait";
 import studySummary from "./containers/studySummary";
+import searchWord from "./containers/searchWord";
 
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
 	      <Route path='/studyWait' component={studyWait}/>
 		  <Route path='/reviewWait' component={reviewWait}/>
 		  <Route path='/studySummary' component={studySummary}/>
+		  <Route path='/searchWord' component={searchWord}/>
         </div>
       </Router>
     )
