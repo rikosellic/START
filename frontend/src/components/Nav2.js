@@ -15,7 +15,7 @@ const NavBar2 = (props) => {
     <header>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/main/"+props.myname style={{marginLeft:"-15%"}}><Image src={logo} className="navlogo1" fluid/></Navbar.Brand>
+          <Navbar.Brand href="/main/"+{props.myname} style={{marginLeft:"-15%"}}><Image src={logo} className="navlogo1" fluid/></Navbar.Brand>
         </Container>
       </Navbar>
     </header>
