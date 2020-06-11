@@ -10,6 +10,7 @@ from .roomControl import  RoomControl
 from .UserLoginControl import UserLoginControl
 from  concurrent.futures import ProcessPoolExecutor
 import json
+from .wordControl import *
 
 TESTAPI=0  #1表示测试版API, 0表示正常API
 EN=1
@@ -384,4 +385,14 @@ class GetStudyRecord(APIView):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             print (e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+			
+class SearchWord(APIView):
+    def post(self,request):
+        input=request.data
+        word=input['word']
+        result=searchWord(word)
+        if result!=False:
+            return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
+        else:
             return Response(status=status.HTTP_400_BAD_REQUEST)

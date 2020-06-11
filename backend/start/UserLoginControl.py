@@ -85,6 +85,5 @@ class UserLoginControl:
                     targetuser.save()
                     if time==5:
                         self.logined_users.pop(username)
-            print(self.logined_users)
             print('Updated study record to database')
             time.sleep(300)
