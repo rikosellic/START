@@ -4,6 +4,7 @@ import django
 django.setup()
 from .wordControl import *
 import random
+from .views import *
 
 EN=1
 def printe(str,EN):
@@ -24,6 +25,7 @@ class StudyRoom: #学习房间类
         self.start=False
         self.talknum=0
         self.talkstring=''
+        self.allwordstring='' #用于更新用户学习记录
         printe(self.usernamelist,EN)
 
     def setWordList(self,idlist):
@@ -31,7 +33,9 @@ class StudyRoom: #学习房间类
             return
         idlist=randomIdList()
         for i in idlist:
-            self.wordlist.append(StudyRoom.alllist[i-1])
+            worddict=StudyRoom.alllist[i-1]
+            self.wordlist.append(worddict)
+            self.allwordstring=self.allwordstring+worddict['Word']+' '
         printe(self.wordlist,EN)
 
     #def returnWord(self,username):
@@ -90,6 +94,8 @@ class StudyRoom: #学习房间类
 
     def startStudy(self): #房间等待界面, 房主开始
         self.start=True
+        for username in self.usernamelist:
+            userlogincontroller.localUpdateHistory(username,self.allwordstring)
         return self.wordlist[0]
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
@@ -111,7 +117,7 @@ class StudyRoom: #学习房间类
 
     def speak(self,username,str):
         self.talknum+=1
-        self.talkstring = self.talkstring + username + ':<br/>' + str+'<br/>'
+        self.talkstring = self.talkstring + username + ':\n' + str+'\n'
         return True
 
     def checkTalk(self):
@@ -138,6 +144,7 @@ class ReviewRoom: #复习房间类
         self.temp=0
         self.talknum = 0
         self.talkstring = ''
+        self.allwordstring = ''  # 用于更新用户学习记录
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -148,7 +155,9 @@ class ReviewRoom: #复习房间类
             return
         idlist = randomIdList()
         for i in idlist:
-            self.wordlist.append(ReviewRoom.alllist[i - 1])
+            worddict = ReviewRoom.alllist[i - 1]
+            self.wordlist.append(worddict)
+            self.allwordstring = self.allwordstring + worddict['Word'] + ' '
         printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
@@ -225,6 +234,8 @@ class ReviewRoom: #复习房间类
 
     def startReview(self): #房间等待界面, 房主开始
         self.start=True
+        for username in self.usernamelist:
+            userlogincontroller.localUpdateHistory(username,self.allwordstring)
         return self.problemlist[0]
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始
@@ -295,7 +306,7 @@ class ReviewRoom: #复习房间类
 
     def speak(self, username, str):
         self.talknum += 1
-        self.talkstring = self.talkstring + username + ':<br/>' + str+'<br/>'
+        self.talkstring = self.talkstring + username + ':\n' + str+'\n'
         return True
 
     def checkTalk(self):

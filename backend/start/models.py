@@ -21,6 +21,8 @@ class User(models.Model):
 	goal = models.CharField('goal',  max_length=100,null=True)
 	#登陆状态
 	logined= models.BooleanField('logined', null=False, default=False)
+	#学习记录
+	history=models.TextField('history',null=True)
 
 
 

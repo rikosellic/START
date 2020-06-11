@@ -43,5 +43,6 @@ urlpatterns = [
     path('api/studyroomspeak',views.StudyRoomSpeak.as_view()),
     path('api/reviewroomspeak',views.ReviewRoomSpeak.as_view()),
     path('api/studyroomchecktalk',views.StudyRoomCheckTalk.as_view()),
-    path('api/reviewroomchecktalk',views.ReviewRoomCheckTalk.as_view())
+    path('api/reviewroomchecktalk',views.ReviewRoomCheckTalk.as_view()),
+    path('api/getstudyrecord', views.GetStudyRecord.as_view())
 ]
