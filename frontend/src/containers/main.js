@@ -115,12 +115,6 @@ class Main extends React.Component {
               </p>
             </Container>
 
-      <br/><br/><br/><br/>
-        <h10 class="back" id="block"></h10>
-        <h10 class="back" id="usern1"></h10>
-        <h10 class="back" id="usern2"></h10>
-        <h10 class="back" id="usern3"></h10>
-        <h10 class="back" id="usern4"></h10>
       </div>
     );
   }

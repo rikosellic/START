@@ -60,28 +60,28 @@ class studyWait extends React.Component {
                     if(start==0){
                         switch(len){
                             case 1:
-                                document.getElementById("usern1").innerHTML="房主："+str.user1
-                                document.getElementById("usern2").innerHTML=""
-                                document.getElementById("usern3").innerHTML=""
-                                document.getElementById("usern4").innerHTML=""
+                                if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+                                if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=""}
+                                if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=""}
+                                if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                                 break;
                             case 2:
-                                document.getElementById("usern1").innerHTML="房主："+str.user1
-                                document.getElementById("usern2").innerHTML=str.user2
-                                document.getElementById("usern3").innerHTML=""
-                                document.getElementById("usern4").innerHTML=""
+                                if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+                                if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+                                if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=""}
+                                if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                                 break;
                             case 3:
-                                document.getElementById("usern1").innerHTML="房主："+str.user1
-                                document.getElementById("usern2").innerHTML=str.user2
-                                document.getElementById("usern3").innerHTML=str.user3
-                                document.getElementById("usern4").innerHTML=""
+                                if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+                                if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+                                if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
+                                if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                                 break;
                             case 4:
-                                document.getElementById("usern1").innerHTML="房主："+str.user1
-                                document.getElementById("usern2").innerHTML=str.user2
-                                document.getElementById("usern3").innerHTML=str.user3
-                                document.getElementById("usern4").innerHTML=str.user4
+                                if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+                                if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+                                if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
+                                if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=str.user4}
                                 break;
                         }
                     }else{}
@@ -213,7 +213,7 @@ class studyWait extends React.Component {
 			  </Row>
               <Row>
                   <Button variant="primary" size="lg" id="b1" className="b1" onClick={this.startstudy.bind(this,roomid)} onMouseEnter={this.studysetwordlist.bind(this,roomid)}>开始学习</Button>
-                  <Button variant="primary" size="lg" id="b2" className="b2" onClick={this.quitstudyroom.bind(this,roomid)}>退出</Button>
+                  <Button variant="primary" size="lg" id="b2" className="b2" onClick={this.quitstudyroom.bind(this,roomid,username)}>退出</Button>
               </Row>
             </html>
 			</div>
