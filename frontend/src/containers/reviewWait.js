@@ -71,35 +71,35 @@ class reviewWait extends React.Component {
                     var start=str.start
                     if(start==0){
                         if(that.state.username != str.user1){
-                            document.getElementById("block").disabled=true;
+                            if(document.getElementById("block")){document.getElementById("block").disabled=true;}
                         }
                         if(that.state.username == str.user1){
-                            document.getElementById("block").disabled=false;
+                            if(document.getElementById("block")){document.getElementById("block").disabled=false;}
                         }
                         switch(len){
                         case 1:
-                            document.getElementById("usern1").innerHTML="房主："+str.user1
-                            document.getElementById("usern2").innerHTML=""
-                            document.getElementById("usern3").innerHTML=""
-                            document.getElementById("usern4").innerHTML=""
+                            if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=""}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=""}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                         break;
                         case 2:
-                            document.getElementById("usern1").innerHTML="房主："+str.user1
-                            document.getElementById("usern2").innerHTML=str.user2
-                            document.getElementById("usern3").innerHTML=""
-                            document.getElementById("usern4").innerHTML=""
+                            if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=""}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                         break;
                         case 3:
-                            document.getElementById("usern1").innerHTML="房主："+str.user1
-                            document.getElementById("usern2").innerHTML=str.user2
-                            document.getElementById("usern3").innerHTML=str.user3
-                            document.getElementById("usern4").innerHTML=""
+                            if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                         break;
                         case 4:
-                            document.getElementById("usern1").innerHTML="房主："+str.user1
-                            document.getElementById("usern2").innerHTML=str.user2
-                            document.getElementById("usern3").innerHTML=str.user3
-                            document.getElementById("usern4").innerHTML=str.user4
+                            if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=str.user4}
                         break;
                         }
                     }
@@ -118,14 +118,19 @@ class reviewWait extends React.Component {
                     },
                     body: JSON.stringify(reviewwaitcheckuserValue),
                 }).then(function(response) {
-                    return response.json();
+                    if(response.status==200)
+                    {return response.json();}
+                    else{return '{"str":"failed"}'}
                 }).then(function(myJson){
-                    var string=JSON.parse(myJson);
+                    var str=myJson
+                    console.log(str)
+                    var string=JSON.parse(str);
+                    console.log(string)
                     if(document.getElementById("chat")){document.getElementById("chat").innerHTML=string.str;}
                 })
             }catch(error){
             }
-        },3000)
+        },100)
     }
     onstrChange(event) {
         this.setState({
