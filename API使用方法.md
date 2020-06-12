@@ -378,7 +378,7 @@ URL:api/reviewroomchecktalk
 
 
 
-## 获取学习记录
+## 获取个人信息
 
 **URL**: api/getstudyrecord
 
@@ -386,6 +386,6 @@ URL:api/reviewroomchecktalk
 
 **输入**: "username"(用户名)
 
-**返回值**: 成功: 字典, 包含一个key"history"(value是一个包含所有学习记录的字符串);状态HTTP_200_OK
+**返回值**: 成功: 字典, "userID":用户ID，“username”:用户名, "email":邮箱;"history":(value是一个包含所有学习记录的字符串);状态HTTP_200_OK
 
 ​			  失败（访问错误或无记录）: 状态HTTP_400_BAD_REQUEST
