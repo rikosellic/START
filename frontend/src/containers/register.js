@@ -37,27 +37,44 @@ class Register extends React.Component {
     this.setState({
       username: event.target.value,
     });
+      document.getElementById("btn").disabled=false;
   }
   onpasswordChange(event) {
     this.setState({
       password: event.target.value,
     });
+      document.getElementById("btn").disabled=false;
   }
   onpassword2Change(event) {
     this.setState({
       password2: event.target.value,
     });
+      document.getElementById("btn").disabled=false;
   }
   onemailChange(event) {
     this.setState({
       email: event.target.value,
     });
+      document.getElementById("btn").disabled=false;
   }
-   register(username,password,email) {
+   register(username,password,password2,email) {
        const registerValue = {"username": username,
                               "password": password,
                               "email":email}
        const url = " http://localhost:8000/api/userinfomanagement";
+       var password2=password2;
+       if(password != password2){
+           document.getElementById("btn").disabled=true;
+           alert("The passwords are different");
+       }
+       if(username == ''){
+           document.getElementById("btn").disabled=true;
+           alert("user name can't be empty");
+       }
+       if(email == ''){
+           document.getElementById("btn").disabled=true;
+           alert("email name can't be empty");
+       }else{
        try {
            fetch(url, {
                 method: "POST",
@@ -72,27 +89,14 @@ class Register extends React.Component {
                }
                else{
                    alert("username or email is already registered");
+                   document.getElementById("btn").disabled=true;
                }
            })
        } catch (error) {
        }
     }
-    checkinformation(password,password2,username,email){
-      if(password != password2){
-        document.getElementById("btn").disabled=true;
-        alert("The passwords are different");
-      }
-      if(username == ''){
-        document.getElementById("btn").disabled=true;
-        alert("user name can't be empty");
-      }
-      if(email == ''){
-        document.getElementById("btn").disabled=true;
-        alert("email name can't be empty");
-      }else{
-        document.getElementById("btn").disabled=false;
-      }
-    }
+  }
+
   render() {
     const{username,password,password2,email}=this.state;
     return (
@@ -133,7 +137,7 @@ class Register extends React.Component {
               </Col>
             </Form.Group>
             <div className="register-button"><br/>
-              <Button id="btn" variant="primary" align="center" size="la" block onClick={this.register.bind(this, username, password,email)} onMouseEnter={this.checkinformation.bind(this,password,password2,username,email)}>
+              <Button id="btn" variant="primary" align="center" size="la" block onClick={this.register.bind(this, username, password,email)}>
                 Register
               </Button>
             </div>
