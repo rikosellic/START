@@ -42,7 +42,7 @@ class studySummary extends React.Component {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then(this.props.history.push({pathname:'/reviewRoom/'+this.state.roomid+'/'+this.state.username}))
+           }).then(this.props.history.push({pathname:'/reviewWait/'+this.state.roomid+'/'+this.state.username}))
 	}
 	quit(username,roomid){
 		const value = {"username": username,
