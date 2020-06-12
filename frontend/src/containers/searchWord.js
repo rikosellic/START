@@ -70,7 +70,7 @@ class SearchWord extends React.Component {
     return (
 	<div>
 		<div>
-		<NavBar2/>
+		<NavBar2 myname={username}/>
 		<Form inline>
 			<Form.Control style={{display:"none"}}/>
             <Form.Control type="text" onChange={this.onwordChange}/>

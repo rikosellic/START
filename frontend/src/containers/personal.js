@@ -15,7 +15,7 @@ class Personal extends React.Component {
     render() {
         return (
           <div>
-            <NavBar/>
+            <NavBar myname={username}/>
             <div class="personal-title">
             sdtyb
             </div>

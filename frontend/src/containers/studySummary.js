@@ -60,7 +60,7 @@ class studySummary extends React.Component {
 	  const{roomid,username}=this.state;
     return (
 	<html>
-	<NavBar2/>
+	<NavBar2 myname={username}/>
       <div>
               <div className='login-logo' ><Logo/></div>
             <Button variant="primary" className="study-button1" id="but1" size="lg" onClick={this.startreview.bind(this,username,roomid)}> <span>复习</span></Button>
