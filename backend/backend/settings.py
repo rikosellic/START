@@ -133,10 +133,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
-]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True  # 设置支持所有域名访问,如果为False,下面的一项需要指定域名
+#CORS_ORIGIN_WHITELIST = ('*')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
