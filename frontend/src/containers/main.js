@@ -143,6 +143,7 @@ class Main extends React.Component {
                 </Row>
               </p>
             </Container>
+      <br/><br/><br/><br/>
       </div>
     );
   }
