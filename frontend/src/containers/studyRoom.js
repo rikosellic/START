@@ -125,7 +125,7 @@ class studyRoom extends React.Component {
             if(res.status === 200){
                 return res.json();}
             else{if(res.status === 501){
-                this.props.history.push({pathname:'/studySummary'+this.state.username});
+                this.props.history.push({pathname:'/studySummary/'+this.state.username});
                 alert("学习结束")}
             }
         }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word;
