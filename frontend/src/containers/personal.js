@@ -29,8 +29,8 @@ class Personal extends React.Component {
         let remaining=1000;
         let timer = setInterval(() => {
             const username=this.state.username
-            const reviewwaitcheckuserValue={"username":username};
-            const url=""
+            const Value={"username":username};
+            const url=" http://localhost:8000/api/getstudyrecord";
             if (remaining<=0){
                 clearInterval(timer);
             }
@@ -42,14 +42,18 @@ class Personal extends React.Component {
                         headers: {
                             "Content-type": "application/json;charset=utf-8",
                         },
-                        body: JSON.stringify(reviewwaitcheckuserValue),
+                        body: JSON.stringify(Value),
                     }).then(function(response) {
+                        console.log(response)
                         if(response.status==200)
                         {return response.json();}
-                        else{return '{"str":"failed"}'}
+                        else{return '{"username":"failed"}'}
                     }).then(function(myJson){
                         var str=JSON.parse(myJson);
-
+                        if(document.getElementById("email")){document.getElementById("email").innerHTML="email: "+str.email;}
+                        if(document.getElementById("username")){document.getElementById("username").innerHTML=str.username;}
+                        if(document.getElementById("history")){document.getElementById("history").innerHTML=str.history;}
+                        if(document.getElementById("userID")){document.getElementById("userID").innerHTML="userID: "+str.userID;}
                      })
                 }catch(error){
                 }
@@ -61,16 +65,15 @@ class Personal extends React.Component {
         return (
           <div>
             <NavBar myname={username}/>
-            <div class="personal-title">
-            sdtyb
+            <div id="username" class="personal-title">
+            username
             </div>
             <div class="personal-information">
+              <p id="userID">userID:</p>
               <p id="email">email:</p>
-              <p id="password">password:</p>
-              <p>goal:</p>
-            </div>
-            <div class="personal-modif">
-              <span class="blue"><a href="/register">Modif personal information</a></span>
+              <Form.Group>
+                <Form.Control as="textarea" id="history" rows="1" disabled/>
+              </Form.Group>
             </div>
           </div>
     );
