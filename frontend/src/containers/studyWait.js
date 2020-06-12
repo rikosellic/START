@@ -193,7 +193,7 @@ class studyWait extends React.Component {
     return (
 	<div class="studyWait">
             <html>
-			<NavBar2/>
+			<NavBar2 myname={username}/>
             <DropdownButton title="chat" size="sm">
                 <Form.Group>
                     <Form.Control as="textarea" id="chat" rows="5" disabled/>

@@ -108,7 +108,7 @@ class Main extends React.Component {
     const{username,word}=this.state
     return (
       <div class="main">
-        <NavBar/>
+        <NavBar myname={username}/>
             <Container>
               <br/><Logo/><br/>
               <div class="word">

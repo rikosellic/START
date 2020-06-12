@@ -347,7 +347,7 @@ class ReviewRoom extends React.Component {
         }
         return (
           <div class="reviewroom">
-            <NavBar2/><br/>
+            <NavBar2 myname={username}/><br/>
             <DropdownButton title="chat" size="sm">
                 <Form.Group>
                     <Form.Control as="textarea" id="chat" rows="5" disabled/>
