@@ -375,8 +375,13 @@ class GetStudyRecord(APIView):
     def post(self,request):
         input=request.data
         username=input['username']
+        target = User.objects.get(username=username)
+        target= model_to_dict(target)
         try:
             result={}
+            result['userID']=target['userID']
+            result['username']=target['username']
+            result['email']=target['email']
             history,label,time=userlogincontroller.logined_users[username]
             if history!=None:
                 result['history']=history
