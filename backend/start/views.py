@@ -382,12 +382,13 @@ class GetStudyRecord(APIView):
             result['userID']=target['userID']
             result['username']=target['username']
             result['email']=target['email']
-            history,label,time=userlogincontroller.logined_users[username]
+            history,label,time=userlogincontroller.users_history[username]
             if history!=None:
                 result['history']=history
                 return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
             else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+                result['history']='None!'
+                return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
         except Exception as e:
             print (e)
             return Response(status=status.HTTP_400_BAD_REQUEST)

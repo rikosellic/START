@@ -25,6 +25,7 @@ class UserLoginControl:
                 targetuser.logined=1
                 targetuser.save()
                 print(self.logined_users)
+                print(self.users_history)
                 return True
         except Exception as e:
             print(e)
@@ -57,7 +58,7 @@ class UserLoginControl:
             return 0
 
     def localUpdateHistory(self,username,newhistory):
-        oldhistory,label=self.users_history[username]
+        oldhistory,label,time=self.users_history[username]
         label=True
         newhistorylist=newhistory.strip().split()
         if oldhistory != None:
@@ -69,6 +70,7 @@ class UserLoginControl:
                 continue
             else:
                 oldhistory=oldhistory+word+' '
+        print(self.users_history)
         return
 
     def updateHistoryToDatabase(self):  #隔五分钟将记录写入数据库
