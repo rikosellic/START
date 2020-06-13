@@ -49,5 +49,6 @@ urlpatterns = [
     path('api/reviewroomchecktalkwebsocket',views.ReviewRoomCheckTalk_websocket),
     path('api/studyroomchecktalkwebsocket',views.StudyRoomCheckTalk_websocket),
     path('api/returnstudyprocesswebsocket',views.ReturnStudyProcess_websocket),
-    path('api/studywaitcheckuserwebsocket',views.StudyWaitCheckUser_websocket)
+    path('api/studywaitcheckuserwebsocket',views.StudyWaitCheckUser_websocket),
+    path('api/reviewwaitcheckuserwebsocket',views.ReviewWaitCheckUser_websocket)
 ]

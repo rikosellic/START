@@ -13,6 +13,7 @@ class RoomControl:
         self.ReviewRoomDict={}
         self.ReviewRoomClients={}
         self.ReviewRoomClients2= {}
+        self.ReviewRoomClients3= {}
         self.StudyRoomClients = {}
         self.StudyRoomClients2 = {}
         self.StudyRoomClients3={}
