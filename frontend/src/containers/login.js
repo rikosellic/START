@@ -31,16 +31,26 @@ class Login extends React.Component {
     this.setState({
       username: event.target.value,
     });
+    document.getElementById("btn").disabled=false;
   }
   onpasswordChange(event) {
     this.setState({
       password: event.target.value,
     });
+    document.getElementById("btn").disabled=false;
   }
   login(username,password) {
     const loginValue = {"username": username,
     "password": password}
     const url = " http://localhost:8000/api/login";
+    if(username == ''){
+      document.getElementById("btn").disabled=true;
+      alert("user name can't be empty");
+    }
+    if(password == ''){
+      document.getElementById("btn").disabled=true;
+      alert("password name can't be empty");
+    }else{
     try {
       fetch(url, {
         method: "POST",
@@ -55,22 +65,11 @@ class Login extends React.Component {
           }
           else{
             alert('Your username or password is wrong!')
-            this.props.history.push({pathname:'/login'})
+            document.getElementById("btn").disabled=true;
           }
         })
         } catch (error) {
       }
-    }
-  checkinformation(username,password){
-    if(username == ''){
-      document.getElementById("btn").disabled=true;
-      alert("user name can't be empty");
-    }
-    if(password == ''){
-      document.getElementById("btn").disabled=true;
-      alert("password name can't be empty");
-    }else{
-      document.getElementById("btn").disabled=false;
     }
   }
   render() {
@@ -88,7 +87,7 @@ class Login extends React.Component {
               <Form.Control type="password" placeholder="Password" onChange={this.onpasswordChange} required/>
             </Form.Group><br/>
             <div className="login-button">
-              <Button id="btn" variant="primary" size="sm" onClick={this.login.bind(this, username, password)} onMouseEnter={this.checkinformation.bind(this,username,password)}>
+              <Button id="btn" variant="primary" size="sm" onClick={this.login.bind(this, username, password)}>
                 Login
               </Button>
             </div>

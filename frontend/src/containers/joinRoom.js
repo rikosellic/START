@@ -74,7 +74,7 @@ class JoinRoom extends React.Component {
         const{username,roomid}=this.state  
         return (
             <div>
-                <NavBar/>
+                <NavBar myname={username}/>
                 <div className="join-div">
                 <div className='join-logo'><Logo/></div>
                     <Form.Group as={Row}>

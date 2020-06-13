@@ -30,7 +30,7 @@ class SearchWord extends React.Component {
 		this.state = {
 		word: mess,
 		wordlist: messages,
-        username: mess1,
+        username: message.slice(33),
       }
     }
 	searchword(word){
@@ -57,7 +57,7 @@ class SearchWord extends React.Component {
 	}
 	onusernameChange(event) {
 		this.setState({
-            username: this.props.params.username,
+            username: this.props.location.state.username,
         });
     }
 	onwordChange(event) {
@@ -70,7 +70,7 @@ class SearchWord extends React.Component {
     return (
 	<div>
 		<div>
-		<NavBar2/>
+		<NavBar2 myname={username}/>
 		<Form inline>
 			<Form.Control style={{display:"none"}}/>
             <Form.Control type="text" onChange={this.onwordChange}/>
