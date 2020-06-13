@@ -21,6 +21,8 @@ class SearchWord extends React.Component {
     }
     constructor(props) {
 		super(props);
+		var message=window.location.href;
+		var messagesplit=message.split('/');
 		const messages = this.props.location.state.res1
 		const mess = this.props.location.state.res2
 		const mess1 = this.props.location.state.res3
@@ -30,7 +32,7 @@ class SearchWord extends React.Component {
 		this.state = {
 		word: mess,
 		wordlist: messages,
-        username: message.slice(33),
+        username: messagesplit[4],
       }
     }
 	searchword(word){

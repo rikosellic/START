@@ -23,11 +23,13 @@ class Main extends React.Component {
     constructor(props) {
       var message=window.location.href;
       super(props);
+      var message=window.location.href;
+      var messagesplit=message.split('/');
       this.onusernameChange = this.onusernameChange.bind(this);
 	  this.onwordChange = this.onwordChange.bind(this);
       this.state = {
 		word: '',
-        username: message.slice(27),
+        username: messagesplit[4],
       }
     }
     onusernameChange(event) {
@@ -112,7 +114,7 @@ class Main extends React.Component {
             <Container>
               <br/><Logo/><br/>
               <div class="word">
-                It's the third day you joined START, you have studied 150 words
+                welcome to start! Have a good day to study.
               </div>
               <p className="search-box">
                 <Row>

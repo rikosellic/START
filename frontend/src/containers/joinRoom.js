@@ -22,11 +22,13 @@ class JoinRoom extends React.Component {
     constructor(props) {
 		var message=window.location.href;
         super(props);
+        var message=window.location.href;
+        var messagesplit=message.split('/');
         this.onroomidChange = this.onroomidChange.bind(this);
 		this.onusernameChange = this.onusernameChange.bind(this);
         this.state = {
             roomid: '',
-            username:message.slice(31),
+            username:messagesplit[4],
         }
     }
     backtohome(username){
