@@ -541,3 +541,44 @@ def StudyWaitCheckUser_websocket(request):
             time.sleep(0.5)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@accept_websocket
+def ReviewWaitCheckUser_websocket(request):
+    if request.is_websocket():
+        print('websocket for check user created')
+        roomid = int(request.websocket.wait())
+        if roomid not in roomcontroller.ReviewRoomClients3.keys():
+            roomcontroller.ReviewRoomClients3[roomid] = {}
+            roomcontroller.ReviewRoomClients3[roomid]['index'] = 1
+            roomcontroller.ReviewRoomClients3[roomid][roomcontroller.ReviewRoomClients3[roomid]['index']] = request.websocket
+        else:
+            roomcontroller.ReviewRoomClients3[roomid]['index'] += 1
+            roomcontroller.ReviewRoomClients3[roomid][roomcontroller.ReviewRoomClients3[roomid]['index']] = request.websocket
+        time.sleep(0.5)
+        result = roomcontroller.reviewWaitCheckUser(roomid)
+        if result != False:
+            for key in roomcontroller.ReviewRoomClients3[roomid].keys():
+                if key != 'index':
+                    roomcontroller.ReviewRoomClients3[roomid][key].send(json.dumps(result, ensure_ascii=False))
+        while True:
+            if roomcontroller.ReviewRoomDict[roomid].usernumchanged == True  :
+                result = roomcontroller.reviewWaitCheckUser(roomid)
+                if result != False:
+                    for key in roomcontroller.ReviewRoomClients3[roomid].keys():
+                        if key != 'index':
+                            roomcontroller.ReviewRoomClients3[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                    roomcontroller.ReviewRoomDict[roomid].usernumchanged = False
+            if roomcontroller.ReviewRoomDict[roomid].start== True  :
+                print('started')
+                result = roomcontroller.reviewWaitCheckUser(roomid)
+                if result != False:
+                    for key in roomcontroller.ReviewRoomClients3[roomid].keys():
+                        if key != 'index':
+                            roomcontroller.ReviewRoomClients3[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                            roomcontroller.ReviewRoomClients3[roomid][key].close()
+                    break
+                    return
+            time.sleep(0.1)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

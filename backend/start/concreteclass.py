@@ -4,13 +4,32 @@ import django
 django.setup()
 from .wordControl import *
 import random
-from .views import *
 
 EN=1
 def printe(str,EN):
     if(EN==1):
         print(str)
     return
+
+users_history={}
+
+
+def localUpdateHistory(username, newhistory):
+    oldhistory, label, time = users_history[username]
+    label = True
+    newhistorylist = newhistory.strip().split()
+    if oldhistory != None:
+        oldhistorylist = oldhistory.strip().split()
+    else:
+        oldhistorylist = []
+    for word in newhistorylist:
+        if word in oldhistorylist:
+            continue
+        else:
+            oldhistory = oldhistory + word + ' '
+    print(users_history)
+    return
+
 
 class StudyRoom: #学习房间类
     alllist=allWordList()
@@ -97,7 +116,7 @@ class StudyRoom: #学习房间类
 
     def startStudy(self): #房间等待界面, 房主开始
         for username in self.usernamelist:
-            userlogincontroller.localUpdateHistory(username,self.allwordstring)
+           localUpdateHistory(username,self.allwordstring)
         return self.wordlist[0]
 
     def checkUser(self):  # 房间等待界面, 获取房间内用户
@@ -141,6 +160,7 @@ class ReviewRoom: #复习房间类
         self.scorechanged=False
         self.end=False
         self.talkchanged=False
+        self.usernumchanged=False
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -203,6 +223,7 @@ class ReviewRoom: #复习房间类
             userdict['roomid'] = self.roomID
             for index, username in enumerate(self.usernamelist):
                 userdict['user' + str(index+1)] = username
+            self.usernumchanged=True
             return userdict
 
     def quitRoom(self,username):
@@ -218,6 +239,7 @@ class ReviewRoom: #复习房间类
             self.alreadyanswer.pop(index_to_delete)
             #self.currentquestion.pop(index_to_delete)
             printe(self.usernamelist,EN)
+            self.usernumchanged=True
             return 1
 
     def returnReviewScore(self):
@@ -230,9 +252,7 @@ class ReviewRoom: #复习房间类
         return scoredict
 
     def startReview(self): #房间等待界面, 房主开始
-        self.start=True
-        for username in self.usernamelist:
-            userlogincontroller.localUpdateHistory(username,self.allwordstring)
+        self.start = True
         return self.problemlist[0]
 
     def checkStart(self): #用于房间等待界面, 非房主检测是否开始

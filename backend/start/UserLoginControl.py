@@ -6,11 +6,11 @@ django.setup()
 from .models import *
 from .serializers import *
 from django.forms.models import model_to_dict
+from .concreteclass import users_history
 
 class UserLoginControl:
     def __init__(self):
         self.logined_users={}
-        self.users_history={}
 
 
     def login(self,username,password):  #登录成功, 返回True
@@ -21,11 +21,11 @@ class UserLoginControl:
                 return False
             else:
                 self.logined_users[username]=0
-                self.users_history[username]=(targetuserdict['history'],False,0)
+                users_history[username]=(targetuserdict['history'],False,0)
                 targetuser.logined=1
                 targetuser.save()
                 print(self.logined_users)
-                print(self.users_history)
+                print(users_history)
                 return True
         except Exception as e:
             print(e)
@@ -57,28 +57,12 @@ class UserLoginControl:
         else:
             return 0
 
-    def localUpdateHistory(self,username,newhistory):
-        oldhistory,label,time=self.users_history[username]
-        label=True
-        newhistorylist=newhistory.strip().split()
-        if oldhistory != None:
-            oldhistorylist=oldhistory.strip().split()
-        else:
-            oldhistorylist=[]
-        for word in newhistorylist:
-            if word in oldhistorylist:
-                continue
-            else:
-                oldhistory=oldhistory+word+' '
-        print(self.users_history)
-        return
-
     def updateHistoryToDatabase(self):  #隔五分钟将记录写入数据库
         while True:
             print('Updating study record to database...')
-            users=self.users_history.keys()
+            users=users_history.keys()
             for username in users:
-                currenthistory,label,time=self.users_history[username]
+                currenthistory,label,time=users_history[username]
                 if label==True:
                     time+=1
                     targetuser = User.objects.get(username=username)
