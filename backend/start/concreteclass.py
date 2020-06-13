@@ -22,13 +22,13 @@ class StudyRoom: #学习房间类
         self.hostname = hostname
         self.learning_process =[0]
         self.wordlist = []
-        self.start=False
         self.talknum=0
         self.talkstring=''
         self.allwordstring='' #用于更新用户学习记录
         printe(self.usernamelist,EN)
         self.talkchanged=False
         self.processchanged=True
+        self.usernumchanged=False
 
     def setWordList(self,idlist):
         if self.wordlist!=[]:
@@ -46,8 +46,6 @@ class StudyRoom: #学习房间类
     def enterRoom(self,username):
         if self.usernum>=4: #满员，返回0
             return 0
-        elif self.start == True:
-            return 0
         else: #加入成功，返回1
             self.usernum+=1
             self.usernamelist.append(username)
@@ -57,6 +55,7 @@ class StudyRoom: #学习房间类
             userdict['roomid']=self.roomID
             for index, username in enumerate(self.usernamelist):
                 userdict['user'+str(index+1)]=username
+            self.usernumchanged=True
             return userdict
 
     def quitRoom(self,username):
@@ -97,26 +96,15 @@ class StudyRoom: #学习房间类
         return (self.wordlist[self.learning_process[index]],1)
 
     def startStudy(self): #房间等待界面, 房主开始
-        self.start=True
         for username in self.usernamelist:
             userlogincontroller.localUpdateHistory(username,self.allwordstring)
         return self.wordlist[0]
-
-    def checkStart(self): #用于房间等待界面, 非房主检测是否开始
-        if self.start==False:
-            return 0
-        else:
-            return 1
 
     def checkUser(self):  # 房间等待界面, 获取房间内用户
         userdict = {}
         for index, name in enumerate(self.usernamelist):
             userdict['user' + str(index + 1)] = self.usernamelist[index]
         userdict['usernum'] = self.usernum
-        if self.start==False:
-            userdict['start']=0
-        else:
-            userdict['start']=1
         return userdict
 
     def speak(self,username,str):

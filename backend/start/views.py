@@ -168,17 +168,6 @@ class StartStudy(APIView): #房主开始学习
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class StudyCheckStart(APIView): #学习房间非房主检查是否开始
-    def post(self, request):
-        input = request.data
-        roomid = int(input['roomid'])
-        result=roomcontroller.studyCheckStart(roomid)
-        if result==0: #未开始
-            return Response(0,status=status.HTTP_200_OK)
-        elif result==2: #出错
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        else: #开始了
-            return Response(1,status=status.HTTP_200_OK)
 
 class StudySetWordList(APIView): #学习房间房主选择单词
     def post(self,request):
@@ -513,12 +502,42 @@ def ReturnStudyProcess_websocket(request):
                     roomcontroller.StudyRoomClients[roomid][key].send(json.dumps(result, ensure_ascii=False))
         while True:
             if roomcontroller.StudyRoomDict[roomid].processchanged == True:
-                result = roomcontroller.studyRoomCheckTalk(roomid)
+                result = roomcontroller.returnStudyProcess(roomid)
                 if result != False:
-                    for key in roomcontroller.StudyRoomClients2[roomid].keys():
+                    for key in roomcontroller.StudyRoomClients[roomid].keys():
                         if key != 'index':
-                            roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                            roomcontroller.StudyRoomClients[roomid][key].send(json.dumps(result, ensure_ascii=False))
                     roomcontroller.StudyRoomDict[roomid].processchanged = False
             time.sleep(0.1)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@accept_websocket
+def StudyWaitCheckUser_websocket(request):
+    if request.is_websocket():
+        print('websocket for check user created')
+        roomid = int(request.websocket.wait())
+        if roomid not in roomcontroller.StudyRoomClients3.keys():
+            roomcontroller.StudyRoomClients3[roomid] = {}
+            roomcontroller.StudyRoomClients3[roomid]['index'] = 1
+            roomcontroller.StudyRoomClients3[roomid][roomcontroller.StudyRoomClients3[roomid]['index']] = request.websocket
+        else:
+            roomcontroller.StudyRoomClients3[roomid]['index'] += 1
+            roomcontroller.StudyRoomClients3[roomid][roomcontroller.StudyRoomClients3[roomid]['index']] = request.websocket
+        time.sleep(0.5)
+        result = roomcontroller.studyWaitCheckUser(roomid)
+        if result != False:
+            for key in roomcontroller.StudyRoomClients3[roomid].keys():
+                if key != 'index':
+                    roomcontroller.StudyRoomClients3[roomid][key].send(json.dumps(result, ensure_ascii=False))
+        while True:
+            if roomcontroller.StudyRoomDict[roomid].usernumchanged == True:
+                result=roomcontroller.studyWaitCheckUser(roomid)
+                if result != False:
+                    for key in roomcontroller.StudyRoomClients3[roomid].keys():
+                        if key != 'index':
+                            roomcontroller.StudyRoomClients3[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                    roomcontroller.StudyRoomDict[roomid].usernumchanged = False
+            time.sleep(0.5)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
