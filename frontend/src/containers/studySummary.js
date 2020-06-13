@@ -27,7 +27,6 @@ class studySummary extends React.Component {
     this.state = {
       url:messagesplit[3],
       username:  messagesplit[4],
-      roomid: messagesplit[5],
       services:[],
       view:"type_a",
       //hostname: messagearr[2],

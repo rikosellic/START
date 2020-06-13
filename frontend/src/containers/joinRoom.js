@@ -58,16 +58,21 @@ class JoinRoom extends React.Component {
                 },
                 body: JSON.stringify(joinroomValue),
             }).then(res=>{
-                return res.json();
+                if(res.status==200){
+                return res.json();}
+                else{return'{"roomid":"nonexist"}'}
             }).then(function(myJson){
                 var str = JSON.parse(myJson);
 				var len = Object.getOwnPropertyNames(str).length;
+				if(str.roomid=="nonexist"){
+				    alert("The roomid doesn't exist")
+                }else{
 				if(str.type == 0){
                     that.props.history.push({pathname:'/studyWait/'+username+'/'+roomid});
 				}
 				if(str.type == 1){
                     that.props.history.push({pathname:'/reviewWait/'+username+'/'+roomid});
-				}
+				}}
 			})
         } catch (error) {
         }
