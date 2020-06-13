@@ -20,7 +20,7 @@ const NavBar = (props) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <Nav.Link href={"/personal/"+props.myname }>Hello, {props.myname}</Nav.Link>
-              <Nav.Link href="/personal">Sign Out</Nav.Link>
+              <Nav.Link href="/init">Sign Out</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
