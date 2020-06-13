@@ -74,7 +74,11 @@ class Register extends React.Component {
        if(email == ''){
            document.getElementById("btn").disabled=true;
            alert("email name can't be empty");
-       }else{
+       }
+       if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email))){
+           alert("The email is illegal")
+       }
+       else{
        try {
            fetch(url, {
                 method: "POST",
@@ -137,7 +141,7 @@ class Register extends React.Component {
               </Col>
             </Form.Group>
             <div className="register-button"><br/>
-              <Button id="btn" variant="primary" align="center" size="la" block onClick={this.register.bind(this, username, password,email)}>
+              <Button id="btn" variant="primary" align="center" size="la" block onClick={this.register.bind(this, username, password,password2,email)}>
                 Register
               </Button>
             </div>
