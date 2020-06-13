@@ -33,6 +33,74 @@ class studyRoom extends React.Component {
     }
 
     componentDidMount () {
+		try{
+            const roomid=this.state.roomid;
+            const url2=" ws://localhost:8000/api/studyroomchecktalkwebsocket";
+			var socket2=new WebSocket(url2);
+			socket2.onopen = function () {
+			console.log("websocket for talk success");
+			socket2.send(roomid.toString());
+			}
+			socket2.onclose=function(e){
+              console.log(e);
+              socket2.close(); //关闭TCP连接
+            };
+			socket2.onmessage = function(myJson){
+                    var str=myJson.data
+                    console.log(str)
+                    var string=JSON.parse(str);
+                    console.log(string)
+                    if(document.getElementById("chat")){document.getElementById("chat").innerHTML=string.str;}
+                }		
+		}
+		catch (error) {}
+		try{
+			var that=this;
+            const roomid=this.state.roomid;
+            const url=" ws://localhost:8000/api/returnstudyprocesswebsocket";
+			var socket=new WebSocket(url);
+			socket.onopen = function () {
+				console.log("websocket for score success");
+				socket.send(roomid.toString());
+			}
+			socket.onclose=function(e){
+              console.log(e);
+              socket.close(); //关闭TCP连接
+            };
+            //if (socket.readyState == WebSocket.OPEN) socket.onopen();	
+			socket.onmessage = function (myJson) {
+                        var str = JSON.parse(myJson.data)
+                        var len = str.usernum
+                        switch (len) {
+                            case 1:
+                                if(document.getElementById("speed1")){document.getElementById("speed1").innerHTML = str.user1name + ": " + str.user1process + "/50"}
+                                if(document.getElementById("speed2")){document.getElementById("speed2").innerHTML = ""}
+                                if(document.getElementById("speed3")){document.getElementById("speed3").innerHTML = ""}
+                                if(document.getElementById("speed4")){document.getElementById("speed4").innerHTML = ""}
+                                break;
+                            case 2:
+                                if(document.getElementById("speed1")){document.getElementById("speed1").innerHTML = str.user1name + ": " + str.user1process + "/50"}
+                                if(document.getElementById("speed2")){document.getElementById("speed2").innerHTML = str.user2name + ": " + str.user2process + "/50"}
+                                if(document.getElementById("speed3")){document.getElementById("speed3").innerHTML = ""}
+                                if(document.getElementById("speed4")){document.getElementById("speed4").innerHTML = ""}
+                                break;
+                            case 3:
+                                if(document.getElementById("speed1")){document.getElementById("speed1").innerHTML = str.user1name + ": " + str.user1process + "/50"}
+                                if(document.getElementById("speed2")){document.getElementById("speed2").innerHTML = str.user2name + ": " + str.user2process + "/50"}
+                                if(document.getElementById("speed3")){document.getElementById("speed3").innerHTML = str.user3name + ": " + str.user3process + "/50"}
+                                if(document.getElementById("speed4")){document.getElementById("speed4").innerHTML = ""}
+                                break;
+                            case 4:
+                                if(document.getElementById("speed1")){document.getElementById("speed1").innerHTML = str.user1name + ": " + str.user1process + "/50"}
+                                if(document.getElementById("speed2")){document.getElementById("speed2").innerHTML = str.user2name + ": " + str.user2process + "/50"}
+                                if(document.getElementById("speed3")){document.getElementById("speed3").innerHTML = str.user3name + ": " + str.user3process + "/50"}
+                                if(document.getElementById("speed4")){document.getElementById("speed4").innerHTML = str.user4name + ": " + str.user4process + "/50"}
+                                break;
+                        }
+                    }
+		}
+		catch(error){}
+		/*
         let timer = setInterval(() => {
             var that=this;
             const roomid=this.state.roomid;
@@ -102,7 +170,7 @@ class studyRoom extends React.Component {
                 }catch(error){
                 }
             }
-        },100)
+        },100)*/
     }
     onstrChange(event) {
         this.setState({

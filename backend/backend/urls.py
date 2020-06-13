@@ -45,5 +45,9 @@ urlpatterns = [
     path('api/studyroomchecktalk',views.StudyRoomCheckTalk.as_view()),
     path('api/reviewroomchecktalk',views.ReviewRoomCheckTalk.as_view()),
     path('api/getstudyrecord', views.GetStudyRecord.as_view()),
-	path('api/searchword',views.SearchWord.as_view())
+	path('api/searchword',views.SearchWord.as_view()),
+    path('api/returnreviewscorewebsocket',views.ReturnReviewScore_websocket),
+    path('api/reviewroomchecktalkwebsocket',views.ReviewRoomCheckTalk_websocket),
+    path('api/studyroomchecktalkwebsocket',views.StudyRoomCheckTalk_websocket),
+    path('api/returnstudyprocesswebsocket',views.ReturnStudyProcess_websocket),
 ]

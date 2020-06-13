@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'start',                    # EI333
+    'dwebsocket',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+WEBSOCKET_ACCEPT_ALL=True

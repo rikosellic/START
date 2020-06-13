@@ -51,12 +51,8 @@ class ReviewRoom extends React.Component {
                 second:second < 10 ? "0" + second : second,
             })
         }
-        const getscoreValue = {"roomid":this.state.roomid};
-            const roomid=this.state.roomid;
-        const reviewwaitcheckuserValue={"roomid":roomid};
-        const url = " http://localhost:8000/api/returnreviewscore";
-        const url2=" http://localhost:8000/api/reviewroomchecktalk";
-        try {
+		
+       /* try {
             fetch(url, {
                 method: "POST",
                 headers: {
@@ -96,8 +92,8 @@ class ReviewRoom extends React.Component {
                 }
                 })
             } catch (error) {
-            }
-            try {
+            }*/
+            /*try {
                 fetch(url2, {
                     method: "POST",
                     headers: {
@@ -116,9 +112,81 @@ class ReviewRoom extends React.Component {
                     if(document.getElementById("chat")){document.getElementById("chat").innerHTML=string.str;}
                 })
             }catch(error){
-            }
-        }, 1000)
+            }*/
+        }, 1000);
+		try{
+			//const getscoreValue = {"roomid":this.state.roomid};
+            const roomid=this.state.roomid;
+			const reviewwaitcheckuserValue={"roomid":roomid};
+			const url = " ws://localhost:8000/api/returnreviewscorewebsocket";
+			var socket=new WebSocket(url);
+			socket.onopen = function () {
+				console.log("websocket for score success");
+				socket.send(roomid.toString());
+			}
+			socket.onclose=function(e){
+              console.log(e);
+              socket.close(); //关闭TCP连接
+            };
+            //if (socket.readyState == WebSocket.OPEN) socket.onopen();	
+			socket.onmessage = function(myJson){
+                var str=JSON.parse(myJson.data)
+                var len=str.usernum
+                switch(len){
+                    case 1:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = "";
+                        document.getElementById("user3").innerHTML = "";
+                        document.getElementById("user4").innerHTML = "";
+                    break;
+                    case 2:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
+                        document.getElementById("user3").innerHTML = "";
+                        document.getElementById("user4").innerHTML = "";
+                    break;
+                    case 3:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
+                        document.getElementById("user3").innerHTML = str.user3name+": "+str.user3score;
+                        document.getElementById("user4").innerHTML = "";
+                    break;
+                    case 4:
+                        document.getElementById("user1").innerHTML = str.user1name+": "+str.user1score;
+                        document.getElementById("user2").innerHTML = str.user2name+": "+str.user2score;
+                        document.getElementById("user3").innerHTML = str.user3name+": "+str.user3score;
+                        document.getElementById("user4").innerHTML = str.user4name+": "+str.user4score;
+                    break;
+                }
+                };
+			
+			 	
+		}
+		catch (error) {}
+		try{
+            const roomid=this.state.roomid;
+			const reviewwaitcheckuserValue={"roomid":roomid};
+			const url2=" ws://localhost:8000/api/reviewroomchecktalkwebsocket";
+			var socket2=new WebSocket(url2);
+			socket2.onopen = function () {
+			console.log("websocket for talk success");
+			socket2.send(roomid.toString());
+			}
+			socket2.onclose=function(e){
+              console.log(e);
+              socket2.close(); //关闭TCP连接
+            };
+			socket2.onmessage = function(myJson){
+                    var str=myJson.data
+                    console.log(str)
+                    var string=JSON.parse(str);
+                    console.log(string)
+                    if(document.getElementById("chat")){document.getElementById("chat").innerHTML=string.str;}
+                }		
+		}
+		catch (error) {}
     }
+	
     onstrChange(event) {
         this.setState({
             str: event.target.value,
@@ -304,8 +372,7 @@ class ReviewRoom extends React.Component {
                     },
                     body: JSON.stringify(nextproblemValue),
                 }).then(function(response) {
-                    return response.json();
-                    console.log(response.json())
+					return response.json();
                 }).then(function(myJson){
                     var str=JSON.parse(myJson);
                     var statu=str.status

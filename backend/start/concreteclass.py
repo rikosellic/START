@@ -27,6 +27,8 @@ class StudyRoom: #学习房间类
         self.talkstring=''
         self.allwordstring='' #用于更新用户学习记录
         printe(self.usernamelist,EN)
+        self.talkchanged=False
+        self.processchanged=True
 
     def setWordList(self,idlist):
         if self.wordlist!=[]:
@@ -83,6 +85,7 @@ class StudyRoom: #学习房间类
         if self.learning_process[index]==49:
             return False
         self.learning_process[index]+=1
+        self.processchanged=True
         return self.wordlist[self.learning_process[index]]
 
     def lastWord(self,username):
@@ -90,6 +93,7 @@ class StudyRoom: #学习房间类
         if self.learning_process[index]==0:
            return (self.wordlist[0],0)
         self.learning_process[index] -= 1
+        self.processchanged=True
         return (self.wordlist[self.learning_process[index]],1)
 
     def startStudy(self): #房间等待界面, 房主开始
@@ -118,6 +122,7 @@ class StudyRoom: #学习房间类
     def speak(self,username,str):
         self.talknum+=1
         self.talkstring = self.talkstring + username + ':\n' + str+'\n'
+        self.talkchanged=True
         return True
 
     def checkTalk(self):
@@ -143,8 +148,11 @@ class ReviewRoom: #复习房间类
         self.alreadyright=0
         self.temp=0
         self.talknum = 0
-        self.talkstring = ''
+        self.talkstring = ' '
         self.allwordstring = ''  # 用于更新用户学习记录
+        self.scorechanged=False
+        self.end=False
+        self.talkchanged=False
 
     def setWordList2(self):
         self.wordlist = pastWordList(convert_name_to_id(self.hostname))
@@ -230,6 +238,7 @@ class ReviewRoom: #复习房间类
             scoredict['user'+str(index+1)+'name']=self.usernamelist[index]
             scoredict['user'+str(index+1)+'score']=self.score[index]
         scoredict['usernum']=self.usernum
+        self.scorechanged=False
         return scoredict
 
     def startReview(self): #房间等待界面, 房主开始
@@ -269,6 +278,8 @@ class ReviewRoom: #复习房间类
                 self.score[index]+=yourscore
                 self.alreadyright+=1
                 printe(self.score,EN)
+                if yourscore>0:
+                    self.scorechanged=True
                 return (yourscore,self.correctanswer[self.currentquestion])
 
     def nextProblem(self,username):
@@ -291,6 +302,7 @@ class ReviewRoom: #复习房间类
                         scoredict['user' + str(index ) + 'score'] = self.score[j]
                         break
             scoredict['usernum'] = self.usernum
+            self.end=True
             return (scoredict,1)
         self.temp+=1
         self.temp=self.temp%(self.usernum*2)
@@ -299,14 +311,15 @@ class ReviewRoom: #复习房间类
             self.alreadyright=0
             for i,x in enumerate(self.alreadyanswer):
                 self.alreadyanswer[i]=0
-        print('temp',self.temp)
-        print ('current',self.currentquestion)
-        print(username,self.problemlist[self.currentquestion])
+        #print('temp',self.temp)
+        #print ('current',self.currentquestion)
+        #print(username,self.problemlist[self.currentquestion])
         return (self.problemlist[self.currentquestion],2)
 
     def speak(self, username, str):
         self.talknum += 1
         self.talkstring = self.talkstring + username + ':\n' + str+'\n'
+        self.talkchanged=True
         return True
 
     def checkTalk(self):

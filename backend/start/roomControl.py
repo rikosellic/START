@@ -11,6 +11,10 @@ class RoomControl:
     def __init__(self):
         self.StudyRoomDict={}
         self.ReviewRoomDict={}
+        self.ReviewRoomClients={}
+        self.ReviewRoomClients2= {}
+        self.StudyRoomClients = {}
+        self.StudyRoomClients2 = {}
 
     def checkRoom(self,id): #检查房间是否存在
         if id in self.StudyRoomDict.keys()  :
