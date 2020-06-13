@@ -28,7 +28,6 @@ urlpatterns = [
     path('api/quitreviewroom',views.QuitReviewRoom.as_view()),
     path('api/setreviewproblem',views.SetReviewProblem.as_view()),
     path('api/startstudy',views.StartStudy.as_view()),
-    path('api/studycheckstart',views.StudyCheckStart.as_view()),
     path('api/studysetwordlist',views.StudySetWordList.as_view()),
     path('api/nextword',views.NextWord.as_view()),
     path('api/lastword',views.LastWord.as_view()),
@@ -50,4 +49,5 @@ urlpatterns = [
     path('api/reviewroomchecktalkwebsocket',views.ReviewRoomCheckTalk_websocket),
     path('api/studyroomchecktalkwebsocket',views.StudyRoomCheckTalk_websocket),
     path('api/returnstudyprocesswebsocket',views.ReturnStudyProcess_websocket),
+    path('api/studywaitcheckuserwebsocket',views.StudyWaitCheckUser_websocket)
 ]

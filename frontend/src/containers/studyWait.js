@@ -34,7 +34,80 @@ class studyWait extends React.Component {
       }
   }
     componentDidMount () {
-        let timer = setInterval(() => {
+		try{
+			var that=this;
+            const roomid=this.state.roomid;
+            const reviewwaitcheckuserValue={"roomid":roomid};
+            const url=" ws://localhost:8000/api/studywaitcheckuserwebsocket";
+			var socket=new WebSocket(url);
+			socket.onopen = function () {
+				console.log("websocket for user success");
+				socket.send(roomid.toString());
+			}
+			socket.onclose=function(e){
+              console.log(e);
+              socket.close(); //关闭TCP连接
+            };
+            //if (socket.readyState == WebSocket.OPEN) socket.onopen();	
+			socket.onmessage = function(myJson){
+                    var str=JSON.parse(myJson.data)
+                    var len=str.usernum
+					switch(len){
+						case 1:
+							if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=""}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=""}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
+							break;
+						case 2:
+							if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=""}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
+							break;
+						case 3:
+							if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
+							break;
+						case 4:
+							if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=str.user4}
+							break;
+					}
+                  
+                }
+			
+		}
+		catch{}
+		
+		try{
+			const roomid=this.state.roomid;
+            const url2=" ws://localhost:8000/api/studyroomchecktalkwebsocket";
+			var socket2=new WebSocket(url2);
+			socket2.onopen = function () {
+			console.log("websocket for talk success");
+			socket2.send(roomid.toString());
+			}
+			socket2.onclose=function(e){
+              console.log(e);
+              socket2.close(); //关闭TCP连接
+            };
+			socket2.onmessage  = function(myJson){
+                    var str=myJson.data;
+                    console.log(str);
+                    var string=JSON.parse(str);
+                    console.log(string);
+                    if(document.getElementById("chat")){document.getElementById("chat").innerHTML=string.str;}
+                }
+		}
+		catch{
+			
+		}
+        /*let timer = setInterval(() => {
             var that=this;
             const roomid=this.state.roomid;
             const reviewwaitcheckuserValue={"roomid":roomid};
@@ -107,7 +180,7 @@ class studyWait extends React.Component {
                 })
             }catch(error){
             }
-        },100)
+        },100)*/
     }
     onstrChange(event) {
         this.setState({

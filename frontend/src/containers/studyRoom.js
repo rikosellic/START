@@ -39,7 +39,7 @@ class studyRoom extends React.Component {
 			var socket2=new WebSocket(url2);
 			socket2.onopen = function () {
 			console.log("websocket for talk success");
-			socket2.send(roomid.toString());
+			//socket2.send(roomid.toString());
 			}
 			socket2.onclose=function(e){
               console.log(e);

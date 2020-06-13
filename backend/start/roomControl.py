@@ -15,6 +15,7 @@ class RoomControl:
         self.ReviewRoomClients2= {}
         self.StudyRoomClients = {}
         self.StudyRoomClients2 = {}
+        self.StudyRoomClients3={}
 
     def checkRoom(self,id): #检查房间是否存在
         if id in self.StudyRoomDict.keys()  :
