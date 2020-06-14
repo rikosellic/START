@@ -29,7 +29,7 @@ def localUpdateHistory(username, newhistory):
             if word in oldhistorylist:
                 continue
             else:
-                oldhistory = oldhistory + word + ' '
+                oldhistory = oldhistory + word + '  '
         users_history[username] = (oldhistory,label,time)
         print(users_history)
 

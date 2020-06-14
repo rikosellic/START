@@ -75,11 +75,11 @@ class studySummary extends React.Component {
 	<NavBar2 myname={username}/>
       <div>
         <div className='studysummary-logo' ><Logo/></div>
-          <div class="study-button1">
-            <Button variant="primary" id="but1"size="lg" onClick={this.startreview.bind(this,roomid,username)}>复习</Button>
+          <div class="studysu-button1">
+            <Button variant="outline-dark" id="bot1"size="lg" onClick={this.startreview.bind(this,roomid,username)}>Review Together</Button>
           </div>
-          <div class="study-button2">
-            <Button variant="primary" id="but2" size="lg" onClick={this.quit.bind(this,username,roomid)} >退出</Button>
+          <div class="studysu-button2">
+            <Button variant="outline-dark" id="bot2" size="lg" onClick={this.quit.bind(this,username,roomid)} >Quit the Room</Button>
           </div>
       </div>
 	</html>

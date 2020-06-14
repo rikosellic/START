@@ -306,13 +306,13 @@ class reviewWait extends React.Component {
 		<div class="reviewWait">
             <html>
 			  <NavBar2 myname={username}/>
-              <DropdownButton title="chat" size="sm">
-                <Form.Group>
-                <Form.Control as="textarea" id="chat" rows="5" disabled/>
+              <DropdownButton variant="outline-dark" title="Chat" id="reviewwaitdown">
+                <Form.Group id="reviewwaitchat">
+                <Form.Control as="textarea" id="chat" rows="15" disabled/>
                 </Form.Group>
                 <Form.Group ><Form.Control type="text" id="string" onChange={this.onstrChange}/></Form.Group>
-                <div class="chatButton">
-                <Button id="chat_button" size="sm" onClick={this.sendout.bind(this,roomid,username,str)}>Send out</Button>
+                <div class="reviewwaitchatButton">
+                <Button id="reviewwaitchat_button" size="sm" onClick={this.sendout.bind(this,roomid,username,str)}>Send out</Button>
                 </div>
               </DropdownButton>
               <div className='logo' ><Logo/></div>

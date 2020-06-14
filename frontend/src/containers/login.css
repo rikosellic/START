@@ -12,11 +12,16 @@
 }
 
 .login-logo{
-    width: 200%;
+    width: 220%;
     margin-left:-50%;
 }
 
 .login-button{
+    text-align: center;
+    width: 100%;
+}
+
+.login-button1{
     text-align: center;
     width: 100%;
 }

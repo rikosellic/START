@@ -71,9 +71,10 @@ class Personal extends React.Component {
             <div class="personal-information">
               <p id="userID">userID:</p>
               <p id="email">email:</p>
-              <Form.Group>
-                <Form.Control as="textarea" id="history" rows="1" disabled/>
-              </Form.Group>
+                <p>record:</p>
+              <div class="personalhistory">
+              <marquee id="history"></marquee>
+              </div>
             </div>
           </div>
     );

@@ -293,18 +293,18 @@ class studyRoom extends React.Component {
 		
             <html>
 			<NavBar2 myname={username}/>
-            <DropdownButton title="chat" size="sm">
-                <Form.Group>
-                    <Form.Control as="textarea" id="chat" rows="5" disabled/>
+            <DropdownButton variant="outline-dark" title="Chat" id="studyroomdown">
+                <Form.Group id="studyroomchat">
+                    <Form.Control as="textarea" id="chat" rows="15" disabled/>
                 </Form.Group>
                 <Form.Group ><Form.Control type="text" id="string" onChange={this.onstrChange}/></Form.Group>
-                <div class="chatButton">
+                <div class="studyroomchatButton">
                     <Button id="chat_button" size="sm" onClick={this.sendout.bind(this,roomid,username,str)}>Send out</Button>
                 </div>
             </DropdownButton>
 			<div>
             <h1 className="study-word" id="word"></h1>
-            <h4 className="study-mean" id="mean"></h4>
+            <font size="5" className="study-mean" id="mean"></font>
             <h5 className="study-lx" id="lx"></h5>
             <Button variant="primary" className="study-button1" id="but1" size="lg" onClick={this.lastWord.bind(this,roomid,username) }><span>last</span></Button>
             <Button variant="primary" className="study-button2" id="but2" size="lg" onClick={this.nextWord.bind(this,roomid,username)} ><span>next</span></Button>

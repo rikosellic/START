@@ -1,0 +1,14 @@
+.searchform{
+    padding-top: 3%;
+    padding-left: 43%;
+    padding-bottom: 3%;
+}
+.searchshowword{
+
+    width: 200%;
+}
+#searchword{
+    height: 60px;
+    width: 70%;
+    text-align: left;
+}

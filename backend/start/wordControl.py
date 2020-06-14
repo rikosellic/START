@@ -112,5 +112,5 @@ def searchWord(word):
 	for ite in suggestions:
 		ite['meaning'] = ite['meaning'].replace("<br>",' ')
 		result.append(ite)
-	print(result[0:8])
-	return result[0:8]
+	print(result[0:9])
+	return result[0:9]

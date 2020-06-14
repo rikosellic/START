@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import "./href.css";
 import Logo from "../components/Logo";
+import "./searchWord.css";
 import NavBar2 from "../components/Nav2";
 import Footer from "../components/Footer";
 import PropTypes from 'prop-types';
@@ -73,21 +74,23 @@ class SearchWord extends React.Component {
 	<div>
 		<div>
 		<NavBar2 myname={username}/>
+		<div class="searchform">
 		<Form inline>
 			<Form.Control style={{display:"none"}}/>
             <Form.Control type="text" onChange={this.onwordChange}/>
             <Button variant="danger" onClick={this.searchword.bind(this,word)}>Search</Button>
         </Form>
+		</div>
 		{  
 		(wordlist.length==0)
 		?<h4>Not Found.</h4>
 		:wordlist.map((item,index)=>{
 		return (
-		<div>
-		<div className='many'>
-		<h4>{item.Word}</h4>
-		<h4>{item.meaning}</h4>
-		</div>                    
+		<div class="searchshowword">
+		<Button id="searchword" variant="outline-dark">
+		<font color="red" size="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.Word} &nbsp;&nbsp;</font>
+		<font color="gray" size="5">{item.meaning}</font>
+		</Button>              
 		</div> 
 		)
 		},this)

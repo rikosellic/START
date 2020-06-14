@@ -91,10 +91,9 @@ class Login extends React.Component {
                 Login
               </Button>
             </div>
-            <div className="login-button">
+            <div className="login-button1">
             <span class="blue">
-              <a href="//www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=%E6%80%8E%E4%B9%88%E6%B2%BB%E7%96%97%E8%84%91%E6%AE%8B&fenlei=256&rsv_pq=a680fa0c0001e6b0&rsv_t=6850bfaApw8NgPkUBq5wCWxhOpFK5TRqHtzvFpTABp1%2BSph8Qb1Zn6%2F3HWI&rqlang=cn&rsv_enter=1&rsv_dl=tb&rsv_sug3=21&rsv_sug1=15&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=12308&rsv_sug4=14886" style={{marginLeft: '3%'}}>forget password?</a>
-              <a href="/register" style={{marginLeft: '5%'}}>go to register</a>
+              <a href="/register">go to register</a>
             </span>
             </div>
           </Form>

@@ -66,8 +66,8 @@
     margin-left:-1000px
 }
 
-.chatButton{
-    margin-left: 25%;
+.reveiwroomchatButton{
+    margin-left: 36%;
 }
 
 #block1{
@@ -90,6 +90,18 @@
     border-color: rgba(255,255,255,0.5);
 }
 
+#reviewroomdown{
+    border-width: 2px;
+}
+
+#reviewroomchat {
+    width: 400px;
+}
+#reviewroomchat_button{
+    height:30px;
+    width: 100px;
+    text-align: cneter;
+}
 body{
     position: fixed;
     top: 0;

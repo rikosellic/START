@@ -112,7 +112,7 @@ class Main extends React.Component {
       <div class="main">
         <NavBar myname={username}/>
             <Container>
-              <br/><Logo/><br/>
+              <br/><div class="main-logo"><Logo/></div><br/>
               <h5 class="word">
                 Welcome to START! Have a good day to study.
               </h5>
