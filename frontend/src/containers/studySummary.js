@@ -36,6 +36,7 @@ class studySummary extends React.Component {
   	startreview(roomid,username){
 		const value = {"roomid": roomid,
         "username":username,}
+        var that=this
         alert(roomid)
         const url = " http://localhost:8000/api/studyroomtoreviewroom";
            fetch(url, {
@@ -49,7 +50,7 @@ class studySummary extends React.Component {
         }).then(function(myJson){
             var str=JSON.parse(myJson);
             var id=str.newid
-            this.props.history.push({pathname:'/reviewWait/'+id+'/'+this.state.username})
+            window.location='/reviewWait/'+id+'/'+that.state.username
         })
 	}
 	quit(username,roomid){
