@@ -55,12 +55,13 @@ class StudyRoom: #学习房间类
         self.talkchanged=False
         self.processchanged=True
         self.usernumchanged=False
+        self.idlist=[]
 
-    def setWordList(self,idlist):
+    def setWordList(self,targetlist):
         if self.wordlist!=[]:
             return
-        idlist=randomIdList()
-        for i in idlist:
+        self.idlist=randomIdList()
+        for i in self.idlist:
             worddict=StudyRoom.alllist[i-1]
             self.wordlist.append(worddict)
             self.allwordstring=self.allwordstring+worddict['Word']+' '
@@ -95,6 +96,7 @@ class StudyRoom: #学习房间类
                 self.hostname = self.usernamelist[1]
             self.usernamelist.pop(index_to_delete)
             self.learning_process.pop(index_to_delete)
+            self.usernumchanged=True
             return 1
 
     def returnStudyProcess(self):
@@ -176,7 +178,8 @@ class ReviewRoom: #复习房间类
     def setWordList(self,idlist):
         if self.wordlist!=[]:
             return
-        idlist = randomIdList()
+        if idlist==[]:
+            idlist = randomIdList()
         for i in idlist:
             worddict = ReviewRoom.alllist[i - 1]
             self.wordlist.append(worddict)
