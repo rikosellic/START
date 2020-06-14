@@ -32,16 +32,23 @@ class studySummary extends React.Component {
       //hostname: messagearr[2],
       }
   }
-  	startreview(roomid){
-		const value = {"roomid": roomid,}
-        const url = " http://localhost:8000/api/startreview";
+  	startreview(roomid,username){
+		const value = {"roomid": roomid,
+        "username":username,}
+        const url = " http://localhost:8000/api/studyroomtoreviewroom";
            fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then(this.props.history.push({pathname:'/reviewWait/'+this.state.roomid+'/'+this.state.username}))
+           }).then(function(response){
+            return response.json();
+        }).then(function(myJson){
+            var str=JSON.parse(myJson);
+            var id=str.newid
+            this.props.history.push({pathname:'/reviewWait/'+id+'/'+this.state.username})
+        })
 	}
 	quit(username,roomid){
 		const value = {"username": username,
@@ -62,7 +69,7 @@ class studySummary extends React.Component {
 	<NavBar2 myname={username}/>
       <div>
               <div className='login-logo' ><Logo/></div>
-            <Button variant="primary" className="study-button1" id="but1" size="lg" onClick={this.startreview.bind(this,username,roomid)}> <span>复习</span></Button>
+            <Button variant="primary" className="study-button1" id="but1" size="lg" onClick={this.startreview.bind(this,roomid,username)}> <span>复习</span></Button>
             <Button variant="primary" className="study-button2" id="but2" size="lg" onClick={this.quit.bind(this,username,roomid)} ><span>退出</span></Button>
       </div>
 	</html>
