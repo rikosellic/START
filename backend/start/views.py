@@ -602,8 +602,9 @@ def ReviewWaitCheckUser_websocket(request):
 class StudyRoomToReviewRoom(APIView):
     def post(self,request):
         input = request.data
+        print(input)
         username = input['username']
-        roomid = input['roomid']
+        roomid = int(input['roomid'])
         try:
             newid=roomcontroller.studyToReview(roomid,username)
             result={}

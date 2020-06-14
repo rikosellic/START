@@ -50,7 +50,7 @@ class studySummary extends React.Component {
         }).then(function(myJson){
             var str=JSON.parse(myJson);
             var id=str.newid
-            window.location='/reviewWait/'+id+'/'+that.state.username
+            window.location='/reviewWait/'+that.state.username+'/'+id
         })
 	}
 	quit(username,roomid){
