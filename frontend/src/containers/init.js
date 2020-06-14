@@ -8,7 +8,7 @@ import {
   Form,
   Button,
 } from 'react-bootstrap';
-import "./reviewSummary.css";
+import "./studySummary.css";
 import "./href.css";
 import Logo from "../components/Logo";
 import NavBar2 from "../components/Nav2";
@@ -45,19 +45,19 @@ class studySummary extends React.Component {
     return (
 	<html>
       <div>
-              <div className='login-logo' ><Logo/></div>
-                <Row>
-                  <Col>
-                  </Col>
-                  <div class="main-button">
-                    <Button variant="primary" size="lg" class="main-button" onClick={this.login.bind(this)}>登录</Button>
-                  </div>
-                  <div class="main-button">
-                    <Button variant="primary" size="lg" class="main-button" onClick={this.register.bind(this)}>注册</Button>
-                  </div>
-                  <Col>
-                  </Col>
-                </Row>
+        <div className='studysummary-logo' ><Logo/></div>
+        <Row>
+          <Col>
+          </Col>
+          <div class="study-button1">
+            <Button variant="primary" size="lg" id="but1" onClick={this.login.bind(this)}>登录</Button>
+          </div>
+          <div class="study-button2">
+            <Button variant="primary" size="lg" id="but2" onClick={this.register.bind(this)}>注册</Button>
+          </div>
+          <Col>
+          </Col>
+        </Row>
       </div>
 	</html>
     );
