@@ -62,14 +62,15 @@ class UserLoginControl:
             print('Updating study record to database...')
             users=users_history.keys()
             for username in users:
-                currenthistory,label,time=users_history[username]
+                currenthistory,label,logintime=users_history[username]
                 if label==True:
-                    time+=1
+                    logintime+=1
                     targetuser = User.objects.get(username=username)
                     targetuser.history = currenthistory
                     label = False
+                    users_history[username]=(currenthistory,label,logintime)
                     targetuser.save()
-                    if time==5:
+                    if logintime==60:
                         self.logined_users.pop(username)
             print('Updated study record to database')
             time.sleep(300)

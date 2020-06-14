@@ -9,7 +9,7 @@ from	rest_framework.response	import	Response
 from	rest_framework	import	status
 from .roomControl import  RoomControl
 from .UserLoginControl import UserLoginControl
-from  concurrent.futures import ProcessPoolExecutor
+import threading
 import json
 from .wordControl import *
 from dwebsocket.decorators import accept_websocket
@@ -44,9 +44,10 @@ if TESTAPI==1:
     print('测试用复习房间ID: ', testid2)
     print('房主WXY,用户 LWL, TYB','已开始')
 
-pool = ProcessPoolExecutor(2)
-pool.submit(userlogincontroller.update)
-pool.submit(userlogincontroller.updateHistoryToDatabase)
+t1=threading.Thread(target=userlogincontroller.update)
+t2=threading.Thread(target=userlogincontroller.updateHistoryToDatabase)
+t1.start()
+t2.start()
 
 
 def printe(str,EN):

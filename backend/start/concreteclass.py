@@ -30,7 +30,9 @@ def localUpdateHistory(username, newhistory):
                 continue
             else:
                 oldhistory = oldhistory + word + ' '
+        users_history[username] = (oldhistory,label,time)
         print(users_history)
+
         return
     except Exception as e:
         print(e)
