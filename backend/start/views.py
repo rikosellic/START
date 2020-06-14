@@ -117,6 +117,7 @@ class Login(APIView):#用于用户登录
 class QuitStudyRoom(APIView):#用于退出房间
     def post(self,request):
         input=request.data
+        print(request.data)
         roomid = int(input['roomid'])
         username = input['username']
         result=roomcontroller.quitStudyRoom(username,roomid)
@@ -596,4 +597,18 @@ def ReviewWaitCheckUser_websocket(request):
                     return
             time.sleep(0.1)
         else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class StudyRoomToReviewRoom(APIView):
+    def post(self,request):
+        input = request.data
+        username = input['username']
+        roomid = input['roomid']
+        try:
+            newid=roomcontroller.studyToReview(roomid,username)
+            result={}
+            result['newid']=newid
+            return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
