@@ -34,12 +34,34 @@ class studyRoom extends React.Component {
 
     componentDidMount () {
 		try{
+			const roomid=this.state.roomid;
+			const value = {"roomid": roomid,};
+			const url = " http://localhost:8000/api/startstudy";
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json;charset=utf-8",
+                },
+                body: JSON.stringify(value),
+           }).then(res=>{
+            if(res.status === 200){
+                return res.json();}
+            else{alert('出错(你可能是没登陆)');
+            }
+        }).then(text=>{try{document.getElementById("word").innerHTML = JSON.parse(text).Word;
+		document.getElementById("mean").innerHTML = JSON.parse(text).meaning;
+		if (JSON.parse(text).lx !=null){document.getElementById("lx").innerHTML = JSON.parse(text).lx;}
+		else {document.getElementById("lx").innerHTML = "暂无例句"};} 
+		catch(error){}})
+		}
+		catch{}
+		try{
             const roomid=this.state.roomid;
             const url2=" ws://localhost:8000/api/studyroomchecktalkwebsocket";
 			var socket2=new WebSocket(url2);
 			socket2.onopen = function () {
 			console.log("websocket for talk success");
-			//socket2.send(roomid.toString());
+			socket2.send('jumped'+roomid);
 			}
 			socket2.onclose=function(e){
               console.log(e);

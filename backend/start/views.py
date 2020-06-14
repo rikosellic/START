@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import *
@@ -316,6 +317,7 @@ class StudyRoomSpeak(APIView):
         roomid = int(input['roomid'])
         username=input['username']
         str=input['str']
+        print(str)
         if TESTAPI == 1:
             roomid = testid
         result=roomcontroller.studyRoomSpeak(roomid,username,str)
@@ -400,13 +402,7 @@ def ReturnReviewScore_websocket(request):
         print('websocket for score created')
         roomid=int(request.websocket.wait())
         print('roomid',roomid)
-        if roomid not in roomcontroller.ReviewRoomClients.keys():
-            roomcontroller.ReviewRoomClients[roomid]={}
-            roomcontroller.ReviewRoomClients[roomid]['index']=1
-            roomcontroller.ReviewRoomClients[roomid][roomcontroller.ReviewRoomClients[roomid]['index']]=request.websocket
-        else:
-            roomcontroller.ReviewRoomClients[roomid]['index'] += 1
-            roomcontroller.ReviewRoomClients[roomid][roomcontroller.ReviewRoomClients[roomid]['index']] = request.websocket
+        roomcontroller.addclient(request, study=False, index=1, roomid=roomid)
         time.sleep(0.5)
         result = roomcontroller.returnReviewScore(roomid)
         if result != False:
@@ -432,15 +428,20 @@ def ReturnReviewScore_websocket(request):
 def ReviewRoomCheckTalk_websocket(request):
     if request.is_websocket():
         print('websocket for talk created')
-        roomid = int(request.websocket.wait())
-        print('roomid', roomid)
-        if roomid not in roomcontroller.ReviewRoomClients2.keys():
-            roomcontroller.ReviewRoomClients2[roomid] = {}
-            roomcontroller.ReviewRoomClients2[roomid]['index'] = 1
-            roomcontroller.ReviewRoomClients2[roomid][roomcontroller.ReviewRoomClients2[roomid]['index']] = request.websocket
+        roomid = request.websocket.wait()
+        roomid = str(roomid, encoding='utf-8')
+        if roomid[0:6]=='jumped':
+            roomid=int(roomid[6:])
+            result = roomcontroller.reviewRoomCheckTalk(roomid)
+            if result != False:
+                for key in roomcontroller.ReviewRoomClients2[roomid].keys():
+                    if key != 'index':
+                        roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                roomcontroller.ReviewRoomDict[roomid].talkchanged = False
         else:
-            roomcontroller.ReviewRoomClients2[roomid]['index'] += 1
-            roomcontroller.ReviewRoomClients2[roomid][roomcontroller.ReviewRoomClients2[roomid]['index']] = request.websocket
+            roomid=int(roomid)
+            print('roomid', roomid)
+            roomcontroller.addclient(request, study=False, index=2, roomid=roomid)
         while True:
             if roomcontroller.ReviewRoomDict[roomid].talkchanged==True:
                 result=roomcontroller.reviewRoomCheckTalk(roomid)
@@ -460,15 +461,20 @@ def ReviewRoomCheckTalk_websocket(request):
 def StudyRoomCheckTalk_websocket(request):
     if request.is_websocket():
         print('websocket for talk created')
-        roomid = int(request.websocket.wait())
-        print('roomid', roomid)
-        if roomid not in roomcontroller.StudyRoomClients2.keys():
-            roomcontroller.StudyRoomClients2[roomid] = {}
-            roomcontroller.StudyRoomClients2[roomid]['index'] = 1
-            roomcontroller.StudyRoomClients2[roomid][roomcontroller.StudyRoomClients2[roomid]['index']] = request.websocket
+        roomid = request.websocket.wait()
+        roomid=str(roomid,encoding='utf-8')
+        if roomid[0:6]=='jumped':
+            roomid = int(roomid[6:])
+            result = roomcontroller.studyRoomCheckTalk(roomid)
+            if result != False:
+                for key in roomcontroller.StudyRoomClients2[roomid].keys():
+                    if key != 'index':
+                        roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                    roomcontroller.StudyRoomDict[roomid].talkchanged = False
         else:
-            roomcontroller.StudyRoomClients2[roomid]['index'] += 1
-            roomcontroller.StudyRoomClients2[roomid][roomcontroller.StudyRoomClients2[roomid]['index']] = request.websocket
+            roomid=int(roomid)
+            print('roomid', roomid)
+            roomcontroller.addclient(request, study=True, index=2, roomid=roomid)
         while True:
             if roomcontroller.StudyRoomDict[roomid].talkchanged==True:
                 result=roomcontroller.studyRoomCheckTalk(roomid)
@@ -487,13 +493,7 @@ def ReturnStudyProcess_websocket(request):
         print('websocket for process created')
         roomid = int(request.websocket.wait())
         print('roomid', roomid)
-        if roomid not in roomcontroller.StudyRoomClients.keys():
-            roomcontroller.StudyRoomClients[roomid] = {}
-            roomcontroller.StudyRoomClients[roomid]['index'] = 1
-            roomcontroller.StudyRoomClients[roomid][ roomcontroller.StudyRoomClients[roomid]['index']] = request.websocket
-        else:
-            roomcontroller.StudyRoomClients[roomid]['index'] += 1
-            roomcontroller.StudyRoomClients[roomid][roomcontroller.StudyRoomClients[roomid]['index']] = request.websocket
+        roomcontroller.addclient(request, study=True, index=1, roomid=roomid)
         time.sleep(0.5)
         result = roomcontroller.returnStudyProcess(roomid)
         if result != False:
@@ -517,13 +517,7 @@ def StudyWaitCheckUser_websocket(request):
     if request.is_websocket():
         print('websocket for check user created')
         roomid = int(request.websocket.wait())
-        if roomid not in roomcontroller.StudyRoomClients3.keys():
-            roomcontroller.StudyRoomClients3[roomid] = {}
-            roomcontroller.StudyRoomClients3[roomid]['index'] = 1
-            roomcontroller.StudyRoomClients3[roomid][roomcontroller.StudyRoomClients3[roomid]['index']] = request.websocket
-        else:
-            roomcontroller.StudyRoomClients3[roomid]['index'] += 1
-            roomcontroller.StudyRoomClients3[roomid][roomcontroller.StudyRoomClients3[roomid]['index']] = request.websocket
+        roomcontroller.addclient(request, study=True, index=3, roomid=roomid)
         time.sleep(0.5)
         result = roomcontroller.studyWaitCheckUser(roomid)
         if result != False:
@@ -548,13 +542,7 @@ def ReviewWaitCheckUser_websocket(request):
     if request.is_websocket():
         print('websocket for check user created')
         roomid = int(request.websocket.wait())
-        if roomid not in roomcontroller.ReviewRoomClients3.keys():
-            roomcontroller.ReviewRoomClients3[roomid] = {}
-            roomcontroller.ReviewRoomClients3[roomid]['index'] = 1
-            roomcontroller.ReviewRoomClients3[roomid][roomcontroller.ReviewRoomClients3[roomid]['index']] = request.websocket
-        else:
-            roomcontroller.ReviewRoomClients3[roomid]['index'] += 1
-            roomcontroller.ReviewRoomClients3[roomid][roomcontroller.ReviewRoomClients3[roomid]['index']] = request.websocket
+        roomcontroller.addclient(request,study=False,index=3,roomid=roomid)
         time.sleep(0.5)
         result = roomcontroller.reviewWaitCheckUser(roomid)
         if result != False:

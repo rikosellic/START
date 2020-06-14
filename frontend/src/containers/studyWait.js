@@ -188,15 +188,16 @@ class studyWait extends React.Component {
         });
     }
 	startstudy(roomid){
-		const value = {"roomid": roomid,}
-        const url = " http://localhost:8000/api/startstudy";
+		const value = {"roomid": roomid,};
+		this.props.history.push({pathname:'/studyRoom/'+this.state.roomid+'/'+this.state.username})
+        /*const url = " http://localhost:8000/api/startstudy";
            fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-type":"application/json;charset=utf-8",
                 },
                 body: JSON.stringify(value),
-           }).then(this.props.history.push({pathname:'/studyRoom/'+this.state.roomid+'/'+this.state.username}))
+           }).then(this.props.history.push({pathname:'/studyRoom/'+this.state.roomid+'/'+this.state.username}))*/
 	}
     studysetwordlist(roomid){
         const value = {"roomid": roomid,}

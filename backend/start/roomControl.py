@@ -96,12 +96,12 @@ class RoomControl:
             return 0
 
     def startStudy(self,roomid):
-        try:
-            result=self.StudyRoomDict[roomid].startStudy()
-            return result
-        except Exception as e:
-            print(e)
-            return 0
+        #try:
+        result=self.StudyRoomDict[roomid].startStudy()
+        return result
+        #except Exception as e:
+            #print(e)
+            #return 0
 
     def studyCheckStart(self,roomid):
         try:
@@ -237,3 +237,25 @@ class RoomControl:
         except Exception as e:
             print(e)
             return False
+
+    def addclient(self,request,study,index,roomid):
+        if study==True and index==1:
+            target=self.StudyRoomClients
+        if study==True and index==2:
+            target=self.StudyRoomClients2
+        if study==True and index==3:
+            target=self.StudyRoomClients3
+        if study==False and index==1:
+            target=self.ReviewRoomClients
+        if study==False and index==2:
+            target=self.ReviewRoomClients2
+        if study==False and index==3:
+            target=self.ReviewRoomClients3
+        if roomid not in target.keys():
+            target[roomid] = {}
+            target[roomid]['index'] = 1
+            target[roomid][target[roomid]['index']] = request.websocket
+        else:
+            target[roomid]['index'] += 1
+            target[roomid][target[roomid]['index']] = request.websocket
+        return

@@ -1,3 +1,4 @@
+# coding=utf-8
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
 import django
@@ -22,6 +23,7 @@ def localUpdateHistory(username, newhistory):
         oldhistorylist = oldhistory.strip().split()
     else:
         oldhistorylist = []
+        oldhistory=''
     for word in newhistorylist:
         if word in oldhistorylist:
             continue
@@ -57,7 +59,7 @@ class StudyRoom: #学习房间类
             worddict=StudyRoom.alllist[i-1]
             self.wordlist.append(worddict)
             self.allwordstring=self.allwordstring+worddict['Word']+' '
-        printe(self.wordlist,EN)
+        #printe(self.wordlist,EN)
 
     #def returnWord(self,username):
        # index=self.usernamelist.index(username)
@@ -174,7 +176,7 @@ class ReviewRoom: #复习房间类
             worddict = ReviewRoom.alllist[i - 1]
             self.wordlist.append(worddict)
             self.allwordstring = self.allwordstring + worddict['Word'] + ' '
-        printe(self.wordlist,EN)
+        #printe(self.wordlist,EN)
 
     def setProblemList(self): #已经选定单词，生成题目
         if self.problemlist!=[]:
