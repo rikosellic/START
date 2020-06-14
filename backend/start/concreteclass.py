@@ -16,21 +16,26 @@ users_history={}
 
 
 def localUpdateHistory(username, newhistory):
-    oldhistory, label, time = users_history[username]
-    label = True
-    newhistorylist = newhistory.strip().split()
-    if oldhistory != None:
-        oldhistorylist = oldhistory.strip().split()
-    else:
-        oldhistorylist = []
-        oldhistory=''
-    for word in newhistorylist:
-        if word in oldhistorylist:
-            continue
+    try:
+        oldhistory, label, time = users_history[username]
+        label = True
+        newhistorylist = newhistory.strip().split()
+        if oldhistory != None:
+            oldhistorylist = oldhistory.strip().split()
         else:
-            oldhistory = oldhistory + word + ' '
-    print(users_history)
-    return
+            oldhistorylist = []
+            oldhistory=''
+        for word in newhistorylist:
+            if word in oldhistorylist:
+                continue
+            else:
+                oldhistory = oldhistory + word + ' '
+        print(users_history)
+        return
+    except Exception as e:
+        print(e)
+        print('大概率是因为没登陆')
+        return
 
 
 class StudyRoom: #学习房间类

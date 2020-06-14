@@ -436,7 +436,7 @@ def ReviewRoomCheckTalk_websocket(request):
             if result != False:
                 for key in roomcontroller.ReviewRoomClients2[roomid].keys():
                     if key != 'index':
-                        roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                        roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
                 roomcontroller.ReviewRoomDict[roomid].talkchanged = False
         else:
             roomid=int(roomid)
@@ -448,7 +448,7 @@ def ReviewRoomCheckTalk_websocket(request):
                 if result != False:
                     for key in roomcontroller.ReviewRoomClients2[roomid].keys():
                         if key != 'index':
-                            roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                            roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
                     roomcontroller.ReviewRoomDict[roomid].talkchanged = False
             if roomcontroller.ReviewRoomDict[roomid].end == True:
                 request.websocket.close()
@@ -469,7 +469,7 @@ def StudyRoomCheckTalk_websocket(request):
             if result != False:
                 for key in roomcontroller.StudyRoomClients2[roomid].keys():
                     if key != 'index':
-                        roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                        roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
                     roomcontroller.StudyRoomDict[roomid].talkchanged = False
         else:
             roomid=int(roomid)
@@ -481,7 +481,7 @@ def StudyRoomCheckTalk_websocket(request):
                 if result != False:
                     for key in roomcontroller.StudyRoomClients2[roomid].keys():
                         if key != 'index':
-                            roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False))
+                            roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
                     roomcontroller.StudyRoomDict[roomid].talkchanged = False
             time.sleep(0.1)
     else:
