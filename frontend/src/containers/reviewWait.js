@@ -106,21 +106,21 @@ class reviewWait extends React.Component {
                         break;
                         case 2:
                             if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
-							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML="成员："+str.user2}
 							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=""}
 							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                         break;
                         case 3:
                             if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
-							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
-							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML="成员："+str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML="成员："+str.user3}
 							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=""}
                         break;
                         case 4:
                             if(document.getElementById("usern1")){document.getElementById("usern1").innerHTML="房主："+str.user1}
-							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML=str.user2}
-							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML=str.user3}
-							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML=str.user4}
+							if(document.getElementById("usern2")){document.getElementById("usern2").innerHTML="成员："+str.user2}
+							if(document.getElementById("usern3")){document.getElementById("usern3").innerHTML="成员："+str.user3}
+							if(document.getElementById("usern4")){document.getElementById("usern4").innerHTML="成员："+str.user4}
                         break;
                         }
                     }
