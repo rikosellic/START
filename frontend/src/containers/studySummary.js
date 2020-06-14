@@ -27,6 +27,7 @@ class studySummary extends React.Component {
     this.state = {
       url:messagesplit[3],
       username:  messagesplit[4],
+      roomid: messagesplit[5] ,
       services:[],
       view:"type_a",
       //hostname: messagearr[2],
@@ -35,6 +36,7 @@ class studySummary extends React.Component {
   	startreview(roomid,username){
 		const value = {"roomid": roomid,
         "username":username,}
+        alert(roomid)
         const url = " http://localhost:8000/api/studyroomtoreviewroom";
            fetch(url, {
                 method: "POST",
