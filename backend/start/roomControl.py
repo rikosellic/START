@@ -19,6 +19,17 @@ class RoomControl:
         self.StudyRoomClients2 = {}
         self.StudyRoomClients3={}
         self.StudyRoomClients4={}
+        self.StudyRoomtoReviewRoom={}
+
+    def studyToReview(self,roomid,username):
+        if roomid not in self.StudyRoomtoReviewRoom.keys():
+            newid=self.createReviewRoom(username)
+            self.ReviewRoomDict[newid].setWordList(self.StudyRoomDict[roomid].idlist)
+            self.setReviewProblemofJump(newid)
+        else:
+            newid=self.StudyRoomtoReviewRoom[roomid]
+            self.enterRoom(username,newid)
+        return newid
 
     def checkRoom(self,id): #检查房间是否存在
         if id in self.StudyRoomDict.keys()  :
@@ -91,6 +102,14 @@ class RoomControl:
     def setReviewProblem(self,roomid):
         try:
             self.ReviewRoomDict[roomid].setWordList([])
+            self.ReviewRoomDict[roomid].setProblemList()
+            return 1
+        except Exception as e:
+            print (e)
+            return 0
+
+    def setReviewProblemofJump(self,roomid):
+        try:
             self.ReviewRoomDict[roomid].setProblemList()
             return 1
         except Exception as e:
