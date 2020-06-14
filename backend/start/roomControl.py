@@ -14,9 +14,11 @@ class RoomControl:
         self.ReviewRoomClients={}
         self.ReviewRoomClients2= {}
         self.ReviewRoomClients3= {}
+        self.ReviewRoomClients4={}
         self.StudyRoomClients = {}
         self.StudyRoomClients2 = {}
         self.StudyRoomClients3={}
+        self.StudyRoomClients4={}
 
     def checkRoom(self,id): #检查房间是否存在
         if id in self.StudyRoomDict.keys()  :
@@ -245,12 +247,16 @@ class RoomControl:
             target=self.StudyRoomClients2
         if study==True and index==3:
             target=self.StudyRoomClients3
+        if study==True and index==4:
+            target=self.StudyRoomClients4
         if study==False and index==1:
             target=self.ReviewRoomClients
         if study==False and index==2:
             target=self.ReviewRoomClients2
         if study==False and index==3:
             target=self.ReviewRoomClients3
+        if study==False and index==4:
+            target=self.ReviewRoomClients4
         if roomid not in target.keys():
             target[roomid] = {}
             target[roomid]['index'] = 1

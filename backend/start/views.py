@@ -14,6 +14,7 @@ import json
 from .wordControl import *
 from dwebsocket.decorators import accept_websocket
 import time
+from .concreteclass import users_history
 
 TESTAPI=0  #1表示测试版API, 0表示正常API
 EN=1
@@ -332,6 +333,7 @@ class ReviewRoomSpeak(APIView):
         roomid = int(input['roomid'])
         username=input['username']
         str=input['str']
+        print(str)
         if TESTAPI == 1:
             roomid = testid2
         result=roomcontroller.reviewRoomSpeak(roomid,username,str)
@@ -375,7 +377,7 @@ class GetStudyRecord(APIView):
             result['userID']=target['userID']
             result['username']=target['username']
             result['email']=target['email']
-            history,label,time=userlogincontroller.users_history[username]
+            history,label,time=users_history[username]
             if history!=None:
                 result['history']=history
                 return Response(json.dumps(result, ensure_ascii=False), status=status.HTTP_200_OK)
@@ -432,28 +434,42 @@ def ReviewRoomCheckTalk_websocket(request):
         roomid = str(roomid, encoding='utf-8')
         if roomid[0:6]=='jumped':
             roomid=int(roomid[6:])
+            roomcontroller.addclient(request, study=False, index=4, roomid=roomid)
+            time.sleep(0.5)
             result = roomcontroller.reviewRoomCheckTalk(roomid)
             if result != False:
-                for key in roomcontroller.ReviewRoomClients2[roomid].keys():
+                for key in roomcontroller.ReviewRoomClients4[roomid].keys():
                     if key != 'index':
-                        roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
+                        roomcontroller.ReviewRoomClients4[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
                 roomcontroller.ReviewRoomDict[roomid].talkchanged = False
+            while True:
+                if roomcontroller.ReviewRoomDict[roomid].talkchanged == True:
+                    result = roomcontroller.reviewRoomCheckTalk(roomid)
+                    if result != False:
+                        for key in roomcontroller.ReviewRoomClients4[roomid].keys():
+                            if key != 'index':
+                                roomcontroller.ReviewRoomClients4[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
+                        roomcontroller.ReviewRoomDict[roomid].talkchanged = False
+                if roomcontroller.ReviewRoomDict[roomid].end == True:
+                    request.websocket.close()
+                    return
+                time.sleep(0.1)
         else:
             roomid=int(roomid)
             print('roomid', roomid)
             roomcontroller.addclient(request, study=False, index=2, roomid=roomid)
-        while True:
-            if roomcontroller.ReviewRoomDict[roomid].talkchanged==True:
-                result=roomcontroller.reviewRoomCheckTalk(roomid)
-                if result != False:
-                    for key in roomcontroller.ReviewRoomClients2[roomid].keys():
-                        if key != 'index':
-                            roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
-                    roomcontroller.ReviewRoomDict[roomid].talkchanged = False
-            if roomcontroller.ReviewRoomDict[roomid].end == True:
-                request.websocket.close()
-                return
-            time.sleep(0.1)
+            while True:
+                if roomcontroller.ReviewRoomDict[roomid].talkchanged==True:
+                    result=roomcontroller.reviewRoomCheckTalk(roomid)
+                    if result != False:
+                        for key in roomcontroller.ReviewRoomClients2[roomid].keys():
+                            if key != 'index':
+                                roomcontroller.ReviewRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
+                        roomcontroller.ReviewRoomDict[roomid].talkchanged = False
+                if roomcontroller.ReviewRoomDict[roomid].end == True:
+                    request.websocket.close()
+                    return
+                time.sleep(0.1)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -465,25 +481,36 @@ def StudyRoomCheckTalk_websocket(request):
         roomid=str(roomid,encoding='utf-8')
         if roomid[0:6]=='jumped':
             roomid = int(roomid[6:])
+            roomcontroller.addclient(request, study=True, index=4, roomid=roomid)
+            time.sleep(0.5)
             result = roomcontroller.studyRoomCheckTalk(roomid)
             if result != False:
-                for key in roomcontroller.StudyRoomClients2[roomid].keys():
+                for key in roomcontroller.StudyRoomClients4[roomid].keys():
                     if key != 'index':
-                        roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
-                    roomcontroller.StudyRoomDict[roomid].talkchanged = False
+                        roomcontroller.StudyRoomClients4[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
+                roomcontroller.StudyRoomDict[roomid].talkchanged = False
+            while True:
+                if roomcontroller.StudyRoomDict[roomid].talkchanged == True:
+                    result = roomcontroller.studyRoomCheckTalk(roomid)
+                    if result != False:
+                        for key in roomcontroller.StudyRoomClients4[roomid].keys():
+                            if key != 'index':
+                                roomcontroller.StudyRoomClients4[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
+                        roomcontroller.StudyRoomDict[roomid].talkchanged = False
+                time.sleep(0.1)
         else:
             roomid=int(roomid)
             print('roomid', roomid)
             roomcontroller.addclient(request, study=True, index=2, roomid=roomid)
-        while True:
-            if roomcontroller.StudyRoomDict[roomid].talkchanged==True:
-                result=roomcontroller.studyRoomCheckTalk(roomid)
-                if result != False:
-                    for key in roomcontroller.StudyRoomClients2[roomid].keys():
-                        if key != 'index':
-                            roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
-                    roomcontroller.StudyRoomDict[roomid].talkchanged = False
-            time.sleep(0.1)
+            while True:
+                if roomcontroller.StudyRoomDict[roomid].talkchanged==True:
+                    result=roomcontroller.studyRoomCheckTalk(roomid)
+                    if result != False:
+                        for key in roomcontroller.StudyRoomClients2[roomid].keys():
+                            if key != 'index':
+                                roomcontroller.StudyRoomClients2[roomid][key].send(json.dumps(result, ensure_ascii=False).encode('utf-8'))
+                        roomcontroller.StudyRoomDict[roomid].talkchanged = False
+                time.sleep(0.1)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 

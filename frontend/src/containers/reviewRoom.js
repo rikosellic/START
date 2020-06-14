@@ -165,7 +165,6 @@ class ReviewRoom extends React.Component {
 		catch (error) {}
 		try{
             const roomid=this.state.roomid;
-			const reviewwaitcheckuserValue={"roomid":roomid};
 			const url2=" ws://localhost:8000/api/reviewroomchecktalkwebsocket";
 			var socket2=new WebSocket(url2);
 			socket2.onopen = function () {

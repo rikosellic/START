@@ -125,7 +125,8 @@ class reviewWait extends React.Component {
                         }
                     }
                     if(start==1){
-                        window.location="/reviewRoom/"+that.state.roomid+'/'+that.state.username
+                        window.location="/reviewRoom/"+that.state.roomid+'/'+that.state.username;
+						socket.close();
                     }else{}
                 }
 		}
