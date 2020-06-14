@@ -76,10 +76,10 @@ class ReviewSummary extends React.Component {
                             document.getElementById("user4").innerHTML = str.user4name+': '+str.user4score;
                             break;
                     }
-                    if(username==str.user1name){document.getElementById("personal").innerHTML = "你麻痹的是第一名，开心了吧"}
-                    if(username==str.user2name){document.getElementById("personal").innerHTML = "第一都得不到，蔡狗！"}
-                    if(username==str.user3name){document.getElementById("personal").innerHTML = "第三你很骄傲吗？乐色。"}
-                    if(username==str.user4name){document.getElementById("personal").innerHTML = "这么废物配用我们的软件？"}
+                    if(username==str.user1name){document.getElementById("personal").innerHTML = "恭喜你，荣获第一名"}
+                    if(username==str.user2name){document.getElementById("personal").innerHTML = "屈居第二，还需努力"}
+                    if(username==str.user3name){document.getElementById("personal").innerHTML = "您是第三名，还要加油啊"}
+                    if(username==str.user4name){document.getElementById("personal").innerHTML = "很遗憾，您是最后一名"}
                 })
             } catch (error) {
             }
