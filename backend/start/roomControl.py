@@ -24,6 +24,7 @@ class RoomControl:
     def studyToReview(self,roomid,username):
         if roomid not in self.StudyRoomtoReviewRoom.keys():
             newid=self.createReviewRoom(username)
+            self.StudyRoomtoReviewRoom[roomid]=newid
             self.ReviewRoomDict[newid].setWordList(self.StudyRoomDict[roomid].idlist)
             self.setReviewProblemofJump(newid)
         else:
