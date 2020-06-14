@@ -36,7 +36,7 @@ class ReviewRoom extends React.Component {
         let speed=this.state.speed;
         let timer = setInterval(() => {
         if(remaining==0){
-                remaining += 10000;
+                remaining += 5000;
                 let second = Math.floor(remaining/1000);
                 speed=speed+1;
                 this.setState({

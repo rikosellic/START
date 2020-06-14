@@ -113,9 +113,9 @@ class Main extends React.Component {
         <NavBar myname={username}/>
             <Container>
               <br/><Logo/><br/>
-              <div class="word">
-                welcome to start! Have a good day to study.
-              </div>
+              <h5 class="word">
+                Welcome to START! Have a good day to study.
+              </h5>
               <p className="search-box">
                 <Row>
                   <Col></Col>

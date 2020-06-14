@@ -58,6 +58,23 @@
 }
 .chatButton{
     margin-left: 25%;
+}.awsd{
+     margin-left: 36%;
+ }
+.awsd1{
+    text-align: left;
+}
+
+.awsd2{
+    text-align: left;
+}
+
+.awsd3{
+    text-align: left;
+}
+
+.awsd4{
+    text-align: left;
 }
 body{
     position: fixed;

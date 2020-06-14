@@ -317,16 +317,15 @@ class reviewWait extends React.Component {
               </DropdownButton>
               <div className='logo' ><Logo/></div>
               <h4>RoomID：{this.state.roomid}</h4>
-			  <Row>
-			    <h4 class="usern1" id="usern1">房主:</h4>
-				<h4 class="usern2" id="usern2"></h4>
-			  	<h4 class="usern3" id="usern3"></h4>
-                <h4 class="usern4" id="usern4" ></h4>
-			  </Row>
-              <Row>
+            <div class="sb"></div>
+                <div class="awsd">
+                <h4 class="awsd1" id="usern1">房主:</h4>
+                <h4 class="awsd2" id="usern2"></h4>
+                <h4 class="awsd3" id="usern3"></h4>
+                <h4 class="awsd4" id="usern4"></h4>
                    <Button variant="primary" size="lg" className="b1" id="block" onClick={this.startreview.bind(this,roomid)} onMouseEnter={this.setreviewproblem.bind(this,roomid)}>开始复习</Button>
                    <Button variant="primary" size="lg" className="b2" onClick={this.quitreviewroom.bind(this,username,roomid)}>退出</Button>
-              </Row>
+            </div>
             </html>
 		</div>
     );
