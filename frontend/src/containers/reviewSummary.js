@@ -90,7 +90,6 @@ class ReviewSummary extends React.Component {
                 <NavBar2 myname={username}/>
                 <div className='reviewsummary-div'>
                     <div className='reviewsummary-logo'><Logo/></div>
-                    <h4>It's the fourth day you joined START!<br/>You have studied 50 words today</h4>
                     <br/><h5 id="personal">你是第4名!</h5><br/>
                     <div className="reviewsummary-score">
                         <br/>
