@@ -65,7 +65,7 @@ class JoinRoom extends React.Component {
                 var str = JSON.parse(myJson);
 				var len = Object.getOwnPropertyNames(str).length;
 				if(str.roomid=="nonexist"){
-				    alert("The roomid doesn't exist")
+				    alert("The roomid doesn't exist or this room has begun to review")
                 }else{
 				if(str.type == 0){
                     that.props.history.push({pathname:'/studyWait/'+username+'/'+roomid});

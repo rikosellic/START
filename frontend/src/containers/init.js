@@ -23,7 +23,7 @@ class studySummary extends React.Component {
             <Button variant="outline-dark" size="lg" id="bot1" href="/login">Go to Login</Button>
           </div>
           <div class="studysu-button2">
-            <Button variant="outline-dark" size="lg" id="bot2" href="/register">Go to Regiseter</Button>
+            <Button variant="outline-dark" size="lg" id="bot2" href="/register">Go to Register</Button>
           </div>
       </div>
 	</html>
