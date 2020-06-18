@@ -7,6 +7,7 @@ START! 即Study Together And Review Together!
 前端：张世康（负责人）、喻智勇
 
 后端：万新熠（*组长*&负责人）、郎伟临、田亚博
+
 特别鸣谢：史历
 
 ## 时间表
