@@ -4,13 +4,14 @@ START! 即Study Together And Review Together!
 
 ## 成员
 
-前端：史历（负责人）、喻智勇、张世康
+前端：张世康（负责人）、喻智勇
 
 后端：万新熠（*组长*&负责人）、郎伟临、田亚博
+特别鸣谢：史历
 
 ## 时间表
 
-5月23日截止！！！！
+2020.6.17
 
 ## How to run?
 
@@ -29,7 +30,7 @@ python3 manage.py runserver
 3. In your browser, visit
 
 ```
-http://localhost:3000
+http://localhost:3000/init
 ```
 ## 前端运行
 in frontend，type:
